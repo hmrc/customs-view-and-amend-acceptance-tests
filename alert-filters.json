@@ -1,0 +1,51 @@
+{
+  "add": [
+    {
+      "reason": "This issue is related to auth login stub",
+      "url": "http://localhost:9949/auth-login-stub/gg-sign-in",
+      "ruleId": 10017,
+      "newLevel": -1
+    },
+    {
+      "reason": "This issue is related to assets-frontend which is outside scope.",
+      "url": "http://localhost:9032/assets/.*/(javascripts|stylesheets)/.*.(js|css)",
+      "ruleId": 10021,
+      "urlIsRegex": "true",
+      "newLevel": -1
+    },
+    {
+      "reason": "This issue is related to tracking consent which is outside scope.",
+      "url": "http://localhost:12345/tracking-consent/tracking.js",
+      "ruleId": 10027,
+      "newLevel": -1
+    },
+    {
+      "url": "http://localhost:9032/assets/.*/(javascripts|stylesheets)/.*.(js|css)",
+      "ruleId": 10027,
+      "newLevel": -1,
+      "urlIsRegex": "true",
+      "newLevel": -1
+    },
+    {
+      "url": "http://localhost:9949/auth-login-stub/gg-sign-in",
+      "ruleId": 10027,
+      "newLevel": -1,
+      "urlIsRegex": "true",
+      "newLevel": -1
+    },
+    {
+      "url": "http://localhost:9396/customs/historic-statement/assets/.*",
+      "ruleId": 10027,
+      "newLevel": -1,
+      "urlIsRegex": "true",
+      "newLevel": -1
+    },
+    {
+      "url": "http://localhost:9876/customs/payment-records/assets/.*",
+      "ruleId": 10027,
+      "newLevel": -1,
+      "urlIsRegex": "true",
+      "newLevel": -1
+    }
+  ]
+}
