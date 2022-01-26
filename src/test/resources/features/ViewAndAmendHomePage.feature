@@ -57,11 +57,11 @@ Feature: View customs view and amend home page details
     Then I should see a link to "Is this page not working properly? (opens in new tab)"
     And the Is this page not working properly? page url is correct
 
-  Scenario: UR Banner is displayed on homepage
-    Given I am signed in as a registered user
-    When I navigate to the View and amend home page
-    Then I should see a banner with the following information
-      | Help improve HMRC services                               |
-      | Sign up to take part in user research (opens in new tab) |
-      | No thanks                                                |
-    And the signup url is correct
+#  Scenario: UR Banner is displayed on homepage
+#    Given I am signed in as a registered user
+#    When I navigate to the View and amend home page
+#    Then I should see a banner with the following information
+#      | Help improve HMRC services                               |
+#      | Sign up to take part in user research (opens in new tab) |
+#      | No thanks                                                |
+#    And the signup url is correct
