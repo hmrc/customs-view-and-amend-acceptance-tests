@@ -12,8 +12,8 @@ Feature: View claim details page
     And I should see the following static text
       | Claim details: |
     And I should see the following claim details
-      | MRN               | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim | Claimants name    |
-      | AWAITING API SPEC | GB529339334644474      | C285       | In progress  | 1 January 9999   | 123456789      | AWAITING API SPEC |
+      | MRN               | LRN               | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim | Claimant's name    | Email address |
+      | AWAITING API SPEC | AWAITING API SPEC | GB529339334644474      | C285       | In progress  | 1 January 9999   | £123,456,789.23 | AWAITING API SPEC | someemail@mail.co |
 
   @e2e
   Scenario: View pending claim details
@@ -25,8 +25,8 @@ Feature: View claim details page
     And I should see the following static text
       | Claim details: |
     And I should see the following claim details
-      | MRN               | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim | Claimants name    |
-      | AWAITING API SPEC | GB529339334644474      | C285       | Pending      | 1 January 9999   | 123456789      | AWAITING API SPEC |
+      | MRN               | LRN               | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim  | Claimant's name   | Email address      |
+      | AWAITING API SPEC | AWAITING API SPEC | GB529339334644474      | C285       | Pending      | 1 January 9999   | £123,456,789.23 | AWAITING API SPEC | someemail@mail.com |
 
   @e2e
   Scenario: View closed claim details
@@ -38,8 +38,8 @@ Feature: View claim details page
     And I should see the following static text
       | Claim details: |
     And I should see the following claim details
-      | MRN               | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim | Claimants name    |
-      | AWAITING API SPEC | GB529339334644474      | C285       | Closed       | 1 January 9999   | 123456789      | AWAITING API SPEC |
+      | MRN               | LRN               | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim  | Claimant's name   | Email address      |
+      | AWAITING API SPEC | AWAITING API SPEC | GB529339334644474      | C285       | Closed       | 1 January 9999   | £123,456,789.23 | AWAITING API SPEC | someemail@mail.com |
 
   Scenario Outline: Navigation back to claims list page
     Given I am signed in as a pagination user

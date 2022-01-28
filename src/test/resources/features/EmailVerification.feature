@@ -15,11 +15,6 @@ Feature: Email Verification
       | urgent updates about goods in customs                                |
       | some financial notifications, including Direct Debit notices and VAT |
 
-#  Scenario: If HODS EoriHistory endpoint is not responding, email verification is skipped
-#    Given I am signed in as a slowEoriHistoryEndpoint user
-#    When I navigate to the View and amend home page
-#    Then the page title should be "Your claims for repayment of customs charges - Customs view and amend - GOV.UK"
-
   Scenario: Display undeliverable email page
     Given the customs data store is empty
     And the user has a verified email address in the data store
