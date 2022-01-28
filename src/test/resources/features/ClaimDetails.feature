@@ -12,8 +12,8 @@ Feature: View claim details page
     And I should see the following static text
       | Claim details: |
     And I should see the following claim details
-      | MRN               | LRN               | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim | Claimant's name    | Email address |
-      | AWAITING API SPEC | AWAITING API SPEC | GB529339334644474      | C285       | In progress  | 1 January 9999   | £123,456,789.23 | AWAITING API SPEC | someemail@mail.co |
+      | MRN               | LRN               | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim | Claimant's name    | Email address      |
+      | AWAITING API SPEC | AWAITING API SPEC | GB529339334644474      | C285       | In progress  | 1 January 9999   | £123,456,789.23 | AWAITING API SPEC | someemail@mail.com |
 
   @e2e
   Scenario: View pending claim details
