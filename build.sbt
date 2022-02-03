@@ -29,7 +29,7 @@ libraryDependencies ++= Seq(
     "com.typesafe.play" %% "play-ws-standalone-json" % "2.1.3",
     "com.typesafe.play" %% "play-json" % "2.9.2",
     "ch.qos.logback" % "logback-classic" % "1.1.7",
-    "uk.gov.hmrc" %% "webdriver-factory" % "0.22.0",
+    "uk.gov.hmrc" %% "webdriver-factory" % "0.25.0",
     "com.typesafe.akka" %% "akka-http" % "10.0.10",
     "org.mongodb.scala" %% "mongo-scala-driver" % "4.2.3" % Test,
     "net.lightbody.bmp" % "browsermob-core" % "2.1.5",
