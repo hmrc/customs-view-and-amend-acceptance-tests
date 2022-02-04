@@ -22,8 +22,8 @@ Feature: View claim details page
     And I click on 'View claims pending'
     When I click on 'NDRC-101'
     Then I should see the heading "Case reference NDRC-101"
-    And I should see the following static text
-      | Claim details: |
+#    And I should see the following static text
+#      | Claim details: |
     And I should see the following claim details
       | MRN               | LRN               | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim  | Claimant's name   | Email address      |
       | AWAITING API SPEC | AWAITING API SPEC | GB529339334644474      | C285       | Pending      | 1 January 9999   | £123,456,789.23 | AWAITING API SPEC | someemail@mail.com |
@@ -35,8 +35,8 @@ Feature: View claim details page
     And I click on 'View closed claims'
     When I click on 'NDRC-201'
     Then I should see the heading "Case reference NDRC-201"
-#    And I should see the following static text
-#      | Claim details: |
+    And I should see the following static text
+      | Claim details: |
     And I should see the following claim details
       | MRN               | LRN               | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim  | Claimant's name   | Email address      |
       | AWAITING API SPEC | AWAITING API SPEC | GB529339334644474      | C285       | Closed       | 1 January 9999   | £123,456,789.23 | AWAITING API SPEC | someemail@mail.com |
