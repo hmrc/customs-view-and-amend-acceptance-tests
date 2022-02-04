@@ -21,20 +21,20 @@ Feature: View customs view and amend home page details
   Scenario: Display claims summary cards with no claims for some status
     Given I am signed in as a registered user
     When I navigate to the View and amend home page
-    Then I should see the sub-heading "Summary"
+    Then I should see the sub-heading "Claims summary"
     And I should see the following cards
-      | You have 1 claim in progress | Claims currently being reviewed by HMRC.                                                                                                             | View claims in progress |
-      | You have 0 claims pending    | A HMRC caseworker has asked you for additional information.                                                                                          |                         |
-      | You have 0 claims closed     | Claims closed when HMRC has not received a response in time, are rejected or resolved.,Closed claims will be removed one month from date of closure. |                         |
+      | You have 1 in progress | Claims currently being reviewed by HMRC.                                                                              | View claims in progress |
+      | You have 0 pending     | Claims that need a response or additional information.                                                                |                         |
+      | You have 0 closed      | Claims that were approved, rejected or did not receive a response in time.,Closed claims are removed after one month. |                         |
 
   Scenario: Display claims summary cards with claims for all status
     Given I am signed in as a pagination user
     When I navigate to the View and amend home page
-    Then I should see the sub-heading "Summary"
+    Then I should see the sub-heading "Claims summary"
     And I should see the following cards
-      | You have 100 claims in progress | Claims currently being reviewed by HMRC.                                                                                                             | View claims in progress |
-      | You have 100 claims pending     | A HMRC caseworker has asked you for additional information.                                                                                          | View claims pending     |
-      | You have 100 claims closed      | Claims closed when HMRC has not received a response in time, are rejected or resolved.,Closed claims will be removed one month from date of closure. | View closed claims      |
+      | You have 100 in progress | Claims currently being reviewed by HMRC.                                                                              | View claims in progress |
+      | You have 100 pending     | Claims that need a response or additional information.                                                                | View claims pending     |
+      | You have 100 closed      | Claims that were approved, rejected or did not receive a response in time.,Closed claims are removed after one month. | View closed claims      |
 
   Scenario: Display no claims to view message
     Given I am signed in as a noClaims user
