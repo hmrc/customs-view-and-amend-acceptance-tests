@@ -54,3 +54,11 @@ Feature: View claim details page
       | View claims in progress | NDRC-1       | Claims in progress - Customs view and amend - GOV.UK |
       | View claims pending     | NDRC-101     | Claims pending - Customs view and amend - GOV.UK     |
       | View closed claims      | NDRC-201     | Claims closed - Customs view and amend - GOV.UK      |
+
+  Scenario: Navigate to home page using Claims summary link
+    Given I am signed in as a pagination user
+    And I navigate to the View and amend home page
+    And I click on 'View closed claims'
+    And I click on 'NDRC-201'
+    When I click on 'Claims summary'
+    Then the page title should be "Your claims for repayment of customs charges - Customs view and amend - GOV.UK"

@@ -6,32 +6,32 @@ Feature: Search for claims using case number and MRN
     And I navigate to the View and amend home page
     When I click on 'Find a claim'
     Then I should see the heading "Find a claim"
-    And I should see the following static text
-      | Enter a case reference or Movement Reference Number (MRN) |
     And I should see the following hint text
-      | For example, NDRC-1234 or 22GBJD4DCMAM33DOI2. |
+      | For example, ‘NDRC-1234’ or ‘22GBJD4DCMAM33DOI2’. |
 
   Scenario: Verify no matching results page for case number search
     Given I am signed in as a registered user
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-9999'
-    Then I should see the following static text
-      | Enter a case reference or Movement Reference Number (MRN) |
-      | There are no matching results for NDRC-9999.              |
-      | Try searching again by:                                   |
-    And I should see the following text in bullet points
-      | double-checking your case reference or MRN |
+    Then I should see the heading "No results found"
+    And the page title should be "Search results - Customs view and amend - GOV.UK"
+    And I should see the following static text
+      | There are 0 matching results for NDRC-9999.                        |
+      | Try searching again by double-checking your case reference or MRN. |
+    When I click on 'searching again'
+    Then I should see the heading "Find a claim"
 
   Scenario: Verify no matching results page for MRN search
     Given I am signed in as a registered user
     And I navigate to the Find a claim page
     When I search for MRN '22GBJD4DCMAM33DOI2'
-    Then I should see the following static text
-      | Enter a case reference or Movement Reference Number (MRN) |
-      | There are no matching results for 22GBJD4DCMAM33DOI2.     |
-      | Try searching again by:                                   |
-    And I should see the following text in bullet points
-      | double-checking your case reference or MRN |
+    Then I should see the heading "No results found"
+    And the page title should be "Search results - Customs view and amend - GOV.UK"
+    And I should see the following static text
+      | There are 0 matching results for 22GBJD4DCMAM33DOI2.               |
+      | Try searching again by double-checking your case reference or MRN. |
+    When I click on back link to previous page
+    Then I should see the heading "Find a claim"
 
   Scenario: Navigation back to view and amend home page
     Given I am signed in as a registered user
@@ -45,7 +45,8 @@ Feature: Search for claims using case number and MRN
     Given I am signed in as a registered user
     And I navigate to the Find a claim page
     When I search for claim '4374422408'
-    Then I should see the table heading "Your search returned"
+    Then I should see the heading "Search results"
+    And I should see the table heading "There is 1 matching result for ‘4374422408’."
     And I should see the following claims
       | Case reference | Claim start date | Claim status |
       | 4374422408     | 1 January 9999   | In progress  |

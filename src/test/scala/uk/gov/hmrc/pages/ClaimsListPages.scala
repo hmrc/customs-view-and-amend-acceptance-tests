@@ -8,6 +8,8 @@ object ClaimsListPages extends CustomsFinancialsWebPage {
 
   val inProgressClaimsPageUrl = baseUrl + "/customs/view-and-amend/claims-in-progress"
 
+  def tableCaption = webDriver.findElement(By.tagName("caption")).getText.trim
+
   def claimsList = webDriver.findElement(By.tagName("table")).findElements(By.tagName("tr"))
     .asScala.map(_.findElements(By.xpath("td | th")).asScala.map(_.getText.trim).toList).toList
 
