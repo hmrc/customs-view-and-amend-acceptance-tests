@@ -67,11 +67,9 @@ class ViewAndAmendSteps extends CustomsFinancialsWebPage {
   And("""^I search for (claim|MRN) '(.*)'$""") { (_:String, caseNumber: String) =>
     ClaimSearchPage.enterClaim(caseNumber)
     ClaimSearchPage.submit()
-    val wait = new WebDriverWait(webDriver, 5)
-    wait.until(ExpectedConditions.presenceOfElementLocated(By.id("value")))
   }
 
   And("""^I should see the table heading "(.*)"$""") { expectedTableHeading: String =>
-    ClaimSearchPage.tableHeading should be(expectedTableHeading)
+    ClaimsListPages.tableCaption should be(expectedTableHeading)
   }
 }

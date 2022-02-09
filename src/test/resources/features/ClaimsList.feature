@@ -47,8 +47,8 @@ Feature: Display claims list
     When I click on 'View closed claims'
     Then I should see the heading "Claims closed"
     And the page title should be "Claims closed - Customs view and amend - GOV.UK"
-    And I should see the following static text
-      | Claims will be removed from this list on the removal date. |
+    And I should see the sub-heading "Claims will be removed from this list on the removal date."
+    And I should see the table heading "Sorted by closest removal date."
     And I should see the following claims
       | Case reference | Claim start date | Removal date    |
       | NDRC-201       | 1 January 9999   | 1 February 9999 |

@@ -10,10 +10,10 @@ Feature: View customs view and amend home page details
   Scenario: Verify content on view and amend home page
     Given I am signed in as a registered user
     When I navigate to the View and amend home page
-    Then I should see the heading "Your claims for repayment of customs charges"
+    Then I should see the heading "Claims summary"
     And the page title should be "Your claims for repayment of customs charges - Customs view and amend - GOV.UK"
     And I should see the following notification bar links
-      | Home              |
+      | Claims summary    |
       | Start a new claim |
       | Find a claim      |
     And I should see the eori details Tony Stark - GB744638982000
@@ -21,8 +21,7 @@ Feature: View customs view and amend home page details
   Scenario: Display claims summary cards with no claims for some status
     Given I am signed in as a registered user
     When I navigate to the View and amend home page
-    Then I should see the sub-heading "Claims summary"
-    And I should see the following cards
+    Then I should see the following cards
       | You have 1 in progress | Claims currently being reviewed by HMRC.                                                                              | View claims in progress |
       | You have 0 pending     | Claims that need a response or additional information.                                                                |                         |
       | You have 0 closed      | Claims that were approved, rejected or did not receive a response in time.,Closed claims are removed after one month. |                         |
@@ -30,8 +29,7 @@ Feature: View customs view and amend home page details
   Scenario: Display claims summary cards with claims for all status
     Given I am signed in as a pagination user
     When I navigate to the View and amend home page
-    Then I should see the sub-heading "Claims summary"
-    And I should see the following cards
+    Then I should see the following cards
       | You have 100 in progress | Claims currently being reviewed by HMRC.                                                                              | View claims in progress |
       | You have 100 pending     | Claims that need a response or additional information.                                                                | View claims pending     |
       | You have 100 closed      | Claims that were approved, rejected or did not receive a response in time.,Closed claims are removed after one month. | View closed claims      |
@@ -39,7 +37,7 @@ Feature: View customs view and amend home page details
   Scenario: Display no claims to view message
     Given I am signed in as a noClaims user
     When I navigate to the View and amend home page
-    Then I should see the heading "Your claims for repayment of customs charges"
+    Then I should see the heading "Claims summary"
     And I should see the following static text
       | You have no claims to view.                          |
       | It can take up to 24 hours for new claims to appear. |
