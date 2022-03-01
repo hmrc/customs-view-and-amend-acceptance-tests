@@ -2,7 +2,7 @@
 Feature: Search for claims using case number and MRN
 
   Scenario: Verify the content claims search page
-    Given I am signed in as a registered user
+    Given I am signed in as a pagination user
     And I navigate to the View and amend home page
     When I click on 'Find a claim'
     Then I should see the heading "Find a claim"
@@ -10,7 +10,7 @@ Feature: Search for claims using case number and MRN
       | For example, ‘NDRC-1234’ or ‘22GBJD4DCMAM33DOI2’. |
 
   Scenario: Verify no matching results page for case number search
-    Given I am signed in as a registered user
+    Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-9999'
     Then I should see the heading "No results found"
@@ -22,7 +22,7 @@ Feature: Search for claims using case number and MRN
     Then I should see the heading "Find a claim"
 
   Scenario: Verify no matching results page for MRN search
-    Given I am signed in as a registered user
+    Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for MRN '22GBJD4DCMAM33DOI2'
     Then I should see the heading "No results found"
@@ -34,7 +34,7 @@ Feature: Search for claims using case number and MRN
     Then I should see the heading "Find a claim"
 
   Scenario: Navigation back to view and amend home page
-    Given I am signed in as a registered user
+    Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     Then I should see the back link to previous page
     When I click on back link to previous page
@@ -42,19 +42,19 @@ Feature: Search for claims using case number and MRN
 
   @e2e
   Scenario: search in progress claims using case number and MRN
-    Given I am signed in as a registered user
+    Given I am signed in as a pagination user
     And I navigate to the Find a claim page
-    When I search for claim '4374422408'
+    When I search for claim 'NDRC-2'
     Then I should see the heading "Search results"
-    And I should see the table heading "There is 1 matching result for ‘4374422408’."
+    And I should see the table heading "There is 1 matching result for ‘NDRC-2’."
     And I should see the following claims
       | Case reference | Claim start date | Claim status |
-      | 4374422408     | 1 January 9999   | In progress  |
-    When I click on '4374422408'
-    Then I should see the heading "Case reference 4374422408"
+      | NDRC-2         | 27 February 2022 | In progress  |
+    When I click on 'NDRC-2'
+    Then I should see the heading "Case reference NDRC-2"
     And I should see the following static text
       | Claim details: |
     And I should see the following claim details
-      | MRN               | LRN               | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim  | Claimant's name   | Email address      |
-      | AWAITING API SPEC | AWAITING API SPEC | GB529339334644474      | C285       | In progress  | 1 January 9999   | £123,456,789.23 | AWAITING API SPEC | someemail@mail.com |
+      | MRN      | LRN     | Claimant's EORI number | Claim type                   | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
+      | MRN23014 | KWMREF1 | GB98745632101          | C285 - Multiple declarations | In progress  | 1 May 2021       | 900000.00      | Claimant name   | someemail@mail.com |
 
