@@ -47,14 +47,14 @@ Feature: Search for claims using case number and MRN
     When I search for claim 'NDRC-2'
     Then I should see the heading "Search results"
     And I should see the table heading "There is 1 matching result for ‘NDRC-2’."
-    And I should see the following claims
-      | Case reference | Claim start date | Claim status |
-      | NDRC-2         | 27 February 2022 | In progress  |
+#    And I should see the following claims
+#      | Case reference | Claim start date | Claim status |
+#      | NDRC-2         | 27 February 2022 | In progress  |
     When I click on 'NDRC-2'
     Then I should see the heading "Case reference NDRC-2"
     And I should see the following static text
       | Claim details: |
-    And I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type                   | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
-      | MRN23014 | KWMREF1 | GB98745632101          | C285 - Multiple declarations | In progress  | 1 May 2021       | 900000.00      | Claimant name   | someemail@mail.com |
+#    And I should see the following claim details
+#      | MRN      | LRN     | Claimant's EORI number | Claim type                   | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
+#      | MRN23014 | KWMREF1 | GB98745632101          | C285 - Multiple declarations | In progress  | 1 May 2021       | 900000.00      | Claimant name   | someemail@mail.com |
 
