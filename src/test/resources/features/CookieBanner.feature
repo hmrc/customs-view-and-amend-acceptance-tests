@@ -29,12 +29,12 @@ Feature: Tracking consent banner on View and amend pages
     And I click on Accept additional cookies button
     Then I should see a cookie consent banner with the following details
       | You have accepted additional cookies. You can change your cookie settings at any time. |
-      | Hide this message                                                                      |
+      | Hide cookies message                                                                   |
     And I should see the following links on the cookie banner
       | change your cookie settings |
     And I should see the following buttons on the cookie banner
-      | Hide this message |
-    When I click on Hide this message button
+      | Hide cookies message |
+    When I click on Hide cookies message button
     Then I should not see cookie consent banner
 
   Scenario: Reject cookies on cookie consent banner
@@ -42,12 +42,12 @@ Feature: Tracking consent banner on View and amend pages
     And I click on Reject additional cookies button
     Then I should see a cookie consent banner with the following details
       | You have rejected additional cookies. You can change your cookie settings at any time. |
-      | Hide this message                                                                      |
+      | Hide cookies message                                                                   |
     And I should see the following links on the cookie banner
       | change your cookie settings |
     And I should see the following buttons on the cookie banner
-      | Hide this message |
-    When I click on Hide this message button
+      | Hide cookies message |
+    When I click on Hide cookies message button
     Then I should not see cookie consent banner
 
   Scenario: Cookie consent banner is not displayed once it is accepted
