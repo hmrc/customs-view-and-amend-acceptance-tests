@@ -20,7 +20,6 @@ Feature: View claim details page
     Given I am signed in as a pagination user
     And I navigate to the View and amend home page
     And I click on 'View claims pending'
-    And I click on pagination link "Next"
     When I click on 'SCTY-80'
     Then I should see the heading "Case reference SCTY-80"
     And I should see the following static text
@@ -53,7 +52,7 @@ Feature: View claim details page
     Examples:
       | claims status           | claim number | page title                                           |
       | View claims in progress | NDRC-1       | Claims in progress - Customs view and amend - GOV.UK |
-      | View claims pending     | NDRC-21      | Claims pending - Customs view and amend - GOV.UK     |
+      | View claims pending     | SCTY-80      | Claims pending - Customs view and amend - GOV.UK     |
       | View closed claims      | NDRC-41      | Claims closed - Customs view and amend - GOV.UK      |
 
   Scenario: Navigate to home page using Claims summary link

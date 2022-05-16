@@ -22,8 +22,8 @@ Feature: View customs view and amend home page details
     Given I am signed in as a pagination user
     When I navigate to the View and amend home page
     Then I should see the following cards
-      | You have 40 in progress | Claims currently being reviewed by HMRC.                                                                              | View claims in progress |
-      | You have 40 pending     | Claims that need a response or additional information.                                                                | View claims pending     |
+      | You have 60 in progress | Claims currently being reviewed by HMRC.                                                                              | View claims in progress |
+      | You have 20 pending     | Claims that need a response or additional information.                                                                | View claims pending     |
       | You have 40 closed      | Claims that were approved, rejected or did not receive a response in time.,Closed claims are removed after one month. | View closed claims      |
 
   Scenario: Display no claims to view message
