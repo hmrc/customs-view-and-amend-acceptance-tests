@@ -4,42 +4,43 @@ Feature: View claim details page
 
   @e2e
   Scenario: View in progress claim details
-    Given I am signed in as a pagination user
+    Given I am signed in as a openClaim user
     And I navigate to the View and amend home page
     And I click on 'View claims in progress'
-    When I click on 'NDRC-1'
-    Then I should see the heading "Case reference NDRC-1"
+    When I click on 'NDRC-1001'
+    Then I should see the heading "Case reference NDRC-1001"
     And I should see the following static text
       | Claim details: |
     And I should see the following claim details
       | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
-      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179 - Multiple declarations | In progress  | 1 May 2021       | 900000.00      | Claimant name   | someemail@mail.com |
+      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179 - Multiple declarations | In progress  | 1 May 2020       | 900000.00      | Claimant name   | someemail@mail.com |
 
   @e2e
   Scenario: View pending claim details
-    Given I am signed in as a pagination user
+    Given I am signed in as a PendingQueriedClaim user
     And I navigate to the View and amend home page
     And I click on 'View claims pending'
-    When I click on 'SCTY-80'
-    Then I should see the heading "Case reference SCTY-80"
+    When I click on 'NDRC-1004'
+    Then I should see the heading "Case reference NDRC-1004"
     And I should see the following static text
-      | Claim details: |
+      | Claim details:                         |
+      | Upload files (opens in a new tab link) |
     And I should see the following claim details
-      | Entry Number       | LRN     | Claimant's EORI number | Claim type | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
-      | 123456789A12122022 | KWMREF1 | GB98745632101          | Security   | Pending      | 1 May 2021       | 900000.00      | Claimant name   | someemail@mail.com |
+      | MRN      | LRN     | Claimant's EORI number | Claim type                   | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
+      | MRN23014 | KWMREF1 | GB98745632101          | C285 - Multiple declarations | Pending      | 1 May 2020       | 900000.00      | Claimant name   | someemail@mail.com |
 
   @e2e
   Scenario: View closed claim details
-    Given I am signed in as a pagination user
+    Given I am signed in as a ResolvedApprovedClaim user
     And I navigate to the View and amend home page
     And I click on 'View closed claims'
-    When I click on 'NDRC-42'
-    Then I should see the heading "Case reference NDRC-42"
+    When I click on 'NDRC-10013'
+    Then I should see the heading "Case reference NDRC-10013"
     And I should see the following static text
       | Claim details: |
     And I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type                   | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
-      | MRN23014 | KWMREF1 | GB98745632101          | C285 - Multiple declarations | Closed       | 1 May 2021       | 900000.00      | Claimant name   | someemail@mail.com |
+      | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
+      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179 - Multiple declarations | Closed       | 1 May 2020       | 900000.00      | Claimant name   | someemail@mail.com |
 
   Scenario Outline: Navigation back to claims list page
     Given I am signed in as a pagination user
