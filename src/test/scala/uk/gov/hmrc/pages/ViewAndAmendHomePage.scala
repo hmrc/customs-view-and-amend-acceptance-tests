@@ -15,7 +15,7 @@ object ViewAndAmendHomePage extends CustomsFinancialsWebPage {
 
   def cardDetails = webDriver.findElements(By.cssSelector(".custom-card"))
     .asScala.map{ card =>
-    val heading = card.findElement(By.tagName("h3")).getText.trim
+    val heading = card.findElement(By.tagName("h2")).getText.trim
     val text = card.findElements(By.tagName("p")).asScala.map(_.getText).toList.mkString(",").trim
     val link = card.findElements(By.tagName("a")).asScala.headOption.map(_.getText.trim).getOrElse(null)
     List(heading, text, link)
