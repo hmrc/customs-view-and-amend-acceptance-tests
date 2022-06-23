@@ -40,7 +40,8 @@ object CommonPage extends CustomsFinancialsWebPage {
   private def recruitmentBannerHeadingText() = recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__title")).getText.trim
 
   private def recruitmentBannerNoThanksButtonText() = {
-    recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__close")).getText.trim
+    recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__close"))
+      .findElement(By.tagName("span")).getText.trim
   }
 
   private def recruitmentBannerSignUpText() = recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__link")).getText.trim
