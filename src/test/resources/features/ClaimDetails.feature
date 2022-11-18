@@ -12,7 +12,7 @@ Feature: View claim details page
     And I should see the following static text
       | Claim details: This claim is open and being reviewed by HMRC. |
     And I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimants email address      |
+      | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address      |
       | MRN23014 | KWMREF1 | GB98745632101          | C&E1179 - Multiple declarations | In progress  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com           |
 
   @e2e
@@ -26,7 +26,7 @@ Feature: View claim details page
       | Claim details: This claim requires additional information or documentation.   |
       | Upload files (opens in a new tab link)                                        |
     And I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type                   | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimants email address   |
+      | MRN      | LRN     | Claimant's EORI number | Claim type                   | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address   |
       | MRN23014 | KWMREF1 | GB98745632101          | C285 - Multiple declarations | Pending      | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com        |
 
   @e2e
@@ -39,7 +39,7 @@ Feature: View claim details page
     And I should see the following static text
       | Claim details: This claim has been closed |
     And I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim decision | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimants email address  |
+      | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim decision | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address  |
       | MRN23014 | KWMREF1 | GB98745632101          | C&E1179 - Multiple declarations | Closed         | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com       |
 
   Scenario Outline: Navigation back to claims list page

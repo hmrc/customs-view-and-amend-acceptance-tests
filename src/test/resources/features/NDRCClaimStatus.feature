@@ -12,7 +12,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | <case ref>     | 1 May 2020       |
     When I click on '<case ref>'
     Then I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimants email address      |
+      | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address      |
       | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | In progress  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com           |
 
   Examples:
@@ -41,7 +41,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | <case ref>     | 1 May 2020       |
     When I click on '<case ref>'
     Then I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimants email address      |
+      | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address      |
       | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | Pending      | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com           |
 
     Examples:
@@ -60,7 +60,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | <case ref>     | 1 May 2020       | 1 May 2021   |
     When I click on '<case ref>'
     Then I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim decision | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimants email address      |
+      | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim decision | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address      |
       | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | Closed         | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com           |
 
     Examples:
