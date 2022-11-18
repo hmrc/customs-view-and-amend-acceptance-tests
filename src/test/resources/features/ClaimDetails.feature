@@ -10,10 +10,10 @@ Feature: View claim details page
     When I click on 'NDRC-1001'
     Then I should see the heading "Case reference NDRC-1001"
     And I should see the following static text
-      | Claim details: |
+      | Claim details: This claim is open and being reviewed by HMRC. |
     And I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
-      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179 - Multiple declarations | In progress  | 1 May 2020       | 900000.00      | Claimant name   | someemail@mail.com |
+      | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimants email address      |
+      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179 - Multiple declarations | In progress  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com           |
 
   @e2e
   Scenario: View pending claim details
@@ -23,11 +23,11 @@ Feature: View claim details page
     When I click on 'NDRC-1004'
     Then I should see the heading "Case reference NDRC-1004"
     And I should see the following static text
-      | Claim details:                         |
-      | Upload files (opens in a new tab link) |
+      | Claim details: This claim requires additional information or documentation.   |
+      | Upload files (opens in a new tab link)                                        |
     And I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type                   | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
-      | MRN23014 | KWMREF1 | GB98745632101          | C285 - Multiple declarations | Pending      | 1 May 2020       | 900000.00      | Claimant name   | someemail@mail.com |
+      | MRN      | LRN     | Claimant's EORI number | Claim type                   | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimants email address   |
+      | MRN23014 | KWMREF1 | GB98745632101          | C285 - Multiple declarations | Pending      | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com        |
 
   @e2e
   Scenario: View closed claim details
@@ -37,10 +37,10 @@ Feature: View claim details page
     When I click on 'NDRC-10013'
     Then I should see the heading "Case reference NDRC-10013"
     And I should see the following static text
-      | Claim details: |
+      | Claim details: This claim has been closed |
     And I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
-      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179 - Multiple declarations | Closed       | 1 May 2020       | 900000.00      | Claimant name   | someemail@mail.com |
+      | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim decision | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimants email address  |
+      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179 - Multiple declarations | Closed         | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com       |
 
   Scenario Outline: Navigation back to claims list page
     Given I am signed in as a pagination user

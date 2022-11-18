@@ -13,9 +13,9 @@ Feature: View customs view and amend home page details
     Then I should see the heading "Claims summary"
     And the page title should be "Your claims for repayment of customs charges - Customs view and amend - GOV.UK"
     And I should see the following notification bar links
-      | Claims summary    |
-      | Start a new claim |
-      | Find a claim      |
+      | Claims summary      |
+      | Find a claim        |
+      | Start a new claim   |
     And I should see the eori details Tony Stark - GB744638982001
 
   Scenario: Display claims summary cards with claims for all status

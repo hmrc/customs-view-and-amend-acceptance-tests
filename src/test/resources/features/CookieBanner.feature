@@ -1,4 +1,4 @@
-@acceptance
+@wip
 
 Feature: Tracking consent banner on View and amend pages
 
@@ -49,14 +49,14 @@ Feature: Tracking consent banner on View and amend pages
       | Hide cookies message |
     When I click on Hide cookies message button
     Then I should not see cookie consent banner
-
+  @wip
   Scenario: Cookie consent banner is not displayed once it is accepted
     When I navigate to the View and amend home page
     And I click on Accept additional cookies button
     And I navigate to the Customs Financials Home page
     And I navigate to the View and amend home page
     Then I should not see cookie consent banner
-
+  @wip
   Scenario: Cookie consent banner is not displayed once it is rejected
     When I navigate to the View and amend home page
     And I click on Reject additional cookies button
