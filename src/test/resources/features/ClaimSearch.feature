@@ -53,8 +53,8 @@ Feature: Search for claims using case number and MRN
     When I click on 'NDRC-1001'
     Then I should see the heading "Case reference NDRC-1001"
     And I should see the following static text
-      | Claim details: |
+      | Claim details: This claim is open and being reviewed by HMRC. |
     And I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim status | Claim start date | Value of claim | Claimant's name | Email address      |
-      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179 - Multiple declarations | In progress  | 1 May 2020       | 900000.00      | Claimant name   | someemail@mail.com |
+      | MRN      | LRN     | Claimant's EORI number | Claim type                      | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address      |
+      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179 - Multiple declarations | In progress  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com           |
 
