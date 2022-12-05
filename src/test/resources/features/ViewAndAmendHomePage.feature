@@ -6,33 +6,34 @@ Feature: View customs view and amend home page details
     When I navigate to the View and amend home page
     And I click on 'GOV.UK'
     Then the page title should be "Welcome to GOV.UK"
-
-  Scenario: Verify content on view and amend home page
-    Given I am signed in as a pagination user
-    When I navigate to the View and amend home page
-    Then I should see the heading "Claims summary"
-    And the page title should be "Your claims for repayment of customs charges - Customs view and amend - GOV.UK"
-    And I should see the following notification bar links
-      | Claims summary      |
-      | Find a claim        |
-      | Start a new claim   |
-    And I should see the eori details Tony Stark - GB744638982001
+# TODO
+#  Scenario: Verify content on view and amend home page
+#    Given I am signed in as a pagination user
+#    When I navigate to the View and amend home page
+#    Then I should see the heading "Claims summary"
+##    And the page title should be "Your claims for repayment of customs charges - Customs view and amend - GOV.UK"
+#    And I should see the following notification bar links
+#      | Claims summary      |
+#      | Find a claim        |
+#      | Start a new claim   |
+#    And I should see the eori details Tony Stark - GB744638982001
 
   Scenario: Display claims summary cards with claims for all status
     Given I am signed in as a pagination user
     When I navigate to the View and amend home page
     Then I should see the following cards
-      | You have 60 in progress | Claims currently being reviewed by HMRC.                                                                              | View claims in progress |
-      | You have 20 pending     | Claims that need a response or additional information.                                                                | View claims pending     |
-      | You have 40 closed      | Claims that were approved, rejected or did not receive a response in time.,Closed claims are removed after one month. | View closed claims      |
+      | 40 claims need more information | Claims that require additional information or documentation.                                                         | View claims needing more information |
+      | 40 claims are in progress       | Claims in progress are open and being reviewed by HMRC                                                               | View claims in progress              |
+      | 40 claims have been closed      | Closed claims have been approved or rejected by HMRC or withdrawn, and will be removed from this list after 30 days. | View closed claims                   |
 
-  Scenario: Display no claims to view message
-    Given I am signed in as a noClaims user
-    When I navigate to the View and amend home page
-    Then I should see the heading "Claims summary"
-    And I should see the following static text
-      | You have no claims to view.                          |
-      | It can take up to 24 hours for new claims to appear. |
+# TODO
+#  Scenario: Display no claims to view message
+#    Given I am signed in as a noClaims user
+#    When I navigate to the View and amend home page
+#    Then I should see the heading "Claims summary"
+#    And I should see the following static text
+#      | You have no claims to view.                          |
+#      | It can take up to 24 hours for new claims to appear. |
 
   Scenario: Display error page when hods returned an error
     Given I am signed in as a TPI01error user
