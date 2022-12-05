@@ -19,7 +19,7 @@ package uk.gov.hmrc.pages
 import org.openqa.selenium.By
 
 object ClaimSearchPage extends CustomsFinancialsWebPage {
-  override lazy val url = baseUrl + "/customs/view-and-amend/search"
+  override lazy val url = baseUrl + "/customs/view-and-amend/find-a-claim"
 
   def hintText = webDriver.findElement(By.id("search-claim-hint")).getText.trim
 
