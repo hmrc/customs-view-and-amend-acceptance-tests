@@ -26,3 +26,7 @@ lib_managed
 src_managed/
 project/project
 project/target
+.metals/metals.lock.db
+.metals/metals.log
+.metals/metals.mv.db
+.vscode/settings.json

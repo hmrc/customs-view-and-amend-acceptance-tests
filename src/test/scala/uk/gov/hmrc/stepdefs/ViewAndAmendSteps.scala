@@ -43,13 +43,13 @@ class ViewAndAmendSteps extends CustomsFinancialsWebPage {
 
   And("""^I should see the following claims$""") { data: DataTable =>
     val expected = data.asScalaListOfLists
-    val actual = claimsList
+    val actual   = claimsList
     actual should be(expected)
   }
 
   Then("""^I should see the following claim details$""") { data: DataTable =>
     val expected = data.asMaps().asScala.toList.flatMap(_.asScala.toMap).toMap
-    val actual = ClaimDetailsPage.claimDetails
+    val actual   = ClaimDetailsPage.claimDetails
     actual should be(expected)
   }
 
@@ -59,7 +59,7 @@ class ViewAndAmendSteps extends CustomsFinancialsWebPage {
 
   Then("""^I should see the following pagination (content|links)$""") { (linkOrContent: String, data: DataTable) =>
     val expected = data.asScalaListOfStrings
-    val tagName = linkOrContent match {
+    val tagName  = linkOrContent match {
       case "content" => "li"
       case "links"   => "a"
     }
@@ -76,11 +76,11 @@ class ViewAndAmendSteps extends CustomsFinancialsWebPage {
   }
 
   Then("""^I enter (.*) in the query parameter$""") { (pageNumber: String) =>
-    val url = baseUrl + s"/customs/view-and-amend/claims-in-progress?page=$pageNumber"
+    val url = baseUrl + s"/claim-back-import-duty-vat/claim-status/claims-in-progress?page=$pageNumber"
     goTo(url)
   }
 
-  And("""^I search for (claim|MRN) '(.*)'$""") { (_:String, caseNumber: String) =>
+  And("""^I search for (claim|MRN) '(.*)'$""") { (_: String, caseNumber: String) =>
     ClaimSearchPage.enterClaim(caseNumber)
     ClaimSearchPage.submit()
   }
