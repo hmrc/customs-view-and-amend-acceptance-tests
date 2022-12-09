@@ -34,19 +34,19 @@ Feature: View claim details page
     And I should see the following claim details
       | MRN      | LRN     | Claimant's EORI number | Claim type    | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address   |
       | MRN23014 | KWMREF1 | GB98745632101          | C285          | Pending      | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com        |
-
-  @e2e
-  Scenario: View closed claim details
-    Given I am signed in as a ResolvedApprovedClaim user
-    And I navigate to the View and amend home page
-    And I click on 'View closed claims'
-    When I click on 'NDRC-10013'
-    Then I should see the heading "Case reference NDRC-10013"
-    And I should see the following static text
-      | Claim details: This claim has been closed |
-    And I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type     | Claim decision   | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address  |
-      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179        | Approved         | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com        |
+#TODO
+#  @e2e
+#  Scenario: View closed claim details
+#    Given I am signed in as a ResolvedApprovedClaim user
+#    And I navigate to the View and amend home page
+#    And I click on 'View closed claims'
+#    When I click on 'NDRC-10013'
+#    Then I should see the heading "Case reference NDRC-10013"
+#    And I should see the following static text
+#      | Claim details: This claim has been closed |
+#    And I should see the following claim details
+#      | MRN      | LRN     | Claimant's EORI number | Claim type     | Claim decision   | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address  |
+#      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179        | Approved         | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com        |
 
   Scenario Outline: Navigation back to claims list page
     Given I am signed in as a pagination user
