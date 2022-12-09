@@ -7,30 +7,31 @@ Feature: Search for claims using case number and MRN
     When I click on 'Find a claim'
     Then I should see the heading "Find a claim"
     And I should see the following hint text
-      | For example, ‘NDRC-1234’ or ‘22GBJD4DCMAM33DOI2’. |
+      | Search by case reference number or movement reference number (MRN) |
 
   Scenario: Verify no matching results page for case number search
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-9999'
-    Then I should see the heading "No results found"
-    And the page title should be "Search results - View your customs financial accounts - GOV.UK"
-    And I should see the following static text
-      | There are 0 matching results for NDRC-9999.                        |
-      | Try searching again by double-checking your case reference or MRN. |
-    When I click on 'searching again'
+#    Then I should see the heading "No results found"
+#    And the page title should be "Search results - View your customs financial accounts - GOV.UK"
+    And I should see the following static-content text
+      | There are no matching results for NDRC-9999.                        |
+#      | Try searching again by double-checking your case reference or MRN.  |
+    When I click on 'search'
     Then I should see the heading "Find a claim"
 
   Scenario: Verify no matching results page for MRN search
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for MRN '22GBJD4DCMAM33DOI2'
-    Then I should see the heading "No results found"
-    And the page title should be "Search results - View your customs financial accounts - GOV.UK"
-    And I should see the following static text
-      | There are 0 matching results for 22GBJD4DCMAM33DOI2.               |
-      | Try searching again by double-checking your case reference or MRN. |
-    When I click on back link to previous page
+#    Then I should see the heading "No results found"
+#    And the page title should be "Search results - View your customs financial accounts - GOV.UK"
+    And I should see the following static-content text
+      | There are no matching results for 22GBJD4DCMAM33DOI2.               |
+#      | Try searching again by double-checking your case reference or MRN.  |
+    When I click on 'search'
+#    When I click on back link to previous page
     Then I should see the heading "Find a claim"
 
 #    TODO

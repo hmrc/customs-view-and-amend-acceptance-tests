@@ -21,9 +21,9 @@ import org.openqa.selenium.By
 object ClaimSearchPage extends CustomsFinancialsWebPage {
   override lazy val url = baseUrl + "/claim-back-import-duty-vat/claim-status/find-a-claim"
 
-  def hintText = webDriver.findElement(By.id("search-claim-hint")).getText.trim
+  def hintText = webDriver.findElement(By.cssSelector("#main-content > p")).getText.trim
 
-  def inputTextBox = webDriver.findElement(By.id("search-claim"))
+  def inputTextBox = webDriver.findElement(By.id("search"))
 
   def enterClaim(text: String) = inputTextBox.sendKeys(text)
 

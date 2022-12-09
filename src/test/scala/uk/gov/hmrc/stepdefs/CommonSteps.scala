@@ -129,7 +129,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
   Then("""^the (.*) page url is correct$""") { (linkText: String) =>
     val expectedUrl = linkText match {
       case "Accessibility statement" => "/accessibility-statement/customs-financials"
-      case "Is this page not working properly?" => s"/contact/report-technical-problem?newTab=true&service=CDS%20Financials&referrerUrl=%2Fcustoms%2Fview-and-amend"
+      case "Is this page not working properly?" => s"http://localhost:9250/contact/report-technical-problem?newTab=true&service=CDS%20Financials&referrerUrl=%2Fclaim-back-import-duty-vat%2Fclaim-status"
     }
     val actualUrl = getLinkUrl(linkText)
     actualUrl should include(expectedUrl)
@@ -159,9 +159,10 @@ class CommonSteps extends CustomsFinancialsWebPage {
     }
   }
 
-  Then("""^I should see the following (static|hint) text$""") { (staticOrhintWord: String, expectedText: DataTable) =>
+  Then("""^I should see the following (static|hint|static-content) text$""") { (staticOrhintWord: String, expectedText: DataTable) =>
     val actualText = staticOrhintWord match {
       case "static" => elementTextAll("#main-content p.govuk-body")
+      case "static-content" => elementTextAll("#main-content > h2")
       case "hint" => List(ClaimSearchPage.hintText)
     }
     actualText should be(expectedText.asScalaListOfStrings)

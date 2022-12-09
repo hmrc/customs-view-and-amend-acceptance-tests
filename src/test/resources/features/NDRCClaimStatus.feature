@@ -22,14 +22,14 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | PendingApprovalClaim                 | NDRC-1003  | C&E1179    |
       | OpenReworkClaim                      | NDRC-1008  | C285       |
       | PausedClaim                          | NDRC-1009  | C&E1179    |
-      | PendingPaymentConfirmationClaim      | NDRC-10012 | C285       |
-      | PendingDecisionLetterClaim           | NDRC-10015 | C&E1179    |
+#      | PendingPaymentConfirmationClaim      | NDRC-10012 | C285       |
+#      | PendingDecisionLetterClaim           | NDRC-10015 | C&E1179    |
       | ApprovedClaim                        | NDRC-10016 | C285       |
       | AnalysisReworkClaim                  | NDRC-10017 | C&E1179    |
       | ReworkPaymentDetailsClaim            | NDRC-10018 | C285       |
       | PendingRTBHClaim                     | NDRC-10019 | C&E1179    |
-      | PendingComplianceRecommendationClaim | NDRC-10021 | C&E1179    |
-      | PendingComplianceCheckClaim          | NDRC-10023 | C&E1179    |
+#      | PendingComplianceRecommendationClaim | NDRC-10021 | C&E1179    |
+#      | PendingComplianceCheckClaim          | NDRC-10023 | C&E1179    |
 
   Scenario Outline: Display pending status
     Given I am signed in as a <user> user
@@ -47,8 +47,8 @@ Feature: Display backend claims status to in progress, pending and closed catego
     Examples:
       | user                             | case ref   | claim type |
       | PendingQueriedClaim              | NDRC-1004  | C285       |
-      | RTBHsentClaim                    | NDRC-10020 | C285       |
-      | PendingComplianceCheckQueryClaim | NDRC-10022 | C285       |
+#      | RTBHsentClaim                    | NDRC-10020 | C285       |
+#      | PendingComplianceCheckQueryClaim | NDRC-10022 | C285       |
 
   Scenario Outline: Display closed status
     Given I am signed in as a <user> user
