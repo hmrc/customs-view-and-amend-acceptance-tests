@@ -22,7 +22,7 @@ import scala.collection.JavaConverters._
 
 object ViewAndAmendHomePage extends CustomsFinancialsWebPage {
 
-  override lazy val url = baseUrl + "/claim-back-import-duty-vat/claim-status"
+  override lazy val url = baseUrl + "/claim-back-import-duty-vat/claims-status"
 
   def notificationBarLinks: List[String] = webDriver
     .findElement(By.cssSelector(".notifications-bar"))
