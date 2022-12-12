@@ -129,7 +129,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
   Then("""^the (.*) page url is correct$""") { (linkText: String) =>
     val expectedUrl = linkText match {
       case "Accessibility statement" => "/accessibility-statement/customs-financials"
-      case "Is this page not working properly?" => s"http://localhost:9250/contact/report-technical-problem?newTab=true&service=CDS%20Financials&referrerUrl=%2Fclaim-back-import-duty-vat%2Fclaim-status"
+      case "Is this page not working properly?" => s"http://localhost:9250/contact/report-technical-problem?newTab=true&service=CDS%20Financials&referrerUrl=%2Fclaim-back-import-duty-vat%2Fclaims-status"
     }
     val actualUrl = getLinkUrl(linkText)
     actualUrl should include(expectedUrl)

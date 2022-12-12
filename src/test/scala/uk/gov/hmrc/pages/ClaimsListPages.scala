@@ -22,7 +22,7 @@ import scala.collection.JavaConverters._
 
 object ClaimsListPages extends CustomsFinancialsWebPage {
 
-  val inProgressClaimsPageUrl = baseUrl + "/claim-back-import-duty-vat/claim-status/claims-in-progress"
+  val inProgressClaimsPageUrl = baseUrl + "/claim-back-import-duty-vat/claims-status/claims-in-progress"
 
   def tableCaption = webDriver.findElement(By.tagName("caption")).getText.trim
 
