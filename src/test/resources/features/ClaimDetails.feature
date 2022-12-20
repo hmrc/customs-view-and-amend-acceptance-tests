@@ -6,7 +6,7 @@ Feature: View claim details page
   Scenario: View in progress claim details
     Given I navigate to the "Authority Login Stub Page"
     When I enter redirectURL on "Authority Login Stub Page"
-    And I enter Enrollment Key "HMRC-CUS-ORG", ID Name "EORINumber" and ID Value "GB00000000001" on "Auth Login Stub Page"
+    And I enter Enrollment Key "HMRC-CUS-ORG", ID Name "EORINumber" and ID Value "GB00000000001" on "Authority Login Stub Page"
     And I click continue on "Authority Login Stub Page"
     Then I am presented with the "Check Eori Details Page"
     When I select radio button "yes" on "Check Eori Details Page"
