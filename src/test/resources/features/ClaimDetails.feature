@@ -4,15 +4,7 @@ Feature: View claim details page
 
   @e2e
   Scenario: View in progress claim details
-    Given I navigate to the "Authority Login Stub Page"
-    When I enter redirectURL on "Authority Login Stub Page"
-    And I enter Enrollment Key "HMRC-CUS-ORG", ID Name "EORINumber" and ID Value "GB00000000001" on "Authority Login Stub Page"
-    And I click continue on "Authority Login Stub Page"
-    Then I am presented with the "Check Eori Details Page"
-    When I select radio button "yes" on "Check Eori Details Page"
-    And I click continue on "Check Eori Details Page"
-    Then I am presented with the "Select Claim Type Page"
-    When I select radio button "View and upload" on "Select Claim Type Page"
+    Given I am signed in as a openClaim user
     And I navigate to the View and amend home page
     And I click on 'View claims in progress'
     When I click on 'NDRC-1001'
