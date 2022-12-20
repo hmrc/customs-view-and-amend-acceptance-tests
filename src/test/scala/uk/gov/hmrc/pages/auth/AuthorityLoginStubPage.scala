@@ -20,7 +20,7 @@ import org.openqa.selenium.By
 import uk.gov.hmrc.conf.TestConfiguration
 import uk.gov.hmrc.pages.BasePage
 
-object AuthLoginStubPage extends BasePage {
+object AuthorityLoginStubPage extends BasePage {
 
   override val url: String = TestConfiguration.url("auth-login-stub") + "/gg-sign-in"
   override val title = "Authority Wizard"

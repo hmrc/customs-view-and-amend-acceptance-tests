@@ -23,7 +23,7 @@ import play.api.libs.json.Json
 import uk.gov.hmrc.conf.TestConfiguration
 import uk.gov.hmrc.pages.CommonPage.getLinkUrl
 import uk.gov.hmrc.pages._
-import uk.gov.hmrc.pages.auth.AuthLoginStubPage
+import uk.gov.hmrc.pages.auth.AuthorityLoginStubPage
 import uk.gov.hmrc.pages.generic.PageObjectFinder
 import uk.gov.hmrc.utils.DropMongo.dropMongo
 import uk.gov.hmrc.utils.{Configuration, WSClient}
@@ -220,13 +220,13 @@ class CommonSteps extends CustomsFinancialsWebPage {
 
   When("""I enter redirectURL on {string}""") { (page: String) =>
     page match {
-      case "Auth Login Stub Page" =>
-        AuthLoginStubPage.enterRedirectURL(TestConfiguration.url("cds-frontend") + "/start")
+      case "Authority Login Stub Page" =>
+        AuthorityLoginStubPage.enterRedirectURL(TestConfiguration.url("cds-frontend") + "/start")
     }
   }
 
   When("""I enter Enrollment Key {string}, ID Name {string} and ID Value {string} on {string}""") { (eKey: String, IDName: String, IDValue: String, _: String) =>
-    AuthLoginStubPage.enrolments(eKey, IDName, IDValue)
+    AuthorityLoginStubPage.enrolments(eKey, IDName, IDValue)
   }
 
   When("""I click continue on {string}""") { (page: String) =>
