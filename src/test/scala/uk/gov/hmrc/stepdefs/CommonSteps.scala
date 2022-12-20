@@ -20,8 +20,11 @@ import io.cucumber.datatable.DataTable
 import org.openqa.selenium.By
 import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
 import play.api.libs.json.Json
+import uk.gov.hmrc.conf.TestConfiguration
 import uk.gov.hmrc.pages.CommonPage.getLinkUrl
 import uk.gov.hmrc.pages._
+import uk.gov.hmrc.pages.auth.AuthorityLoginStubPage
+import uk.gov.hmrc.pages.generic.PageObjectFinder
 import uk.gov.hmrc.utils.DropMongo.dropMongo
 import uk.gov.hmrc.utils.{Configuration, WSClient}
 
@@ -208,5 +211,38 @@ class CommonSteps extends CustomsFinancialsWebPage {
     val response = WSClient.httpPost(url, Json.parse(json))
     val result = Await.result(response.map(_.status), 5 seconds)
     assert(result == 204, s"Update to mongo failed with error code $result")
+  }
+
+  When("""I select Welsh translation on {string}""") { (page: String) =>
+    PageObjectFinder.page(page).waitForPageHeader
+    PageObjectFinder.page(page).enableWelsh()
+  }
+
+  When("""I enter redirectURL on {string}""") { (page: String) =>
+    page match {
+      case "Authority Login Stub Page" =>
+        AuthorityLoginStubPage.enterRedirectURL(TestConfiguration.url("cds-frontend") + "/start")
+    }
+  }
+
+  When("""I enter Enrollment Key {string}, ID Name {string} and ID Value {string} on {string}""") { (eKey: String, IDName: String, IDValue: String, _: String) =>
+    AuthorityLoginStubPage.enrolments(eKey, IDName, IDValue)
+  }
+
+  When("""I click continue on {string}""") { (page: String) =>
+    PageObjectFinder.page(page).waitForPageHeader
+    PageObjectFinder.page(page).clickContinueButton()
+  }
+
+  Then("""I am presented with the {string}""") { page: String =>
+    PageObjectFinder.page(page).waitForPageHeader
+    PageObjectFinder.page(page).checkURL
+    PageObjectFinder.page(page).checkPageHeader()
+    PageObjectFinder.page(page).checkPageTitle()
+  }
+
+  When("""I select radio button {string} on {string}""") { (choice: String, page: String) =>
+    PageObjectFinder.page(page).waitForPageHeader
+    PageObjectFinder.page(page).clickRadioButton(choice)
   }
 }

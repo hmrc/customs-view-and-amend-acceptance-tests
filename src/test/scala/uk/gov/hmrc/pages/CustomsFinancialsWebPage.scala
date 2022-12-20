@@ -23,7 +23,7 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.should.Matchers
 import uk.gov.hmrc.utils.StartUpTearDown
 
-trait CustomsFinancialsWebPage extends WebPage with ScalaDsl with EN with Matchers with StartUpTearDown with ScalaFutures with AppendedClues {
+class CustomsFinancialsWebPage extends WebPage with ScalaDsl with EN with Matchers with StartUpTearDown with ScalaFutures with AppendedClues {
 
   var bookmarkUrl: String = ""
 

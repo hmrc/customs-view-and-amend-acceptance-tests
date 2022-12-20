@@ -17,8 +17,10 @@
 package uk.gov.hmrc.stepdefs
 
 import org.openqa.selenium.support.ui.WebDriverWait
+import uk.gov.hmrc.pages.generic.PageObjectFinder
 import uk.gov.hmrc.pages.{AuthLoginStubPage, CustomsFinancialsWebPage, SignInPage, ViewAndAmendHomePage}
 import uk.gov.hmrc.utils.{Configuration, CustomExpectedConditions}
+
 import java.time.Duration
 
 class SignInSteps extends CustomsFinancialsWebPage {
@@ -46,6 +48,10 @@ class SignInSteps extends CustomsFinancialsWebPage {
         signedInUserType = Some(userType)
       }
     }
+  }
+
+  Then("""I navigate to the {string}""") { page: String =>
+    go to PageObjectFinder.page(page)
   }
 
   def bookmarkedUrl(dutyDefermentType: String) = {

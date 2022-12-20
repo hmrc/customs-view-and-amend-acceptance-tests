@@ -16,18 +16,18 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | In progress  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       |
 
     Examples:
-      | user                                 | case ref   | claim type |
-      | openClaim                            | NDRC-1001  | C&E1179    |
-      | openAnalysisClaim                    | NDRC-1002  | C285       |
-      | PendingApprovalClaim                 | NDRC-1003  | C&E1179    |
-      | OpenReworkClaim                      | NDRC-1008  | C285       |
-      | PausedClaim                          | NDRC-1009  | C&E1179    |
+      | user                      | case ref   | claim type                                       |
+      | openClaim                 | NDRC-1001  | Rejected imports (C&E1179),Multiple declarations |
+      | openAnalysisClaim         | NDRC-1002  | Overpayments (C285),Single declaration           |
+      | PendingApprovalClaim      | NDRC-1003  | Rejected imports (C&E1179),Multiple declarations |
+      | OpenReworkClaim           | NDRC-1008  | Overpayments (C285),Single declaration           |
+      | PausedClaim               | NDRC-1009  | Rejected imports (C&E1179),Multiple declarations |
 #      | PendingPaymentConfirmationClaim      | NDRC-10012 | C285       |
 #      | PendingDecisionLetterClaim           | NDRC-10015 | C&E1179    |
-      | ApprovedClaim                        | NDRC-10016 | C285       |
-      | AnalysisReworkClaim                  | NDRC-10017 | C&E1179    |
-      | ReworkPaymentDetailsClaim            | NDRC-10018 | C285       |
-      | PendingRTBHClaim                     | NDRC-10019 | C&E1179    |
+      | ApprovedClaim             | NDRC-10016 | Overpayments (C285),Single declaration           |
+      | AnalysisReworkClaim       | NDRC-10017 | Rejected imports (C&E1179),Multiple declarations |
+      | ReworkPaymentDetailsClaim | NDRC-10018 | Overpayments (C285),Single declaration           |
+      | PendingRTBHClaim          | NDRC-10019 | Rejected imports (C&E1179),Multiple declarations |
 #      | PendingComplianceRecommendationClaim | NDRC-10021 | C&E1179    |
 #      | PendingComplianceCheckClaim          | NDRC-10023 | C&E1179    |
 
@@ -45,8 +45,8 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | Pending      | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       |
 
     Examples:
-      | user                             | case ref   | claim type |
-      | PendingQueriedClaim              | NDRC-1004  | C285       |
+      | user                | case ref  | claim type                             |
+      | PendingQueriedClaim | NDRC-1004 | Overpayments (C285),Single declaration |
 #      | RTBHsentClaim                    | NDRC-10020 | C285       |
 #      | PendingComplianceCheckQueryClaim | NDRC-10022 | C285       |
 
@@ -63,10 +63,10 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim decision   | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address |
       | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | <claim decision> | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com       |
 
-  Examples:
-    | user                          | case ref   | claim type | claim decision    |
-    | ResolvedWithdrawnClaim        | NDRC-1005  | C&E1179    | Withdrawn         |
-    | RejectedFailedValidationClaim | NDRC-1006  | C285       | Failed Validation |
+    Examples:
+      | user                          | case ref  | claim type                                       | claim decision    |
+      | ResolvedWithdrawnClaim        | NDRC-1005 | Rejected imports (C&E1179),Multiple declarations | Withdrawn         |
+      | RejectedFailedValidationClaim | NDRC-1006 | Overpayments (C285),Single declaration           | Failed Validation |
 #    | ResolvedRejectedClaim         | NDRC-1007  | C&E1179    |                   |
 #    | ResolvedNoReplyClaim          | NDRC-10010 | C285       |                   |
 #    | ResolvedRefusedClaim          | NDRC-10011 | C&E1179    |                   |
