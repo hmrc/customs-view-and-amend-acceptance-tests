@@ -8,15 +8,15 @@ Feature: Display backend claims status to in progress, pending and closed catego
     When I click on 'View claims in progress'
     Then I should see the heading "Claims in progress"
     And I should see the following claims
-      | Case reference | MRN      | Type of claim                 | Claim start date |
-      | <case ref>     | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
-    When I click on '<case ref>'
+      | Claim reference | MRN      | Type of claim                 | Claim start date |
+      | <claim ref>     | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
+    When I click on '<claim ref>'
     Then I should see the following claim details
       | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address |
       | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | In progress  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       |
 
     Examples:
-      | user                      | case ref   | claim type                                       |
+      | user                      | claim ref  | claim type                                       |
       | openClaim                 | NDRC-1001  | Rejected imports (C&E1179),Multiple declarations |
       | openAnalysisClaim         | NDRC-1002  | Overpayments (C285),Single declaration           |
       | PendingApprovalClaim      | NDRC-1003  | Rejected imports (C&E1179),Multiple declarations |
@@ -37,15 +37,15 @@ Feature: Display backend claims status to in progress, pending and closed catego
     When I click on 'View claims needing more information'
     Then I should see the heading "Claims needing more information"
     And I should see the following claims
-      | Case reference | MRN      | Type of claim                 | Claim start date |
-      | <case ref>     | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
-    When I click on '<case ref>'
+      | Claim reference | MRN      | Type of claim                 | Claim start date |
+      | <claim ref>     | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
+    When I click on '<claim ref>'
     Then I should see the following claim details
       | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address |
       | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | Pending      | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       |
 
     Examples:
-      | user                | case ref  | claim type                             |
+      | user                | claim ref | claim type                             |
       | PendingQueriedClaim | NDRC-1004 | Overpayments (C285),Single declaration |
 #      | RTBHsentClaim                    | NDRC-10020 | C285       |
 #      | PendingComplianceCheckQueryClaim | NDRC-10022 | C285       |
@@ -56,15 +56,15 @@ Feature: Display backend claims status to in progress, pending and closed catego
     When I click on 'View closed claims'
     Then I should see the heading "Claims closed"
     And I should see the following claims
-      | Case reference | MRN      | Type of claim                 | Claim close date | Claim decision   |
-      | <case ref>     | MRN23014 | Overpayment or rejected goods | 1 May 2021       | <claim decision> |
-    When I click on '<case ref>'
+      | Claim reference | MRN      | Type of claim                 | Claim close date | Claim decision   |
+      | <claim ref>     | MRN23014 | Overpayment or rejected goods | 1 May 2021       | <claim decision> |
+    When I click on '<claim ref>'
     Then I should see the following claim details
       | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim decision   | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address |
       | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | <claim decision> | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com       |
 
     Examples:
-      | user                          | case ref  | claim type                                       | claim decision    |
+      | user                          | claim ref | claim type                                       | claim decision    |
       | ResolvedWithdrawnClaim        | NDRC-1005 | Rejected imports (C&E1179),Multiple declarations | Withdrawn         |
       | RejectedFailedValidationClaim | NDRC-1006 | Overpayments (C285),Single declaration           | Failed Validation |
 #    | ResolvedRejectedClaim         | NDRC-1007  | C&E1179    |                   |
