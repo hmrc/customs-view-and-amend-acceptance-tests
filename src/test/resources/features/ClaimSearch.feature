@@ -1,5 +1,5 @@
 @acceptance
-Feature: Search for claims using case number and MRN
+Feature: Search for claims using claim number and MRN
 
   Scenario: Verify the content claims search page
     Given I am signed in as a pagination user
@@ -7,17 +7,17 @@ Feature: Search for claims using case number and MRN
     When I click on 'Find a claim'
     Then I should see the heading "Find a claim"
     And I should see the following hint text
-      | Search by case reference number or movement reference number (MRN) |
+      | Search by claim reference number |
 
-  Scenario: Verify no matching results page for case number search
+  Scenario: Verify no matching results page for claim number search
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-9999'
 #    Then I should see the heading "No results found"
 #    And the page title should be "Search results - View your customs financial accounts - GOV.UK"
     And I should see the following static-content text
-      | There are no matching results for NDRC-9999.                        |
-#      | Try searching again by double-checking your case reference or MRN.  |
+      | There are no matching results for NDRC-9999. |
+#      | Try searching again by double-checking your claim reference or MRN.  |
     When I click on 'search'
     Then I should see the heading "Find a claim"
 
@@ -28,8 +28,8 @@ Feature: Search for claims using case number and MRN
 #    Then I should see the heading "No results found"
 #    And the page title should be "Search results - View your customs financial accounts - GOV.UK"
     And I should see the following static-content text
-      | There are no matching results for 22GBJD4DCMAM33DOI2.               |
-#      | Try searching again by double-checking your case reference or MRN.  |
+      | There are no matching results for 22GBJD4DCMAM33DOI2. |
+#      | Try searching again by double-checking your claim reference or MRN.  |
     When I click on 'search'
 #    When I click on back link to previous page
     Then I should see the heading "Find a claim"
@@ -44,17 +44,17 @@ Feature: Search for claims using case number and MRN
 
 #  TODO
 #  @e2e
-#  Scenario: search in progress claims using case number and MRN
+#  Scenario: search in progress claims using claim number and MRN
 #    Given I am signed in as a openClaim user
 #    And I navigate to the Find a claim page
 #    When I search for claim 'NDRC-41'
 #    Then I should see the heading "Search results"
 #    And I should see the table heading "There is 1 matching result for ‘NDRC-41’."
 #    And I should see the following claims
-#      | Case reference | Claim start date | Claim status |
+#      | claim reference | Claim start date | Claim status |
 #      | NDRC-41        | 1 May 2020       | Closed       |
 #    When I click on 'NDRC-1001'
-#    Then I should see the heading "Case reference NDRC-1001"
+#    Then I should see the heading "claim reference NDRC-1001"
 #    And I should see the following static text
 #      | Claim details: This claim is open and being reviewed by HMRC. |
 #    And I should see the following claim details
