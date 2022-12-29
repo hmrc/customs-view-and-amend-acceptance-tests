@@ -57,9 +57,9 @@ Feature: View claim details page
     Then the page title should be "<page title>"
     Examples:
       | claims status                        | claim number | page title                                                                      |
-      | View claims needing more information | NDRC-21      | Claims needing more information - View your customs financial accounts - GOV.UK |
-      | View claims in progress              | NDRC-1       | Claims in progress - View your customs financial accounts - GOV.UK              |
-      | View closed claims                   | NDRC-41      | Claims closed - View your customs financial accounts - GOV.UK                   |
+      | View claims needing more information | NDRC-21      | Claims needing more information - Claim back import duty and VAT - GOV.UK |
+      | View claims in progress              | NDRC-1       | Claims in progress - Claim back import duty and VAT - GOV.UK              |
+      | View closed claims                   | NDRC-41      | Claims closed - Claim back import duty and VAT - GOV.UK                   |
 
 #    TODO
 #  Scenario: Navigate to home page using Claims summary link

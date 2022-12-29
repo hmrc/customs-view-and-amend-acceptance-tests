@@ -7,7 +7,7 @@ Feature: Display claims list
     And I navigate to the View and amend home page
     When I click on 'View claims in progress'
     Then I should see the heading "Claims in progress"
-    And the page title should be "Claims in progress - View your customs financial accounts - GOV.UK"
+    And the page title should be "Claims in progress - Claim back import duty and VAT - GOV.UK"
     And I should see the following claims
       | Claim reference | MRN      | Type of claim                 | Claim start date |
       | NDRC-1001       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
@@ -17,7 +17,7 @@ Feature: Display claims list
     And I navigate to the View and amend home page
     When I click on 'View claims needing more information'
     Then I should see the heading "Claims needing more information"
-    And the page title should be "Claims needing more information - View your customs financial accounts - GOV.UK"
+    And the page title should be "Claims needing more information - Claim back import duty and VAT - GOV.UK"
     And I should see the following claims
       | Claim reference | MRN      | Type of claim                 | Claim start date |
       | NDRC-1004       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
@@ -27,7 +27,7 @@ Feature: Display claims list
     And I navigate to the View and amend home page
     When I click on 'View closed claims'
     Then I should see the heading "Claims closed"
-    And the page title should be "Claims closed - View your customs financial accounts - GOV.UK"
+    And the page title should be "Claims closed - Claim back import duty and VAT - GOV.UK"
 #    And I should see the sub-heading "Closed claims have been approved or rejected by HMRC or withdrawn, and will be removed from this list after 30 days."
 #    And I should see the table heading "Sorted by closest removal date."
     And I should see the following claims

@@ -14,7 +14,7 @@ Feature: Search for claims using claim number and MRN
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-9999'
 #    Then I should see the heading "No results found"
-#    And the page title should be "Search results - View your customs financial accounts - GOV.UK"
+#    And the page title should be "Search results - Claim back import duty and VAT - GOV.UK"
     And I should see the following static-content text
       | There are no matching results for NDRC-9999. |
 #      | Try searching again by double-checking your claim reference or MRN.  |
@@ -26,7 +26,7 @@ Feature: Search for claims using claim number and MRN
     And I navigate to the Find a claim page
     When I search for MRN '22GBJD4DCMAM33DOI2'
 #    Then I should see the heading "No results found"
-#    And the page title should be "Search results - View your customs financial accounts - GOV.UK"
+#    And the page title should be "Search results - Claim back import duty and VAT - GOV.UK"
     And I should see the following static-content text
       | There are no matching results for 22GBJD4DCMAM33DOI2. |
 #      | Try searching again by double-checking your claim reference or MRN.  |
@@ -40,7 +40,7 @@ Feature: Search for claims using claim number and MRN
 #    And I navigate to the Find a claim page
 #    Then I should see the back link to previous page
 #    When I click on back link to previous page
-#    Then the page title should be "Your claims for repayment of customs charges - View your customs financial accounts - GOV.UK"
+#    Then the page title should be "Your claims for repayment of customs charges - Claim back import duty and VAT - GOV.UK"
 
 #  TODO
 #  @e2e
