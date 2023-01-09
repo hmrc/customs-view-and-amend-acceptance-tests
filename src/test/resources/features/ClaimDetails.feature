@@ -12,8 +12,8 @@ Feature: View claim details page
     And I should see the following static text
       | Claim details: This claim is open and being reviewed by HMRC. |
     And I should see the following claim details
-      | MRN      | LRN     | Claimant's EORI number | Claim type                                     | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address |
-      | MRN23014 | KWMREF1 | GB98745632101          | Rejected goods (C&E1179),Multiple declarations | In progress  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       |
+      | LRN     | Claimant's EORI number | Claim type                                     | Claim status | First MRN | Claim start date | Claim amount requested | Claimant's name | Claimant's email address | Other MRNs included in this claim                                                          |
+      | KWMREF1 | GB98745632101          | Rejected goods (C&E1179),Multiple declarations | In progress  | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       | MRN00001,MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 #    When I click on 'File upload'
 #    And I should see the heading "Add supporting documents to your claim NDRC-1001"
 
@@ -56,7 +56,7 @@ Feature: View claim details page
     When I click on back link to previous page
     Then the page title should be "<page title>"
     Examples:
-      | claims status                        | claim number | page title                                                                      |
+      | claims status                        | claim number | page title                                                                |
       | View claims needing more information | NDRC-21      | Claims needing more information - Claim back import duty and VAT - GOV.UK |
       | View claims in progress              | NDRC-1       | Claims in progress - Claim back import duty and VAT - GOV.UK              |
       | View closed claims                   | NDRC-41      | Claims closed - Claim back import duty and VAT - GOV.UK                   |
