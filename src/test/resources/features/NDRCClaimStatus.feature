@@ -16,16 +16,14 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | KWMREF1 | GB98745632101          | <claim type> | In progress  | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       | MRN00001,MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
     Examples:
-      | user                 | claim ref  | claim type                                     |
-      | openClaim            | NDRC-1001  | Rejected goods (C&E1179),Multiple declarations |
-      | PendingApprovalClaim | NDRC-1003  | Rejected goods (C&E1179),Multiple declarations |
-      | PausedClaim          | NDRC-1009  | Rejected goods (C&E1179),Multiple declarations |
-#      | PendingPaymentConfirmationClaim      | NDRC-10012 | C285       |
-#      | PendingDecisionLetterClaim           | NDRC-10015 | C&E1179    |
-      | AnalysisReworkClaim  | NDRC-10017 | Rejected goods (C&E1179),Multiple declarations |
-      | PendingRTBHClaim     | NDRC-10019 | Rejected goods (C&E1179),Multiple declarations |
-#      | PendingComplianceRecommendationClaim | NDRC-10021 | C&E1179    |
-#      | PendingComplianceCheckClaim          | NDRC-10023 | C&E1179    |
+      | user                            | claim ref  | claim type                                     |
+      | openClaim                       | NDRC-1001  | Rejected goods (C&E1179),Multiple declarations |
+      | PendingApprovalClaim            | NDRC-1003  | Rejected goods (C&E1179),Multiple declarations |
+      | PausedClaim                     | NDRC-1009  | Rejected goods (C&E1179),Multiple declarations |
+      | PendingPaymentConfirmationClaim | NDRC-10013 | Rejected goods (C&E1179),Multiple declarations |
+      | ApprovedClaim                   | NDRC-10017 | Rejected goods (C&E1179),Multiple declarations |
+      | ReworkPaymentDetailsClaim       | NDRC-10019 | Rejected goods (C&E1179),Multiple declarations |
+
 
   Scenario Outline: Display in-progress status for single declaration claims
     Given I am signed in as a <user> user
@@ -42,15 +40,15 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | In progress  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       |
 
     Examples:
-      | user                      | claim ref  | claim type                            |
-      | openAnalysisClaim         | NDRC-1002  | Overpayment (C285),Single declaration |
-      | OpenReworkClaim           | NDRC-1008  | Overpayment (C285),Single declaration |
-#      | PendingPaymentConfirmationClaim      | NDRC-10012 | C285       |
-#      | PendingDecisionLetterClaim           | NDRC-10015 | C&E1179    |
-      | ApprovedClaim             | NDRC-10016 | Overpayment (C285),Single declaration |
-      | ReworkPaymentDetailsClaim | NDRC-10018 | Overpayment (C285),Single declaration |
-#      | PendingComplianceRecommendationClaim | NDRC-10021 | C&E1179    |
-#      | PendingComplianceCheckClaim          | NDRC-10023 | C&E1179    |
+      | user                                 | claim ref  | claim type                            |
+      | openAnalysisClaim                    | NDRC-1002  | Overpayment (C285),Single declaration |
+      | OpenReworkClaim                      | NDRC-1008  | Overpayment (C285),Single declaration |
+      | PendingDecisionLetterClaim           | NDRC-10016 | Overpayment (C285),Single declaration |
+      | AnalysisReworkClaim                  | NDRC-10018 | Overpayment (C285),Single declaration |
+      | PendingRTBHClaim                     | NDRC-10020 | Overpayment (C285),Single declaration |
+      | PendingComplianceRecommendationClaim | NDRC-10022 | Overpayment (C285),Single declaration |
+      | PendingComplianceCheckClaim          | NDRC-10024 | Overpayment (C285),Single declaration |
+
 
   Scenario Outline: Display pending status for multiple declarations claims
     Given I am signed in as a <user> user
@@ -68,12 +66,10 @@ Feature: Display backend claims status to in progress, pending and closed catego
 
 
     Examples:
-      | user                                 | claim ref  | claim type                                     |
-      | ResolvedRefusedClaim                 | NDRC-10011 | Rejected goods (C&E1179),Multiple declarations |
-      | PendingComplianceRecommendationClaim | NDRC-10021 | Rejected goods (C&E1179),Multiple declarations |
-      | PendingComplianceCheckClaim          | NDRC-10023 | Rejected goods (C&E1179),Multiple declarations |
-#      | RTBHsentClaim                    | NDRC-10020 | C285       |
-#      | PendingComplianceCheckQueryClaim | NDRC-10022 | C285       |
+      | user                             | claim ref  | claim type                                     |
+      | RTBHsentClaim                    | NDRC-10011 | Rejected goods (C&E1179),Multiple declarations |
+      | ReplyToRTBHClaim                 | NDRC-10021 | Rejected goods (C&E1179),Multiple declarations |
+      | PendingComplianceCheckQueryClaim | NDRC-10023 | Rejected goods (C&E1179),Multiple declarations |
 
   Scenario Outline: Display pending status for single declaration claims
     Given I am signed in as a <user> user
@@ -91,9 +87,6 @@ Feature: Display backend claims status to in progress, pending and closed catego
     Examples:
       | user                | claim ref | claim type                            |
       | PendingQueriedClaim | NDRC-1004 | Overpayment (C285),Single declaration |
-#      | RTBHsentClaim                    | NDRC-10020 | C285       |
-#      | PendingComplianceCheckQueryClaim | NDRC-10022 | C285       |
-
 
   Scenario Outline: Display closed status for multiple declarations claims
     Given I am signed in as a <user> user
@@ -109,12 +102,10 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | KWMREF1 | GB98745632101          | <claim type> | <claim decision> | MRN23014  | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com       | MRN00001,MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
     Examples:
-      | user                   | claim ref | claim type                                     | claim decision |
-      | ResolvedWithdrawnClaim | NDRC-1005 | Rejected goods (C&E1179),Multiple declarations | Withdrawn      |
-      | ResolvedRejectedClaim  | NDRC-1007 | Rejected goods (C&E1179),Multiple declarations | Rejected       |
-#    | ResolvedRefusedClaim          | NDRC-10011 | C&E1179    |                   |
-#    | ResolvedApprovedClaim         | NDRC-10013 | C&E1179    |                   |
-#    | ResolvedPartialRefusedClaim   | NDRC-10014 | C285       |                   |
+      | user                        | claim ref  | claim type                                     | claim decision  |
+      | ResolvedWithdrawnClaim      | NDRC-1005  | Rejected goods (C&E1179),Multiple declarations | Withdrawn       |
+      | ResolvedRejectedClaim       | NDRC-1007  | Rejected goods (C&E1179),Multiple declarations | Rejected        |
+      | ResolvedPartialRefusedClaim | NDRC-10015 | Rejected goods (C&E1179),Multiple declarations | Partial Refused |
 
   Scenario Outline: Display closed status for single declaration claims
     Given I am signed in as a <user> user
@@ -133,6 +124,5 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | user                          | claim ref  | claim type                            | claim decision    |
       | RejectedFailedValidationClaim | NDRC-1006  | Overpayment (C285),Single declaration | Failed Validation |
       | ResolvedNoReplyClaim          | NDRC-10010 | Overpayment (C285),Single declaration | No Reply          |
-#    | ResolvedRefusedClaim          | NDRC-10011 | C&E1179    |                   |
-#    | ResolvedApprovedClaim         | NDRC-10013 | C&E1179    |                   |
-#    | ResolvedPartialRefusedClaim   | NDRC-10014 | C285       |                   |
+      | ResolvedRefusedClaim          | NDRC-10012 | Overpayment (C285),Single declaration | Refused           |
+      | ResolvedApprovedClaim         | NDRC-10014 | Overpayment (C285),Single declaration | Approved          |

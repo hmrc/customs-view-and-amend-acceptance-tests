@@ -14,8 +14,6 @@ Feature: View claim details page
     And I should see the following claim details
       | LRN     | Claimant's EORI number | Claim type                                     | Claim status | First MRN | Claim start date | Claim amount requested | Claimant's name | Claimant's email address | Other MRNs included in this claim                                                          |
       | KWMREF1 | GB98745632101          | Rejected goods (C&E1179),Multiple declarations | In progress  | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       | MRN00001,MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
-#    When I click on 'File upload'
-#    And I should see the heading "Add supporting documents to your claim NDRC-1001"
 
 
   @e2e
@@ -33,19 +31,22 @@ Feature: View claim details page
     And I should see the following claim details
       | MRN      | LRN     | Claimant's EORI number | Claim type                            | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address |
       | MRN23014 | KWMREF1 | GB98745632101          | Overpayment (C285),Single declaration | Pending      | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       |
-#TODO
-#  @e2e
-#  Scenario: View closed claim details
-#    Given I am signed in as a ResolvedApprovedClaim user
-#    And I navigate to the View and amend home page
-#    And I click on 'View closed claims'
-#    When I click on 'NDRC-10013'
-#    Then I should see the heading "Claim reference NDRC-10013"
-#    And I should see the following static text
-#      | Claim details: This claim has been closed |
-#    And I should see the following claim details
-#      | MRN      | LRN     | Claimant's EORI number | Claim type     | Claim decision   | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address  |
-#      | MRN23014 | KWMREF1 | GB98745632101          | C&E1179        | Approved         | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com        |
+    When I click on 'File upload'
+    And I should see the heading "Add supporting documents to your claim NDRC-1004"
+
+
+  @e2e
+  Scenario: View closed claim details
+    Given I am signed in as a ResolvedApprovedClaim user
+    And I navigate to the View and amend home page
+    And I click on 'View closed claims'
+    When I click on 'NDRC-10014'
+    Then I should see the heading "Claim reference NDRC-10014"
+    And I should see the following static text
+      | Claim details: This claim has been closed |
+    And I should see the following claim details
+      | MRN      | LRN     | Claimant's EORI number | Claim type                            | Claim decision | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address |
+      | MRN23014 | KWMREF1 | GB98745632101          | Overpayment (C285),Single declaration | Approved       | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com       |
 
   Scenario Outline: Navigation back to claims list page
     Given I am signed in as a pagination user
@@ -61,11 +62,10 @@ Feature: View claim details page
       | View claims in progress              | NDRC-1       | Claims in progress - Claim back import duty and VAT - GOV.UK              |
       | View closed claims                   | NDRC-41      | Claims closed - Claim back import duty and VAT - GOV.UK                   |
 
-#    TODO
-#  Scenario: Navigate to home page using Claims summary link
-#    Given I am signed in as a pagination user
-#    And I navigate to the View and amend home page
-#    And I click on 'View closed claims'
-#    And I click on 'NDRC-41'
-#    When I click on 'Claims summary'
-#    Then the page title should be "Your claims for repayment of customs charges - Customs view and amend - GOV.UK"
+  Scenario: Navigate to home page using Claims summary link
+    Given I am signed in as a pagination user
+    And I navigate to the View and amend home page
+    And I click on 'View closed claims'
+    And I click on 'NDRC-41'
+    When I click on 'Claims summary'
+    Then the page title should be "Your customs financial accounts - Claim back import duty and VAT - GOV.UK"
