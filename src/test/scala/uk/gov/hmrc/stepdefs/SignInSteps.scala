@@ -18,7 +18,7 @@ package uk.gov.hmrc.stepdefs
 
 import org.openqa.selenium.support.ui.WebDriverWait
 import uk.gov.hmrc.pages.generic.PageObjectFinder
-import uk.gov.hmrc.pages.{AuthLoginStubPage, CustomsFinancialsWebPage, SignInPage, ViewAndAmendHomePage}
+import uk.gov.hmrc.pages._
 import uk.gov.hmrc.utils.{Configuration, CustomExpectedConditions}
 
 import java.time.Duration
