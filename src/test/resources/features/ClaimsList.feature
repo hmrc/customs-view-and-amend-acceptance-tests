@@ -28,24 +28,25 @@ Feature: Display claims list
     When I click on 'View closed claims'
     Then I should see the heading "Claims closed"
     And the page title should be "Claims closed - Claim back import duty and VAT - GOV.UK"
-#    And I should see the sub-heading "Closed claims have been approved or rejected by HMRC or withdrawn, and will be removed from this list after 30 days."
-#    And I should see the table heading "Sorted by closest removal date."
+    And I should see the following static text
+      | Closed claims have been approved or rejected by HMRC or withdrawn, and will be removed from this list after 30 days. |
+      | Search by claim reference number                                                                                     |
     And I should see the following claims
       | Claim reference | MRN      | Type of claim                 | Claim close date | Claim decision |
       | NDRC-1005       | MRN23014 | Overpayment or rejected goods | 1 May 2021       | Withdrawn      |
-#  TODO
-#  Scenario Outline: Navigation back to view and amend home page
-#    Given I am signed in as a pagination user
-#    And I navigate to the View and amend home page
-#    And I click on '<claims status>'
-#    Then I should see the back link to previous page
-#    When I click on back link to previous page
-#    Then the page title should be "Your claims for repayment of customs charges - Customs view and amend - GOV.UK"
-#    Examples:
-#      | claims status           |
-#      | View claims in progress |
-#      | View claims pending     |
-#      | View closed claims      |
+
+  Scenario Outline: Navigation back to view and amend home page
+    Given I am signed in as a pagination user
+    And I navigate to the View and amend home page
+    And I click on '<claims status>'
+    Then I should see the back link to previous page
+    When I click on back link to previous page
+    Then the page title should be "Your customs financial accounts - Claim back import duty and VAT - GOV.UK"
+    Examples:
+      | claims status                        |
+      | View claims in progress              |
+      | View claims needing more information |
+      | View closed claims                   |
 
   Scenario: Display error page when hods returned an error
     Given I am signed in as a TPI01error user

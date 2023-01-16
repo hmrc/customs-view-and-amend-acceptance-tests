@@ -26,14 +26,14 @@ Feature: View customs view and amend home page details
       | 40 claims are in progress       | Claims in progress are open and being reviewed by HMRC                                                               | View claims in progress              |
       | 40 claims have been closed      | Closed claims have been approved or rejected by HMRC or withdrawn, and will be removed from this list after 30 days. | View closed claims                   |
 
-# TODO
-#  Scenario: Display no claims to view message
-#    Given I am signed in as a noClaims user
-#    When I navigate to the View and amend home page
-#    Then I should see the heading "Claims summary"
-#    And I should see the following static text
-#      | You have no claims to view.                          |
-#      | It can take up to 24 hours for new claims to appear. |
+  Scenario: Display no claims to view message
+    Given I am signed in as a noClaims user
+    When I navigate to the View and amend home page
+    Then I should see the heading "Claims summary"
+    And I should see the following static text
+      | Search by claim reference number                     |
+      | You have no claims to view.                          |
+      | It can take up to 24 hours for new claims to appear. |
 
   Scenario: Display error page when hods returned an error
     Given I am signed in as a TPI01error user
