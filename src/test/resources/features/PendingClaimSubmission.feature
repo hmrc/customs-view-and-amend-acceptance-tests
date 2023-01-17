@@ -2,7 +2,7 @@
 Feature: Pending claim submission by adding additional document
 
   Scenario: Pending claim submission by adding commercial invoice document
-    Given I am signed in as a Pagination user
+    Given I am signed in as a pagination user
     And I navigate to the View and amend home page
     And I click on 'View claims needing more information'
     And I click on 'NDRC-21'
