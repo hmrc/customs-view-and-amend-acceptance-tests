@@ -18,10 +18,8 @@ Feature: Search for claims using claim number and MRN
     And I should see the following static-content text
       | There are no matching results for NDRC-9999. |
     And I should see the following static text
-      | Search by claim reference number |
-      | Try searching again by:          |
-    And I should see the following text in bullet points
-      | double-checking your claim reference or MRN |
+      | Search by claim reference number                   |
+      | Check your claim reference number and search again |
     When I click on 'search'
     Then I should see the heading "Find a claim"
 
@@ -29,13 +27,14 @@ Feature: Search for claims using claim number and MRN
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for MRN '22GBJD4DCMAM33DOI2'
-#    Then I should see the heading "No results found"
-#    And the page title should be "Search results - Claim back import duty and VAT - GOV.UK"
+    And the page title should be "Find a claim - Claim back import duty and VAT - GOV.UK"
     And I should see the following static-content text
       | There are no matching results for 22GBJD4DCMAM33DOI2. |
-#      | Try searching again by double-checking your claim reference or MRN.  |
+    And I should see the following static text
+      | Search by claim reference number                   |
+      | Check your claim reference number and search again |
     When I click on 'search'
-#    When I click on back link to previous page
+    When I click on back link to previous page
     Then I should see the heading "Find a claim"
 
   Scenario: Navigation back to view and amend home page
@@ -96,7 +95,7 @@ Feature: Search for claims using claim number and MRN
     When I click on 'NDRC-21'
     Then I should see the heading "Claim reference NDRC-21"
     And I should see the following static text
-      | Claim details: This claim requires additional information or documentation. |
+      | Claim details: This claim requires additional information or documentation.                                        |
       | Check your email for details of missing documents and any requests for additional information from your caseworker |
       | File upload                                                                                                        |
       | Valid file formats: JPG, PNG, PDF.                                                                                 |

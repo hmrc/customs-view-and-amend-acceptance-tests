@@ -9,7 +9,7 @@ Feature: Pending claim submission by adding additional document
     Then I should see the heading "Claim reference NDRC-21"
     When I click on 'File upload'
     Then I am presented with the "Choose File Type Page"
-    Then I should see the heading "Add supporting documents to your claim NDRC-21"
+    And I should see the heading "Add supporting documents to your claim NDRC-21"
     When I select radio button "Commercial invoice" on "Choose File Type Page"
     And I click continue on "Choose File Type Page"
     And I am presented with the "Choose Files Page" "commercial invoice"
@@ -20,6 +20,7 @@ Feature: Pending claim submission by adding additional document
     When I select radio button "Substitute or diversion entry" on "Choose File Type Page"
     And I click continue on "Choose File Type Page"
     Then I am presented with the "Choose Files Page" "substitute or diversion entry"
+#    When I upload a 1 "document2.pdf" file on "Choose Files Page"
     And I select radio button "No" on "Choose Files Page"
     And I click continue on "Choose Files Page"
     Then I am presented with the "Claim Submitted Page"
