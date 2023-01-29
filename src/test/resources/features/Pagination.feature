@@ -8,34 +8,28 @@ Feature: Pagination
     Given I am signed in as a pagination user
     When I navigate to the in progress claims list page
     Then I should see the following pagination content
+      | 1 |
+      | 2 |
+    And I should see the following pagination links
       | 1    |
       | 2    |
-      | 3    |
-      | Next |
-    And I should see the following pagination links
-      | 2    |
-      | 3    |
       | Next |
     And I should see the following pagination results text
-      | Showing 1 to 20 of 60 claims |
+      | Showing 1 to 20 of 40 claims |
 
   Scenario: Navigate to pages using next link on pagination
     Given I am signed in as a pagination user
     And I navigate to the in progress claims list page
     When I click on pagination link "Next"
     Then I should see the following pagination results text
-      | Showing 21 to 40 of 60 claims |
+      | Showing 21 to 40 of 40 claims |
     And I should see the following pagination content
-      | Previous |
-      | 1        |
-      | 2        |
-      | 3        |
-      | Next     |
+      | 1 |
+      | 2 |
     And I should see the following pagination links
       | Previous |
       | 1        |
-      | 3        |
-      | Next     |
+      | 2        |
 
   Scenario: Navigate to pages using previous link on pagination
     Given I am signed in as a pagination user
@@ -43,15 +37,13 @@ Feature: Pagination
     And I click on pagination link "2"
     When I click on pagination link "Previous"
     Then I should see the following pagination results text
-      | Showing 1 to 20 of 60 claims |
+      | Showing 1 to 20 of 40 claims |
     And I should see the following pagination content
+      | 1 |
+      | 2 |
+    And I should see the following pagination links
       | 1    |
       | 2    |
-      | 3    |
-      | Next |
-    And I should see the following pagination links
-      | 2    |
-      | 3    |
       | Next |
 
   Scenario: Navigate to pages using pagination number links
@@ -59,18 +51,17 @@ Feature: Pagination
     And I navigate to the in progress claims list page
     When I click on pagination link "2"
     Then I should see the following pagination results text
-      | Showing 21 to 40 of 60 claims |
+      | Showing 21 to 40 of 40 claims |
     And I should see the following pagination links
       | Previous |
       | 1        |
-      | 3        |
-      | Next        |
+      | 2        |
     When I click on pagination link "1"
     Then I should see the following pagination results text
-      | Showing 1 to 20 of 60 claims |
+      | Showing 1 to 20 of 40 claims |
     And I should see the following pagination links
+      | 1    |
       | 2    |
-      | 3    |
       | Next |
 
   Scenario Outline: User enters invalid number or higher than available pages in query parameter
@@ -81,6 +72,6 @@ Feature: Pagination
       | <pagination result> |
     Examples:
       | pageNumber | pagination result             |
-      | -1         | Showing 1 to 20 of 60 claims  |
-      | 10         | Showing 41 to 60 of 60 claims |
+      | -1         | Showing 1 to 20 of 40 claims  |
+      | 10         | Showing 21 to 40 of 40 claims |
 
