@@ -1,4 +1,4 @@
-#@acceptance TODO
+@acceptance
 
 Feature: Pagination
   As a user
