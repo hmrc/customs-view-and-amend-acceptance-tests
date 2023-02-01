@@ -76,7 +76,7 @@ class ViewAndAmendSteps extends CustomsFinancialsWebPage {
   }
 
   Then("""^I enter (.*) in the query parameter$""") { (pageNumber: String) =>
-    val url = baseUrl + s"/claim-back-import-duty-vat/claim-status/claims-in-progress?page=$pageNumber"
+    val url = baseUrl + s"/claim-back-import-duty-vat/claims-status/claims-in-progress?page=$pageNumber"
     goTo(url)
   }
 

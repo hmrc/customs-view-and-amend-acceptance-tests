@@ -36,7 +36,7 @@ object ClaimsListPages extends CustomsFinancialsWebPage {
   def paginationBlockPresence = webDriver.findElements(By.id("pagination-label")).asScala.isEmpty
 
   def paginationBlockContent(tag: String) = webDriver
-    .findElement(By.id("pagination-label"))
+    .findElement(By.cssSelector(".govuk-pagination__list"))
     .findElements(By.tagName(tag))
     .asScala
     .map(_.getText.trim.split("\n").head)
@@ -45,7 +45,7 @@ object ClaimsListPages extends CustomsFinancialsWebPage {
   def paginationResultsText = webDriver.findElement(By.cssSelector(".govuk-pagination__results")).getText.trim
 
   def clickOnPaginationLink(linkText: String) = webDriver
-    .findElement(By.id("pagination-label"))
+    .findElement(By.cssSelector(".govuk-pagination__list"))
     .findElement(By.partialLinkText(linkText))
     .click()
 }
