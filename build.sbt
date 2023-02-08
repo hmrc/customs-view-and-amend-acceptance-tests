@@ -3,7 +3,7 @@ lazy val testSuite = (project in file("."))
   .settings(
       name := "customs-view-and-amend-acceptance-tests",
       version := "0.0.1",
-      scalaVersion := "2.13.8",
+      scalaVersion := "2.12.12",
       scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation"),
       libraryDependencies ++= Dependencies.test,
       Test / testOptions := Seq.empty
