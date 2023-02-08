@@ -269,4 +269,19 @@ class CommonSteps extends CustomsFinancialsWebPage {
     PageObjectFinder.page(page).waitForPageHeader
     PageObjectFinder.page(page).clickRadioButton(choice)
   }
+
+  Then("""I am presented with the {string} error page""") { page: String =>
+    PageObjectFinder.page(page).waitForPageHeader
+    PageObjectFinder.page(page).checkPageErrorTitle()
+  }
+
+  Then("""I am presented with the {string} {string} error page""") { (page: String, duty: String) =>
+    PageObjectFinder.page(page).waitForPageHeader
+    PageObjectFinder.page(page).checkPageErrorTitle(duty)
+  }
+
+  Then("""The error summary title is {string} and the error message is {string}""") { (errorSummaryTitle: String, errorMessage: String) =>
+    PageObjectFinder.checkPageErrorSummaryTitle(errorSummaryTitle)
+    PageObjectFinder.checkPageErrorMessage(errorMessage)
+  }
 }

@@ -45,7 +45,6 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | OpenReworkClaim                      | NDRC-1008  | Overpayment (C285),Single declaration |
       | PendingDecisionLetterClaim           | NDRC-10016 | Overpayment (C285),Single declaration |
       | AnalysisReworkClaim                  | NDRC-10018 | Overpayment (C285),Single declaration |
-      | PendingRTBHClaim                     | NDRC-10020 | Overpayment (C285),Single declaration |
       | PendingComplianceRecommendationClaim | NDRC-10022 | Overpayment (C285),Single declaration |
       | PendingComplianceCheckClaim          | NDRC-10024 | Overpayment (C285),Single declaration |
 
