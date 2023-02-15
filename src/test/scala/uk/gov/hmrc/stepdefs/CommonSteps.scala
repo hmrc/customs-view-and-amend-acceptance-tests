@@ -169,12 +169,13 @@ class CommonSteps extends CustomsFinancialsWebPage {
     }
   }
 
-  Then("""^I should see the following (static|hint|static-content) text$""") {
+  Then("""^I should see the following (static|hint|static-content|label|) text$""") {
     (staticOrhintWord: String, expectedText: DataTable) =>
       val actualText = staticOrhintWord match {
         case "static"         => elementTextAll("#main-content p.govuk-body")
         case "static-content" => elementTextAll("#main-content > h2")
         case "hint"           => List(ClaimSearchPage.hintText)
+        case "label"          => List(ClaimSearchPage.labelText)
       }
       actualText should be(expectedText.asScalaListOfStrings)
   }

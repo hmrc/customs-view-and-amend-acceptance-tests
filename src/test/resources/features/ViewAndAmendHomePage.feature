@@ -31,7 +31,6 @@ Feature: View customs view and amend home page details
     When I navigate to the View and amend home page
     Then I should see the heading "Claims summary"
     And I should see the following static text
-      | Search by claim reference number                     |
       | You have no claims to view.                          |
       | It can take up to 24 hours for new claims to appear. |
 

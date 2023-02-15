@@ -30,7 +30,6 @@ Feature: Display claims list
     And the page title should be "Claims closed - Claim back import duty and VAT - GOV.UK"
     And I should see the following static text
       | Closed claims have been approved or rejected by HMRC or withdrawn, and will be removed from this list after 30 days. |
-      | Search by claim reference number                                                                                     |
     And I should see the following claims
       | Claim reference | MRN      | Type of claim                 | Claim close date | Claim decision |
       | NDRC-1005       | MRN23014 | Overpayment or rejected goods | 1 May 2021       | Withdrawn      |
