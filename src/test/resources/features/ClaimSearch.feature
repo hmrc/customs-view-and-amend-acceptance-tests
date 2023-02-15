@@ -6,7 +6,7 @@ Feature: Search for claims using claim number and MRN
     And I navigate to the View and amend home page
     When I click on 'Find a claim'
     Then I should see the heading "Find a claim"
-    And I should see the following hint text
+    And I should see the following label text
       | Search by claim reference number |
 
   Scenario: Verify no matching results page for claim number search
@@ -18,7 +18,6 @@ Feature: Search for claims using claim number and MRN
     And I should see the following static-content text
       | There are no matching results for NDRC-9999. |
     And I should see the following static text
-      | Search by claim reference number                   |
       | Check your claim reference number and search again |
     When I click on 'search'
     Then I should see the heading "Find a claim"
@@ -31,7 +30,6 @@ Feature: Search for claims using claim number and MRN
     And I should see the following static-content text
       | There are no matching results for 22GBJD4DCMAM33DOI2. |
     And I should see the following static text
-      | Search by claim reference number                   |
       | Check your claim reference number and search again |
     When I click on 'search'
     When I click on back link to previous page

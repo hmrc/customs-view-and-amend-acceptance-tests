@@ -23,6 +23,8 @@ object ClaimSearchPage extends CustomsFinancialsWebPage {
 
   def hintText = webDriver.findElement(By.cssSelector("#main-content > p")).getText.trim
 
+  def labelText = webDriver.findElement(By.cssSelector("#main-content > form > label")).getText.trim
+
   def inputTextBox = webDriver.findElement(By.id("search"))
 
   def enterClaim(text: String) = inputTextBox.sendKeys(text)
