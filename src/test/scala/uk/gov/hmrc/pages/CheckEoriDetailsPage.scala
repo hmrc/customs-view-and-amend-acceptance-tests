@@ -35,4 +35,5 @@ object CheckEoriDetailsPage extends BasePage {
       case "no" => click on cssSelector("#check-eori-details-2")
     }
   }
+
 }
