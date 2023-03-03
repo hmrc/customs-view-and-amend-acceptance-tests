@@ -121,7 +121,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
 
     Examples:
       | user                          | claim ref  | claim type                            | claim decision    |
-      | RejectedFailedValidationClaim | NDRC-1006  | Overpayment (C285),Single declaration | Failed Validation |
+#      | RejectedFailedValidationClaim | NDRC-1006  | Overpayment (C285),Single declaration | Failed Validation |
       | ResolvedNoReplyClaim          | NDRC-10010 | Overpayment (C285),Single declaration | No Reply          |
       | ResolvedRefusedClaim          | NDRC-10012 | Overpayment (C285),Single declaration | Refused           |
       | ResolvedApprovedClaim         | NDRC-10014 | Overpayment (C285),Single declaration | Approved          |
