@@ -24,7 +24,7 @@ Feature: View customs view and amend home page details
     Then I should see the following cards
       | 40 claims need more information | Claims that require additional information or documentation.                                                         | View claims needing more information |
       | 40 claims are in progress       | Claims in progress are open and being reviewed by HMRC                                                               | View claims in progress              |
-      | 40 claims have been closed      | Closed claims have been approved or rejected by HMRC or withdrawn, and will be removed from this list after 30 days. | View closed claims                   |
+      | 40 claims have been closed      | Closed claims have been approved or rejected by HMRC or withdrawn, and will be removed from this list after 31 days. | View closed claims                   |
 
   Scenario: Display no claims to view message
     Given I am signed in as a noClaims user
