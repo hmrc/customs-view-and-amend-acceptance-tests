@@ -33,6 +33,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
     And I should see the following claims
       | Claim reference | MRN      | Type of claim                 | Claim start date |
       | <claim ref>     | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
+      | <claim ref>     | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
     When I click on '<claim ref>'
     Then I should see the following claim details
 
