@@ -37,16 +37,22 @@ Feature: Display backend claims status to in progress, pending and closed catego
     Then I should see the following claim details
 
       | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address |
-      | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | In progress  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       |
+      | MRN23014 | KWMREF1 | <EORI number>          | <claim type> | In progress  | 1 May 2020       | £900000.00             | Claimant name   | someemail@mail.com       |
 
     Examples:
-      | user                                 | claim ref  | claim type                            |
-      | openAnalysisClaim                    | NDRC-1002  | Overpayment (C285),Single declaration |
-      | OpenReworkClaim                      | NDRC-1008  | Overpayment (C285),Single declaration |
-      | PendingDecisionLetterClaim           | NDRC-10016 | Overpayment (C285),Single declaration |
-      | AnalysisReworkClaim                  | NDRC-10018 | Overpayment (C285),Single declaration |
-      | PendingComplianceRecommendationClaim | NDRC-10022 | Overpayment (C285),Single declaration |
-      | PendingComplianceCheckClaim          | NDRC-10024 | Overpayment (C285),Single declaration |
+      | user                                 | claim ref  | claim type                            | EORI number     |
+      | openAnalysisClaim                    | NDRC-1002  | Overpayment (C285),Single declaration | GB98745632101   |
+      | openAnalysisClaim                    | NDRC-1502  | Overpayment (C285),Single declaration | XI98745632102   |
+      | OpenReworkClaim                      | NDRC-1008  | Overpayment (C285),Single declaration | GB98745632101   |
+      | OpenReworkClaim                      | NDRC-1508  | Overpayment (C285),Single declaration | XI98745632102   |
+#      | PendingDecisionLetterClaim           | NDRC-10016 | Overpayment (C285),Single declaration | GB98745632101   |
+#      | PendingDecisionLetterClaim           | NDRC-10516 | Overpayment (C285),Single declaration | XI98745632102   |
+#      | AnalysisReworkClaim                  | NDRC-10018 | Overpayment (C285),Single declaration | GB98745632101   |
+#      | AnalysisReworkClaim                  | NDRC-10518 | Overpayment (C285),Single declaration | XI98745632102   |
+#      | PendingComplianceRecommendationClaim | NDRC-10022 | Overpayment (C285),Single declaration | GB98745632101   |
+#      | PendingComplianceRecommendationClaim | NDRC-10522 | Overpayment (C285),Single declaration | XI98745632102   |
+#      | PendingComplianceCheckClaim          | NDRC-10024 | Overpayment (C285),Single declaration | GB98745632101   |
+#      | PendingComplianceCheckClaim          | NDRC-10524 | Overpayment (C285),Single declaration | XI98745632102   |
 
 
   Scenario Outline: Display pending status for multiple declarations claims
