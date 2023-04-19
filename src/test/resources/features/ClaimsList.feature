@@ -21,6 +21,7 @@ Feature: Display claims list
     And I should see the following claims
       | Claim reference | MRN      | Type of claim                 | Claim start date |
       | NDRC-1004       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
+      | NDRC-1504       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
 
   Scenario: Verify content on closed claims list page
     Given I am signed in as a ResolvedWithdrawnClaim user
