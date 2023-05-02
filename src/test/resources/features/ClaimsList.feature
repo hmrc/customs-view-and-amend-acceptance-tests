@@ -15,6 +15,7 @@ Feature: Display claims list
   Scenario: Verify content on pending claims list page
     Given I am signed in as a PendingQueriedClaim user
     And I navigate to the View and amend home page
+    And I should see the eori details Tony Stark - GB00000000004 (XI00000000004)
     When I click on 'View claims needing more information'
     Then I should see the heading "Claims needing more information"
     And the page title should be "Claims needing more information - Claim back import duty and VAT - GOV.UK"
