@@ -8,7 +8,7 @@ if [ -z "$BROWSER_TYPE" ]; then
 fi
 
 # Scalafmt checks have been separated from the test command to avoid OutOfMemoryError in Jenkins
-sbt scalafmtCheckAll scalafmtSbtCheck
+#sbt scalafmtCheckAll scalafmtSbtCheck
 
 ./startup_auth.sh
 

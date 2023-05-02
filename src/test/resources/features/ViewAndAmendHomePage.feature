@@ -6,17 +6,17 @@ Feature: View customs view and amend home page details
     When I navigate to the View and amend home page
     And I click on 'GOV.UK'
     Then the page title should be "Welcome to GOV.UK"
-# TODO
-#  Scenario: Verify content on view and amend home page
-#    Given I am signed in as a pagination user
-#    When I navigate to the View and amend home page
-#    Then I should see the heading "Claims summary"
-##    And the page title should be "Your claims for repayment of customs charges - Customs view and amend - GOV.UK"
-#    And I should see the following notification bar links
-#      | Claims summary      |
-#      | Find a claim        |
-#      | Start a new claim   |
-#    And I should see the eori details Tony Stark - GB744638982001
+
+  Scenario: Verify content on view and amend home page
+    Given I am signed in as a pagination user
+    When I navigate to the View and amend home page
+    Then I should see the heading "Claims summary"
+    And the page title should be "Your customs financial accounts - Claim back import duty and VAT - GOV.UK"
+    And I should see the following notification bar links
+      | Claims summary      |
+      | Find a claim        |
+      | Start a new claim   |
+    And I should see the eori details Tony Stark - GB744638982001
 
   Scenario: Display claims summary cards with claims for all status
     Given I am signed in as a pagination user

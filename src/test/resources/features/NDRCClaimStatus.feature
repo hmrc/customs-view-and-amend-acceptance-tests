@@ -49,13 +49,13 @@ Feature: Display backend claims status to in progress, pending and closed catego
 
 
     Examples:
-      | user              | claim ref1 | claim ref2 | claim type                            | EORI number1  | EORI number2  |
-      | openAnalysisClaim | NDRC-1002  | NDRC-1502  | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
-      | OpenReworkClaim   | NDRC-1008  | NDRC-1508  | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
-#      | PendingDecisionLetterClaim           | NDRC-10016 | NDRC-10516 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
-#      | AnalysisReworkClaim                  | NDRC-10018 | NDRC-10508 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
-#      | PendingComplianceRecommendationClaim | NDRC-10022 | NDRC-10522 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
-#      | PendingComplianceCheckClaim          | NDRC-10024 | NDRC-10524 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
+      | user                                 | claim ref1 | claim ref2 | claim type                            | EORI number1  | EORI number2  |
+      | openAnalysisClaim                    | NDRC-1002  | NDRC-1502  | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
+      | OpenReworkClaim                      | NDRC-1008  | NDRC-1508  | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
+      | PendingDecisionLetterClaim           | NDRC-10016 | NDRC-10516 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
+      | AnalysisReworkClaim                  | NDRC-10018 | NDRC-10518 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
+      | PendingComplianceRecommendationClaim | NDRC-10022 | NDRC-10522 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
+      | PendingComplianceCheckClaim          | NDRC-10024 | NDRC-10524 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
 
 
   Scenario Outline: Display pending status for multiple declarations claims
@@ -131,20 +131,20 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | Claim reference | MRN      | Type of claim                 | Claim close date | Claim decision   |
       | <claim ref1>    | MRN23014 | Overpayment or rejected goods | 1 May 2021       | <claim decision> |
       | <claim ref2>    | MRN23014 | Overpayment or rejected goods | 1 May 2021       | <claim decision> |
-#    When I click on '<claim ref1>'
-#    Then I should see the following claim details
-#      | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim decision   | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address |
-#      | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | <claim decision> | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com       |
-#    When I click on back link to previous page
-#    Then I should see the heading "Claims closed"
-#    When I click on '<claim ref2>'
-#    Then I should see the following claim details
-#      | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim decision   | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address |
-#      | MRN23014 | KWMREF1 | XI98745632102          | <claim type> | <claim decision> | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com       |
+    When I click on '<claim ref1>'
+    Then I should see the following claim details
+      | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim decision   | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address |
+      | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | <claim decision> | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com       |
+    When I click on back link to previous page
+    Then I should see the heading "Claims closed"
+    When I click on '<claim ref2>'
+    Then I should see the following claim details
+      | MRN      | LRN     | Claimant's EORI number | Claim type   | Claim decision   | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address |
+      | MRN23014 | KWMREF1 | XI98745632102          | <claim type> | <claim decision> | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | someemail@mail.com       |
 
     Examples:
-      | user                  | claim ref1 | claim ref2 | claim type                            | claim decision |
-#      | RejectedFailedValidationClaim | NDRC-1006  | Overpayment (C285),Single declaration | Failed Validation |
-      | ResolvedNoReplyClaim  | NDRC-10010 | NDRC-10510 | Overpayment (C285),Single declaration | No Reply       |
-      | ResolvedRefusedClaim  | NDRC-10012 | NDRC-10512 | Overpayment (C285),Single declaration | Refused        |
-      | ResolvedApprovedClaim | NDRC-10014 | NDRC-10514 | Overpayment (C285),Single declaration | Approved       |
+      | user                          | claim ref1 | claim ref2 | claim type                            | claim decision    |
+#      | RejectedFailedValidationClaim | NDRC-1006  | NDRC-1506  | Overpayment (C285),Single declaration | Failed Validation |
+      | ResolvedNoReplyClaim          | NDRC-10010 | NDRC-10510 | Overpayment (C285),Single declaration | No Reply          |
+      | ResolvedRefusedClaim          | NDRC-10012 | NDRC-10512 | Overpayment (C285),Single declaration | Refused           |
+      | ResolvedApprovedClaim         | NDRC-10014 | NDRC-10514 | Overpayment (C285),Single declaration | Approved          |
