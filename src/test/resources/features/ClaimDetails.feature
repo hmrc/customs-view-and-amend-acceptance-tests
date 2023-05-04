@@ -68,4 +68,4 @@ Feature: View claim details page
     And I click on 'View closed claims'
     And I click on 'NDRC-41'
     When I click on 'Claims summary'
-    Then the page title should be "Your customs financial accounts - Claim back import duty and VAT - GOV.UK"
+    Then the page title should be "Claims summary - Claim back import duty and VAT - GOV.UK"
