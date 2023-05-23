@@ -150,7 +150,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
 
   Then("""^the signup url is correct$""") { () =>
     val expectedText =
-      "https://signup.take-part-in-research.service.gov.uk/home?utm_campaign=CDSRC&utm_source=Other&utm_medium=other&t=HMRC&id=249"
+      "https://signup.take-part-in-research.service.gov.uk/?utm_campaign=CDSRC&utm_source=Other&utm_medium=other&t=HMRC&id=249"
     val actualText   = CommonPage.recruitmentBannerSignUpHref()
     actualText should be(expectedText)
   }
