@@ -136,7 +136,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
     val expectedUrl = linkText match {
       case "Accessibility statement"            => "/accessibility-statement/customs-financials"
       case "Is this page not working properly?" =>
-        s"http://localhost:9250/contact/report-technical-problem?newTab=true&service=CDS%20Financials&referrerUrl=%2Fclaim-back-import-duty-vat%2Fclaims-status"
+        s"http://localhost:9250/contact/report-technical-problem?newTab=true&service=CDSRC&referrerUrl=%2Fclaim-back-import-duty-vat%2Fclaims-status"
     }
     val actualUrl   = getLinkUrl(linkText)
     actualUrl should include(expectedUrl)
@@ -150,7 +150,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
 
   Then("""^the signup url is correct$""") { () =>
     val expectedText =
-      "https://signup.take-part-in-research.service.gov.uk/?utm_campaign=CDSfinancials&utm_source=Other&utm_medium=other&t=HMRC&id=249"
+      "https://signup.take-part-in-research.service.gov.uk/home?utm_campaign=CDSRC&utm_source=Other&utm_medium=other&t=HMRC&id=249"
     val actualText   = CommonPage.recruitmentBannerSignUpHref()
     actualText should be(expectedText)
   }
