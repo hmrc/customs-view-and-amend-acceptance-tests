@@ -78,6 +78,10 @@ class CommonSteps extends CustomsFinancialsWebPage {
     click on partialLinkText(selectedLink)
   }
 
+  When("""^I click on Search button on the Find a claim page$""") { () =>
+    CommonPage.clickOnSearchButton().click()
+  }
+
   When("""^I click on back link to previous page$""") { () =>
     backLink().click()
   }
