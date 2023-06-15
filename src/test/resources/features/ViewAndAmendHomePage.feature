@@ -13,9 +13,9 @@ Feature: View customs view and amend home page details
     Then I should see the heading "Claims summary"
     And the page title should be "Claims summary - Claim back import duty and VAT - GOV.UK"
     And I should see the following notification bar links
-      | Claims summary      |
-      | Find a claim        |
-      | Start a new claim   |
+      | Claims summary    |
+      | Find a claim      |
+      | Start a new claim |
     And I should see the eori details Tony Stark - GB744638982001
 
   Scenario: Display claims summary cards with claims for all status
@@ -51,7 +51,5 @@ Feature: View customs view and amend home page details
     Given I am signed in as a pagination user
     When I navigate to the View and amend home page
     Then I should see a banner with the following information
-      | Help improve HMRC services                               |
-      | Sign up to take part in user research (opens in new tab) |
-      | No thanks                                                |
-    And the signup url is correct
+      | BETA                                                                                   |
+      | This is a new service – your feedback (opens in a new tab) will help us to improve it. |

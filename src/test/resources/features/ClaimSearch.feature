@@ -19,7 +19,7 @@ Feature: Search for claims using claim number and MRN
       | There are no matching results for NDRC-9999. |
     And I should see the following static text
       | Check your claim reference number and search again |
-    When I click on 'search'
+    When I click on Search button on the Find a claim page
     Then I should see the heading "Find a claim"
 
   Scenario: Verify no matching results page for MRN search
@@ -31,7 +31,8 @@ Feature: Search for claims using claim number and MRN
       | There are no matching results for 22GBJD4DCMAM33DOI2. |
     And I should see the following static text
       | Check your claim reference number and search again |
-    When I click on 'search'
+#    When I click on 'Search'
+  When I click on Search button on the Find a claim page
     When I click on back link to previous page
     Then I should see the heading "Find a claim"
 

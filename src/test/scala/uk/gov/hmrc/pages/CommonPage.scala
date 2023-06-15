@@ -49,20 +49,18 @@ object CommonPage extends CustomsFinancialsWebPage {
 
   def recruitmentBannerIsNotPresent(): Boolean = webDriver.findElements(By.cssSelector(".hmrc-user-research-banner--show")).isEmpty()
 
-  private def recruitmentBanner(): WebElement = webDriver.findElement(By.cssSelector(".hmrc-user-research-banner--show"))
+  private def recruitmentBanner(): WebElement = webDriver.findElement(By.cssSelector(".govuk-phase-banner"))
 
-  def recruitmentBannerText() = List(recruitmentBannerHeadingText(), recruitmentBannerSignUpText(), recruitmentBannerNoThanksButtonText())
+  def recruitmentBannerText() = List(recruitmentBannerHeadingText(), recruitmentBannerNoThanksButtonText())
 
-  private def recruitmentBannerHeadingText() = recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__title")).getText.trim
+  private def recruitmentBannerHeadingText() = recruitmentBanner().findElement(By.cssSelector(".govuk-tag.govuk-phase-banner__content__tag")).getText.trim
 
   private def recruitmentBannerNoThanksButtonText() = {
-    recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__close"))
-      .findElement(By.tagName("span")).getText.trim
+    recruitmentBanner().findElement(By.cssSelector(".govuk-phase-banner__text")).getText.trim
   }
-
-  private def recruitmentBannerSignUpText() = recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__link")).getText.trim
 
   def clickNoThanksButtonOnBanner() = recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__close")).click()
 
+  def clickOnSearchButton(): WebElement = webDriver.findElement(By.cssSelector(".govuk-button"))
 
 }
