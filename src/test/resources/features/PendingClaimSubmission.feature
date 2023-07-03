@@ -64,8 +64,6 @@ Feature: Pending claim submission by adding additional document
     When I upload a 1 "image.jpeg" file on "Choose Files Page"
     And I select radio button "No" on "Choose Files Page"
     And I click continue if I'm on "Choose Files Page"
-    Then I am presented with the "Choose File Type Page"
-    And I click continue on "Choose Files Page"
     Then I am presented with the "Claim Submitted Page"
 
   Scenario: check error Messages for during Pending claim submission
@@ -93,6 +91,10 @@ Feature: Pending claim submission by adding additional document
     When I select radio button "Substitute or diversion entry" on "Choose File Type Page"
     And I click continue on "Choose File Type Page"
     Then I am presented with the "Choose Files Page" "substitute or diversion entry"
+    And I select radio button "No" on "Choose Files Page"
+    And I click continue on "Choose Files Page"
+    And The error summary title is "There is a problem" and the error message is "Select a file"
+    When I upload a 1 "image.png" file on "Choose Files Page"
     And I select radio button "No" on "Choose Files Page"
     And I click continue on "Choose Files Page"
     Then I am presented with the "Claim Submitted Page"
