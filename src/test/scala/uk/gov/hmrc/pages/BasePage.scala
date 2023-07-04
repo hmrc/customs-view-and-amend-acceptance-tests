@@ -108,7 +108,7 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
   def waitForPageToLoad(): lang.Boolean =
     fluentWait.until(ExpectedConditions.textToBe(By.cssSelector(".multi-file-upload__uploaded-tag"), "UPLOADED"))
 
-  def clickContinueButton(): Unit = click on cssSelector("#main-content > div > div > form > button")
+  def clickContinueButton(): Unit = click on cssSelector(".govuk-button")
 
   def clickBackButton(): Unit = click on cssSelector(".govuk-back-link")
 
@@ -158,7 +158,7 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
   def configure(feature: String, featureState: String): Unit = {}
 
   def checkPageErrorSummaryTitle(errorSummaryTitle: String): Unit = {
-    val actualErrorSummaryTitle = driver.findElement(By.cssSelector("#error-summary-title")).getText
+    val actualErrorSummaryTitle = driver.findElement(By.cssSelector(".govuk-error-summary__title")).getText
     actualErrorSummaryTitle should be(errorSummaryTitle)
   }
 
