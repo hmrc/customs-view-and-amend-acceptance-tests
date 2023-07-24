@@ -96,5 +96,5 @@ Feature: Pending claim submission by adding additional document
 #    And The error summary title is "There is a problem" and the error message is "Select a file"
     When I upload a 2 "image.png" file on "Choose Files Page"
     And I select radio button "No" on "Choose Files Page"
-    And I click continue on "Choose Files Page"
+    And I click continue if I'm on "Choose Files Page"
     Then I am presented with the "Claim Submitted Page"
