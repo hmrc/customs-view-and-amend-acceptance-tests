@@ -6,7 +6,7 @@ Feature: Search for claims using claim number and MRN
     And I navigate to the View and amend home page
     When I click on 'Find a claim'
     Then I should see the heading "Find a claim"
-    And I should see the following label text
+    And I should see the following hint text
       | Search by claim reference number |
 
   Scenario: Verify no matching results page for claim number search

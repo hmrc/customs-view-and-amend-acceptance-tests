@@ -22,14 +22,14 @@ import uk.gov.hmrc.conf.TestConfiguration
 object ClaimSubmittedPage extends BasePage {
   override val url: String = TestConfiguration.url("view-and-upload") + "/claims-status/amendment-submitted"
 
-  override val title = "Claims in progress"
+  override val title = "Claim amendment sent"
 
   override def expectedPageErrorTitle: Option[String] = Some(
-    "Claims in progress - Claim back import duty and VAT - GOV.UK"
+    "Claim amendment sent - Claim back import duty and VAT - GOV.UK"
   )
 
   override def expectedPageTitle: Option[String] = Some(
-    "Claims in progress - Claim back import duty and VAT - GOV.UK"
+    "Claim amendment sent - Claim back import duty and VAT - GOV.UK"
   )
 
   override def expectedPageHeader: Option[String] = Some("Claim amendment sent")
