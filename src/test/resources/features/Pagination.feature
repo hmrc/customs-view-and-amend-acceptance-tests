@@ -1,4 +1,4 @@
-@acceptance
+@acceptance @TEST
 
 Feature: Pagination
   As a user
@@ -10,6 +10,7 @@ Feature: Pagination
     Then I should see the following pagination content
       | 1 |
       | 2 |
+      | Next |
     And I should see the following pagination links
       | 1    |
       | 2    |
@@ -26,6 +27,7 @@ Feature: Pagination
     And I should see the following pagination content
       | 1 |
       | 2 |
+      | Next |
     And I should see the following pagination links
       | Previous |
       | 1        |
@@ -41,6 +43,7 @@ Feature: Pagination
     And I should see the following pagination content
       | 1 |
       | 2 |
+      | Next |
     And I should see the following pagination links
       | 1    |
       | 2    |
