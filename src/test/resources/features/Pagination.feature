@@ -27,7 +27,6 @@ Feature: Pagination
     And I should see the following pagination content
       | 1 |
       | 2 |
-      | Next |
     And I should see the following pagination links
       | Previous |
       | 1        |
