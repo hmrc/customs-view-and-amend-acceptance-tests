@@ -8,8 +8,8 @@ Feature: Pagination
     Given I am signed in as a pagination user
     When I navigate to the in progress claims list page
     Then I should see the following pagination content
-      | 1 |
-      | 2 |
+      | 1    |
+      | 2    |
       | Next |
     And I should see the following pagination links
       | 1    |
@@ -25,8 +25,9 @@ Feature: Pagination
     Then I should see the following pagination results text
       | Showing 21 to 40 of 40 claims |
     And I should see the following pagination content
-      | 1 |
-      | 2 |
+      | Previous |
+      | 1        |
+      | 2        |
     And I should see the following pagination links
       | Previous |
       | 1        |
@@ -40,8 +41,8 @@ Feature: Pagination
     Then I should see the following pagination results text
       | Showing 1 to 20 of 40 claims |
     And I should see the following pagination content
-      | 1 |
-      | 2 |
+      | 1    |
+      | 2    |
       | Next |
     And I should see the following pagination links
       | 1    |
