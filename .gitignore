@@ -30,3 +30,8 @@ project/target
 .metals/metals.log
 .metals/metals.mv.db
 .vscode/settings.json
+.bloop/bloop.settings.json
+.bloop/testSuite-test.json
+.bloop/testSuite.json
+project/metals.sbt
+project/.bloop
