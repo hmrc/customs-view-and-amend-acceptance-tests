@@ -13,7 +13,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
     When I click on '<claim ref>'
     Then I should see the following claim details
       | LRN     | Claimant's EORI number | Claim type   | Claim status | First MRN | Claim start date | Claim amount requested | Claimant's name | Claimant's email address | Other MRNs included in this claim                                                          |
-      | KWMREF1 | GB98745632101          | <claim type> | In progress  | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00001,MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
+      | KWMREF1 | GB98745632101          | <claim type> | In progress  | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
     Examples:
       | user                            | claim ref  | claim type                                     |
@@ -70,7 +70,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
     Then I should see the following claim details
 
       | LRN     | Claimant's EORI number | Claim type   | Claim status | First MRN | Claim start date | Claim amount requested | Claimant's name | Claimant's email address | Other MRNs included in this claim                                                          |
-      | KWMREF1 | GB98745632101          | <claim type> | Pending      | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00001,MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
+      | KWMREF1 | GB98745632101          | <claim type> | Pending      | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
 
     Examples:
@@ -114,7 +114,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
     When I click on '<claim ref>'
     Then I should see the following claim details
       | LRN     | Claimant's EORI number | Claim type   | Claim decision   | First MRN | Claim start date | Claim removal date | Claim amount requested | Claimant's name | Claimant's email address | Other MRNs included in this claim                                                          |
-      | KWMREF1 | GB98745632101          | <claim type> | <claim decision> | MRN23014  | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | Claimant email address   | MRN00001,MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
+      | KWMREF1 | GB98745632101          | <claim type> | <claim decision> | MRN23014  | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
     Examples:
       | user                        | claim ref  | claim type                                     | claim decision  |

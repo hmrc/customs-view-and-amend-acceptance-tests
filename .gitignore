@@ -35,3 +35,4 @@ project/target
 .bloop/testSuite.json
 project/metals.sbt
 project/.bloop
+sbt-launch.jar
