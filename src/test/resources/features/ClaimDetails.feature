@@ -12,7 +12,7 @@ Feature: View claim details page
     And I should see the following static text
       | Claim details: This claim is open and being reviewed by HMRC. |
     And I should see the following claim details
-      | LRN     | Claimant's EORI number | Claim type                                     | Claim status | First MRN | Claim start date | Claim amount requested | Claimant's name | Claimant's email address | Other MRNs included in this claim                                                          |
+      | LRN     | Claimant's EORI number | Claim type                                     | Claim status | First MRN | Claim start date | Claim amount requested | Claimant's name | Claimant's email address | Other MRNs included in this claim                                                 |
       | KWMREF1 | GB98745632101          | Rejected goods (C&E1179),Multiple declarations | In progress  | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
 
@@ -24,10 +24,10 @@ Feature: View claim details page
     When I click on 'NDRC-1004'
     Then I should see the heading "Claim reference NDRC-1004"
     And I should see the following static text
-      | Claim details: This claim requires additional information or documentation.                                        |
+      | Claim details: This claim requires additional information or documentation.                                         |
       | Check your email for details of missing documents and any requests for additional information from your caseworker. |
-      | Valid file formats: JPG, PNG, PDF.                                                                                                        |
-      | Upload a file                                                                                 |
+      | Valid file formats: JPG, PNG, PDF.                                                                                  |
+      | Upload a file                                                                                                       |
     And I should see the following claim details
       | MRN      | LRN     | Claimant's EORI number | Claim type                            | Claim status | Claim start date | Claim amount requested | Claimant's name | Claimant's email address |
       | MRN23014 | KWMREF1 | GB98745632101          | Overpayment (C285),Single declaration | Pending      | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   |
