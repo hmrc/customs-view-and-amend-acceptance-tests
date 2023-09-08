@@ -1,4 +1,4 @@
-@acceptance @TEST
+@acceptance
 
 Feature: Pagination
   As a user
