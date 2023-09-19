@@ -21,8 +21,8 @@ Feature: Email Verification
     And the email is undeliverable
     And I sign in as an undeliverableEmail user
     When I navigate to the View and amend home page
-    Then the page title should be "There's a problem with the CDS registered email address - Claim back import duty and VAT - GOV.UK"
-    And I should see the heading "There's a problem with the CDS registered email address"
+    Then the page title should be "There‘s a problem with the CDS registered email address - Claim back import duty and VAT - GOV.UK"
+    And I should see the heading "There‘s a problem with the CDS registered email address"
     And I should see the following static text
       | We tried to send you an email but it could not be delivered. This could be because the inbox is full, or due to a technical problem with your email provider.                                                                               |
       | This is the email address your organisation has registered for the Customs Declaration Service (CDS). You need to verify this email address or change it. You can verify the email instantly provided you have access to the email account. |
