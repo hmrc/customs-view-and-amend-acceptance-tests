@@ -1,4 +1,4 @@
-@acceptance  @TEST
+@acceptance
 Feature: View customs view and amend home page details
 
   Scenario: Gov.uk link points to correct page
