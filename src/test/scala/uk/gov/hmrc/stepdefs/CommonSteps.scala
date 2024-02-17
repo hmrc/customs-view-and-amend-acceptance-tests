@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
 package uk.gov.hmrc.stepdefs
 
 import io.cucumber.datatable.DataTable
+import java.util.{List => JList}
+import scala.jdk.CollectionConverters._
 import org.openqa.selenium.By
 import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
 import play.api.libs.json.Json
@@ -33,6 +35,7 @@ import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.DurationInt
 import java.time.Duration
+import scala.jdk.CollectionConverters.iterableAsScalaIterableConverter
 
 class CommonSteps extends CustomsFinancialsWebPage {
 
@@ -181,7 +184,13 @@ class CommonSteps extends CustomsFinancialsWebPage {
         case "hint"           => List(ClaimSearchPage.hintText)
         case "label"          => List(ClaimSearchPage.labelText)
       }
-      actualText should be(expectedText.asScalaListOfStrings)
+      val expectedTextList: List[String] = expectedText.asList(classOf[String]).asInstanceOf[JList[String]].asScala
+        .flatMap(element => Option(element).map(_.trim).filter(_.nonEmpty))
+        .toList
+      val filteredActualText = actualText.flatMap(_.split("\n").map(_.trim)).filter(_.nonEmpty).toList
+      filteredActualText shouldEqual expectedTextList
+
+
   }
 
   Then("""^I should see the following text in bullet points$""") { expectedText: DataTable =>
