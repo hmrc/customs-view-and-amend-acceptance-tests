@@ -14,9 +14,9 @@ Feature: Tracking consent banner on View and amend pages
       | We would like to set additional cookies so we can remember your settings, understand how people use our services and make improvements. |
       | Accept additional cookies                                                                                                               |
       | Reject additional cookies                                                                                                               |
-      | View cookies preferences                                                                                                                            |
+      | View cookie preferences                                                                                                                            |
     And I should see the following links on the cookie banner
-      | View cookies preferences |
+      | View cookie preferences |
     And I should see the following buttons on the cookie banner
       | Accept additional cookies |
       | Reject additional cookies |
