@@ -14,33 +14,19 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.utils
+package uk.gov.hmrc.cdsrc.driver
+import org.openqa.selenium.remote.RemoteWebDriver
+import uk.gov.hmrc.selenium.webdriver.Driver
 
-import org.openqa.selenium.WebDriver
-import org.openqa.selenium.chrome.ChromeDriverService
-import uk.gov.hmrc.webdriver.SingletonDriver
+trait Driver {
 
-object Driver {
-
-  def getOs: String = System.getProperty("os.name")
-
-  lazy val isMac: Boolean = getOs.startsWith("Mac")
-  lazy val isLinux: Boolean = getOs.startsWith("Linux")
-
-  if (!Option(System.getProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY)).exists(_.length > 0)) {
-    System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, "/usr/local/bin/chromedriver")
+  // Define an implicit RemoteWebDriver
+  implicit def driver: RemoteWebDriver = {
+    val driverInstance = Driver.instance
+    if (driverInstance == null) {
+      throw new IllegalStateException("Driver instance is null")
+    }
+    driverInstance
   }
 
-  if (!Option(System.getProperty("browser")).exists(_.length > 0)) {
-    System.setProperty("browser", "chrome")
-  }
-
-  val instance: WebDriver = newWebDriver()
-
-  def newWebDriver(): WebDriver = {
-    val driver = SingletonDriver.getInstance()
-    driver
-  }
-
-  sys.addShutdownHook(SingletonDriver.closeInstance())
 }

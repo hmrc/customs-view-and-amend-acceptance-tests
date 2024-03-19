@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,29 +14,19 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.driver
+package uk.gov.hmrc.cdsrc.driver
+import org.openqa.selenium.remote.RemoteWebDriver
+import uk.gov.hmrc.selenium.webdriver.Driver
 
-import com.typesafe.scalalogging.LazyLogging
-import org.openqa.selenium.WebDriver
-import uk.gov.hmrc.webdriver.SingletonDriver
+trait BrowserDriver {
 
-import scala.util.Try
-
-trait BrowserDriver extends LazyLogging {
-  logger.info(
-    s"Instantiating Browser: ${sys.props.getOrElse("browser", "'browser' System property not set. This is required")}"
-  )
-
-  if (!Option(System.getProperty("browser")).exists(_.length > 0)) {
-    System.setProperty("browser", "chrome")
-  }
-
-  implicit lazy val driver: WebDriver = SingletonDriver.getInstance()
-
-  val debug: Boolean = sys.props.getOrElse("drivernotquit", "false").toBoolean
-  if (!debug)
-    sys.addShutdownHook {
-      Try(driver.quit())
+  // Define an implicit RemoteWebDriver
+  implicit def driver: RemoteWebDriver = {
+    val driverInstance = Driver.instance
+    if (driverInstance == null) {
+      throw new IllegalStateException("Driver instance is null")
     }
+    driverInstance
+  }
 
 }

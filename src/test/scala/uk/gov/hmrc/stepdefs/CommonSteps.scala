@@ -17,6 +17,7 @@
 package uk.gov.hmrc.stepdefs
 
 import io.cucumber.datatable.DataTable
+
 import java.util.{List => JList}
 import scala.jdk.CollectionConverters._
 import org.openqa.selenium.By
@@ -35,7 +36,7 @@ import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.DurationInt
 import java.time.Duration
-import scala.jdk.CollectionConverters.iterableAsScalaIterableConverter
+import scala.language.postfixOps
 
 class CommonSteps extends CustomsFinancialsWebPage {
 
