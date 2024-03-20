@@ -17,6 +17,7 @@
 package uk.gov.hmrc.utils
 
 import org.openqa.selenium.WebDriver
+import uk.gov.hmrc.selenium.webdriver.Driver
 
 trait StartUpTearDown {
   implicit val webDriver: WebDriver = Driver.instance
