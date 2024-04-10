@@ -15,7 +15,6 @@
  */
 
 package uk.gov.hmrc.pages
-
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait}
 import org.openqa.selenium.{By, Keys, WebDriver, WebElement}
 import org.scalatest.Assertion
@@ -23,11 +22,13 @@ import org.scalatest.concurrent.Eventually
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.selenium.{Page, WebBrowser}
 import uk.gov.hmrc.cdsrc.driver.BrowserDriver
+
 import java.lang
 import java.time.Duration
 import scala.jdk.CollectionConverters.CollectionHasAsScala
 
 trait BasePage extends Page with Matchers with BrowserDriver with Eventually with WebBrowser {
+
   override val url: String = ""
   val title: String = ""
 

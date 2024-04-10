@@ -18,15 +18,7 @@ package uk.gov.hmrc.cdsrc.driver
 import org.openqa.selenium.remote.RemoteWebDriver
 import uk.gov.hmrc.selenium.webdriver.Driver
 
-trait BrowserDriver {
-
-  // Define an implicit RemoteWebDriver
-  implicit def driver: RemoteWebDriver = {
-    val driverInstance = Driver.instance
-    if (driverInstance == null) {
-      throw new IllegalStateException("Driver instance is null")
-    }
-    driverInstance
-  }
+ trait BrowserDriver {
+  implicit val driver: RemoteWebDriver = Driver.instance
 
 }
