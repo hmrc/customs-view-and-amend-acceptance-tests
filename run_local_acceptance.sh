@@ -1,3 +1,6 @@
-#! /bin/sh
+#!/bin/bash -e
 
-sbt -Denvironment=local -Dbrowser=chrome 'testOnly uk.gov.hmrc.runner.RunAcceptance'
+BROWSER=$1
+ENVIRONMENT=$2
+
+sbt clean -Dbrowser="${BROWSER:=chrome}" -Denvironment="${ENVIRONMENT:=local}" "testOnly uk.gov.hmrc.runner.RunAcceptance" testReport
