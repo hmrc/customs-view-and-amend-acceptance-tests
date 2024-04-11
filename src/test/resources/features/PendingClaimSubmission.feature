@@ -84,7 +84,7 @@ Feature: Pending claim submission by adding additional document
     And I am presented with the "Choose Files Page" "commercial invoice"
     And I click continue on "Choose Files Page"
     And I am presented with the "Choose Files Page" "commercial invoice" error page
-    And The error summary title is "There is a problem" and the error message is "Upload a supporting document"
+    And The error summary title is "There is a problem" and the error message is "Select yes to add a different type of supporting document to your claim"
     When I upload a 1 "document.pdf" file on "Choose Files Page"
     And I select radio button "Yes" on "Choose Files Page"
     And I click continue if I'm on "Choose Files Page"

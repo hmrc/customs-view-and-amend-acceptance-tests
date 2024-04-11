@@ -14,7 +14,7 @@ Feature: Search for claims using claim number and MRN
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-9999'
     Then I should see the heading "Find a claim"
-    And the page title should be "Find a claim - Claim back import duty and VAT - GOV.UK"
+    And the page title should be "Find a claim - Search result - Claim back import duty and VAT - GOV.UK"
     And I should see the following static-content text
       | There are no matching results for NDRC-9999. |
     And I should see the following static text
@@ -26,7 +26,7 @@ Feature: Search for claims using claim number and MRN
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for MRN '22GBJD4DCMAM33DOI2'
-    And the page title should be "Find a claim - Claim back import duty and VAT - GOV.UK"
+    And the page title should be "Find a claim - Search result - Claim back import duty and VAT - GOV.UK"
     And I should see the following static-content text
       | There are no matching results for 22GBJD4DCMAM33DOI2. |
     And I should see the following static text
