@@ -15,6 +15,7 @@
  */
 
 package uk.gov.hmrc.pages
+import org.openqa.selenium.remote.LocalFileDetector
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait}
 import org.openqa.selenium.{By, Keys, WebDriver, WebElement}
 import org.scalatest.Assertion
@@ -86,13 +87,19 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
       driver.getCurrentUrl should equal(url)
     }
 
-  def uploadDocument(file: String): Unit =
-    if (file != "")
+  def uploadDocument(file: String): Unit = {
+    driver.setFileDetector(new LocalFileDetector)
+    if (file != "") {
       enterText("file", System.getProperty("user.dir") + "/src/test/resources/files/" + file)
+    }
+  }
 
-  def uploadDocument(docNumber: Int, file: String): Unit =
-    if (file != "")
+  def uploadDocument(docNumber: Int, file: String): Unit = {
+    driver.setFileDetector(new LocalFileDetector)
+    if (file != ""){
       enterText("file-" + docNumber, System.getProperty("user.dir") + "/src/test/resources/files/" + file)
+  }
+}
 
   def continuouslyClickContinue(): Unit = {
     waitForPageToLoad()
@@ -106,7 +113,7 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
   }
 
   def waitForPageToLoad(): lang.Boolean =
-    fluentWait.until(ExpectedConditions.textToBe(By.cssSelector(".multi-file-upload__uploaded-tag"), "UPLOADED"))
+    fluentWait.until(ExpectedConditions.textToBe(By.cssSelector(".multi-file-upload__uploaded-tag"), "Uploaded"))
 
   def clickContinueButton(): Unit = click on cssSelector(".govuk-button")
 
