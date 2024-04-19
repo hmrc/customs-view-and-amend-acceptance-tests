@@ -96,7 +96,7 @@ Feature: Search for claims using claim number and MRN
     Then I should see the heading "Claim reference NDRC-21"
     And I should see the following static text
       | Claim details: This claim requires additional information or documentation.                                                  |
-      | Check your correspondence for details of missing documents and any requests for additional information from your caseworker. |
+      | Check the inbox of Claimant email address for missing documents and any requests for more information from your caseworker. |
       | If your claim was submitted online, upload your supporting documents.                                                        |
       | Valid file formats: JPG, PNG, PDF.                                                                                           |
       | Upload a file                                                                                                                |
