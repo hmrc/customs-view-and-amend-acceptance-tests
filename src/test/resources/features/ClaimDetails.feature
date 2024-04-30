@@ -47,7 +47,7 @@ Feature: View claim details page
     And I should see the following static text
       | Claim details: This claim has been closed |
     And I should see the following claim details
-      | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type                            | Claim decision | Claim submitted date | Claim removal date | Claim amount requested | Claimant‘s name | Claimant‘s email address |
+      | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type                            | Claim decision | Claim submitted date | Claim decision date | Claim amount requested | Claimant‘s name | Claimant‘s email address |
       | MRN23014 | KWMREF1 | GB98745632101          | Overpayment (C285),Single declaration | Approved       | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | Claimant email address   |
 
   Scenario Outline: Navigation back to claims list page

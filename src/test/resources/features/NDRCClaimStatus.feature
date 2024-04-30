@@ -113,7 +113,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | <claim ref>     | MRN23014 | Overpayment or rejected goods | 1 May 2021       | <claim decision> |
     When I click on '<claim ref>'
     Then I should see the following claim details
-      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim decision   | First MRN | Claim submitted date | Claim removal date | Claim amount requested | Claimant‘s name | Claimant‘s email address | Other MRNs included in this claim                                                 |
+      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim decision   | First MRN | Claim submitted date | Claim decision date | Claim amount requested | Claimant‘s name | Claimant‘s email address | Other MRNs included in this claim                                                 |
       | KWMREF1 | GB98745632101          | <claim type> | <claim decision> | MRN23014  | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
     Examples:
@@ -133,13 +133,13 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | <claim ref2>    | MRN23014 | Overpayment or rejected goods | 1 May 2021       | <claim decision> |
     When I click on '<claim ref1>'
     Then I should see the following claim details
-      | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim decision   | Claim submitted date | Claim removal date | Claim amount requested | Claimant‘s name | Claimant‘s email address |
+      | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim decision   | Claim submitted date | Claim decision date | Claim amount requested | Claimant‘s name | Claimant‘s email address |
       | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | <claim decision> | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | Claimant email address   |
     When I click on back link to previous page
     Then I should see the heading "Claims closed"
     When I click on '<claim ref2>'
     Then I should see the following claim details
-      | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim decision   | Claim submitted date | Claim removal date | Claim amount requested | Claimant‘s name | Claimant‘s email address |
+      | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim decision   | Claim submitted date | Claim decision date | Claim amount requested | Claimant‘s name | Claimant‘s email address |
       | MRN23014 | KWMREF1 | XI98745632102          | <claim type> | <claim decision> | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | Claimant email address   |
 
     Examples:
