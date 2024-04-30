@@ -11,7 +11,7 @@ Feature: XI EORI Claims
     Then I should see the heading "Claims in progress"
     And the page title should be "Claims in progress - Claim back import duty and VAT - GOV.UK"
     And I should see the following claims
-      | Claim reference | MRN      | Type of claim                 | Claim start date |
+      | Claim reference | MRN      | Type of claim                 | Claim submitted date |
       | NDRC-1002       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
       | NDRC-1502       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
 
@@ -24,7 +24,7 @@ Feature: XI EORI Claims
     Then I should see the heading "Claims needing more information"
     And the page title should be "Claims needing more information - Claim back import duty and VAT - GOV.UK"
     And I should see the following claims
-      | Claim reference | MRN      | Type of claim                 | Claim start date |
+      | Claim reference | MRN      | Type of claim                 | Claim submitted date |
       | NDRC-1004       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
       | NDRC-1504       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
 
