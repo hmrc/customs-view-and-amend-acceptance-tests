@@ -9,7 +9,7 @@ Feature: Display claims list
     Then I should see the heading "Claims in progress"
     And the page title should be "Claims in progress - Claim back import duty and VAT - GOV.UK"
     And I should see the following claims
-      | Claim reference | MRN      | Type of claim                 | Claim start date |
+      | Claim reference | MRN      | Type of claim                 | Claim submitted date |
       | NDRC-1001       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
 
   Scenario: Verify content on pending claims list page
@@ -20,7 +20,7 @@ Feature: Display claims list
     Then I should see the heading "Claims needing more information"
     And the page title should be "Claims needing more information - Claim back import duty and VAT - GOV.UK"
     And I should see the following claims
-      | Claim reference | MRN      | Type of claim                 | Claim start date |
+      | Claim reference | MRN      | Type of claim                 | Claim submitted date |
       | NDRC-1004       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
       | NDRC-1504       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
 
@@ -31,9 +31,9 @@ Feature: Display claims list
     Then I should see the heading "Claims closed"
     And the page title should be "Claims closed - Claim back import duty and VAT - GOV.UK"
     And I should see the following static text
-      | Closed claims have been approved or rejected by HMRC or withdrawn, and will be removed from this list after 31 days. |
+      | Closed claims have been approved or rejected by HMRC or withdrawn, and will be removed from this list after 30 days. |
     And I should see the following claims
-      | Claim reference | MRN      | Type of claim                 | Claim close date | Claim decision |
+      | Claim reference | MRN      | Type of claim                 | Claim removal date | Claim decision |
       | NDRC-1005       | MRN23014 | Overpayment or rejected goods | 1 May 2021       | Withdrawn      |
 
   Scenario Outline: Navigation back to view and amend home page
