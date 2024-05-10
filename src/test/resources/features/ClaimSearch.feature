@@ -99,7 +99,6 @@ Feature: Search for claims using claim number and MRN
       | Check the inbox of Claimant email address for missing documents and any requests for more information from your caseworker. |
       | If your claim was submitted online, upload your supporting documents.                                                        |
       | Valid file formats: JPG, PNG, PDF.                                                                                           |
-      | Upload a file                                                                                                                |
       | If your claim was submitted manually, you will need to send your supporting documents by post.                               |
     And I should see the following claim details
       | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type                                     | Claim status | First MRN | Claim submitted date | Claim amount requested | Claimant‘s name | Claimant‘s email address | Other MRNs included in this claim                                                 |
