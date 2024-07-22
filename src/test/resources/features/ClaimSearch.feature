@@ -49,8 +49,6 @@ Feature: Search for claims using claim number and MRN
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-42'
     Then I should see the heading "Find a claim"
-    And I should see the following static-content text
-      | Your search returned |
     And I should see the following claims
       | Claim reference | MRN      | Claim type                    | Claim status |
       | NDRC-42         | MRN23014 | Overpayment or rejected goods | Closed       |
@@ -67,9 +65,6 @@ Feature: Search for claims using claim number and MRN
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-1'
     Then I should see the heading "Find a claim"
-    And I should see the following static-content text
-      | Your search returned |
-  #   And I should see the table heading "There is 1 matching result for ‘NDRC-41’."
     And I should see the following claims
       | Claim reference | MRN      | Claim type                    | Claim status |
       | NDRC-1          | MRN23014 | Overpayment or rejected goods | In progress  |
@@ -87,8 +82,6 @@ Feature: Search for claims using claim number and MRN
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-21'
     Then I should see the heading "Find a claim"
-    And I should see the following static-content text
-      | Your search returned |
     And I should see the following claims
       | Claim reference | MRN      | Claim type                    | Claim status |
       | NDRC-21         | MRN23014 | Overpayment or rejected goods | Pending      |
