@@ -41,7 +41,7 @@ Feature: Search for claims using claim number and MRN
     And I navigate to the Find a claim page
     Then I should see the back link to previous page
     When I click on back link to previous page
-    Then the page title should be "Claims summary - Claim back import duty and VAT - GOV.UK"
+    Then the page title should be "Claim dashboard - Claim back import duty and VAT - GOV.UK"
 
   @e2e
   Scenario: Search closed claims using claim number
