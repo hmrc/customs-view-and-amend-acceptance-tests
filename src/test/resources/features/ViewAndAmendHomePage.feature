@@ -10,10 +10,10 @@ Feature: View customs view and amend home page details
   Scenario: Verify content on view and amend home page
     Given I am signed in as a pagination user
     When I navigate to the View and amend home page
-    Then I should see the heading "Claims summary"
+    Then I should see the heading "Claim dashboard"
     And the page title should be "Claim dashboard - Claim back import duty and VAT - GOV.UK"
     And I should see the following notification bar links
-      | Claims summary    |
+      | Claim dashboard    |
       | Find a claim      |
       | Start a new claim |
     And I should see the eori details Tony Stark - GB744638982001
