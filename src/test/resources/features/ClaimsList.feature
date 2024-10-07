@@ -42,7 +42,7 @@ Feature: Display claims list
     And I click on '<claims status>'
     Then I should see the back link to previous page
     When I click on back link to previous page
-    Then the page title should be "Claims summary - Claim back import duty and VAT - GOV.UK"
+    Then the page title should be "Claim dashboard - Claim back import duty and VAT - GOV.UK"
     Examples:
       | claims status                        |
       | View claims in progress              |

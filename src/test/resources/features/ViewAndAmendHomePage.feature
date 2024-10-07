@@ -11,7 +11,7 @@ Feature: View customs view and amend home page details
     Given I am signed in as a pagination user
     When I navigate to the View and amend home page
     Then I should see the heading "Claims summary"
-    And the page title should be "Claims summary - Claim back import duty and VAT - GOV.UK"
+    And the page title should be "Claim dashboard - Claim back import duty and VAT - GOV.UK"
     And I should see the following notification bar links
       | Claims summary    |
       | Find a claim      |
@@ -29,7 +29,7 @@ Feature: View customs view and amend home page details
   Scenario: Display no claims to view message
     Given I am signed in as a noClaims user
     When I navigate to the View and amend home page
-    Then I should see the heading "Claims summary"
+    Then I should see the heading "Claim dashboard"
     And I should see the following static text
       | You have no claims to view.                          |
       | It can take up to 24 hours for new claims to appear. |
