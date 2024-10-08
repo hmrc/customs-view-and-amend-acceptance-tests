@@ -68,5 +68,5 @@ Feature: View claim details page
     And I navigate to the View and amend home page
     And I click on 'View closed claims'
     And I click on 'NDRC-41'
-    When I click on 'Claims summary'
+    When I click on 'Claim dashboard'
     Then the page title should be "Claim dashboard - Claim back import duty and VAT - GOV.UK"
