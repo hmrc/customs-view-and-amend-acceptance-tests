@@ -21,7 +21,7 @@ import org.openqa.selenium.By
 object ClaimSearchPage extends CustomsFinancialsWebPage {
   override lazy val url = baseUrl + "/claim-back-import-duty-vat/claims-status/find-a-claim"
 
-  def hintText = webDriver.findElement(By.id("subject-hint")).getText.trim
+  def hintText = webDriver.findElement(By.id("search-hint")).getText.trim
 
   def labelText = webDriver.findElement(By.cssSelector("#main-content > form > label")).getText.trim
 
