@@ -1,4 +1,4 @@
-@acceptance @wip
+@acceptance
 Feature: Search for claims using claim number and MRN
 
   Scenario: Verify the content claims search page

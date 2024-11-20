@@ -25,7 +25,7 @@ object ChooseFileTypePage extends BasePage {
   override val title       = "Add supporting documents to your claim"
 
   override def expectedPageErrorTitle: Option[String] = Some(
-    "Add supporting documents to your claim - Claim back import duty and VAT - GOV.UK"
+    "Error: Add supporting documents to your claim - Claim back import duty and VAT - GOV.UK"
   )
 
   override def expectedPageTitle: Option[String] = Some(
