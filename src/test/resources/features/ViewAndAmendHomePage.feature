@@ -37,9 +37,9 @@ Feature: View customs view and amend home page details
   Scenario: Display error page when hods returned an error
     Given I am signed in as a TPI01error user
     When I navigate to the View and amend home page
-    Then I should see the heading "Sorry, we’re experiencing technical difficulties"
+    Then I should see the heading "Sorry, there is a problem with the service"
     And I should see the following static text
-      | Please try again in a few minutes. |
+      | Try again later. |
 
   Scenario: View Deskpro link on homepage
     Given I am signed in as a pagination user
