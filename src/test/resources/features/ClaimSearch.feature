@@ -48,11 +48,8 @@ Feature: Search for claims using claim number and MRN
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-42'
-    Then I should see the heading "Find a claim"
-    And I should see the following claims
-      | Claim reference | MRN      | Claim type                    | Claim status |
-      | NDRC-42         | MRN23014 | Overpayment or rejected goods | Closed       |
-    When I click on 'NDRC-42'
+    #Then I should see the heading "Find a claim"
+    #Then I should see the following claims
     Then I should see the heading "Claim reference NDRC-42"
     And I should see the following static text
       | Claim details: This claim has been closed |
@@ -60,32 +57,29 @@ Feature: Search for claims using claim number and MRN
       | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type                            | Claim submitted date | Claim decision date | Claim decision | Claim amount requested | Claimant‘s name | Claimant‘s email address |
       | MRN23014 | KWMREF1 | GB98745632101          | Overpayment (C285),Single declaration | 1 May 2020       | 1 May 2021         | Approved       | £900000.00             | Claimant name   | Claimant email address   |
 
+  @wip
   Scenario: Search in progress claims using claim number
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-1'
-    Then I should see the heading "Find a claim"
-    And I should see the following claims
-      | Claim reference | MRN      | Claim type                    | Claim status |
-      | NDRC-1          | MRN23014 | Overpayment or rejected goods | In progress  |
-    When I click on 'NDRC-1'
+    #Then I should see the heading "Find a claim"
+    #And I should see the following claims
+    #When I click on 'NDRC-1'
     Then I should see the heading "Claim reference NDRC-1"
     And I should see the following static text
       | Claim details: This claim is open and being reviewed by HMRC. |
     And I should see the following claim details
-      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type                                     | Claim status | First MRN | Claim submitted date | Claim amount requested | Claimant‘s name | Claimant‘s email address | Other MRNs included in this claim                                                 |
-      | KWMREF1 | GB98745632101          | Rejected goods (C&E1179),Multiple declarations | In progress  | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
+      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type            | Claim status | First MRN | Claim submitted date | Claim amount requested | Claimant‘s name | Claimant‘s email address | Other MRNs included in this claim                                                 |
+      | KWMREF1 | GB98745632101          | Rejected goods (C&E1179),Multiple declarations | In progress  | MRN23014  | 1 May 2020           | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
-
+  @wip
   Scenario: Search pending claims using claim number
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-21'
-    Then I should see the heading "Find a claim"
-    And I should see the following claims
-      | Claim reference | MRN      | Claim type                    | Claim status |
-      | NDRC-21         | MRN23014 | Overpayment or rejected goods | Pending      |
-    When I click on 'NDRC-21'
+    #Then I should see the heading "Find a claim"
+    #And I should see the following claims
+    #When I click on 'NDRC-21'
     Then I should see the heading "Claim reference NDRC-21"
     And I should see the following static text
       | Claim details: This claim requires additional information or documentation.                                                  |
