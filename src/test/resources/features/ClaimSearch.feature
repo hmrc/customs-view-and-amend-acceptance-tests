@@ -55,9 +55,9 @@ Feature: Search for claims using claim number and MRN
       | Claim details: This claim has been closed |
     And I should see the following claim details
       | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type                            | Claim submitted date | Claim decision date | Claim decision | Claim amount requested | Claimant‘s name | Claimant‘s email address |
-      | MRN23014 | KWMREF1 | GB98745632101          | Overpayment (C285),Single declaration | 1 May 2020       | 1 May 2021         | Approved       | £900000.00             | Claimant name   | Claimant email address   |
+      | MRN23014 | KWMREF1 | GB98765432101          | Overpayment (C285),Single declaration | 1 May 2020       | 1 May 2021         | Approved       | £900000.00             | Claimant name   | Claimant email address   |
 
-  @wip
+
   Scenario: Search in progress claims using claim number
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
@@ -70,9 +70,9 @@ Feature: Search for claims using claim number and MRN
       | Claim details: This claim is open and being reviewed by HMRC. |
     And I should see the following claim details
       | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type            | Claim status | First MRN | Claim submitted date | Claim amount requested | Claimant‘s name | Claimant‘s email address | Other MRNs included in this claim                                                 |
-      | KWMREF1 | GB98745632101          | Rejected goods (C&E1179),Multiple declarations | In progress  | MRN23014  | 1 May 2020           | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
+      | KWMREF1 | GB98765432101          | Rejected goods (C&E1179),Multiple declarations | In progress  | MRN23014  | 1 May 2020           | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
-  @wip
+
   Scenario: Search pending claims using claim number
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
@@ -89,4 +89,4 @@ Feature: Search for claims using claim number and MRN
       | If your claim was submitted manually, you will need to send your supporting documents by post.                               |
     And I should see the following claim details
       | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type                                     | Claim status | First MRN | Claim submitted date | Claim amount requested | Claimant‘s name | Claimant‘s email address | Other MRNs included in this claim                                                 |
-      | KWMREF1 | GB98745632101          | Rejected goods (C&E1179),Multiple declarations | Pending      | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
+      | KWMREF1 | GB98765432101          | Rejected goods (C&E1179),Multiple declarations | Pending      | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
