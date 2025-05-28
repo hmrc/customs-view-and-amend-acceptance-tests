@@ -7,7 +7,7 @@ Feature: Search for claims using claim number and MRN
     When I click on 'Find a claim'
     Then I should see the heading "Find a claim"
     And I should see the following hint text
-      | You can search using a claim reference number or the first movement reference number (MRN) |
+      | Enter a claim reference number or the first Movement Reference Number (MRN) in your claim |
 
   Scenario: Verify no matching results page for claim number search
     Given I am signed in as a pagination user

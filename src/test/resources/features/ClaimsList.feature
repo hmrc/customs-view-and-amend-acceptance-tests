@@ -28,10 +28,10 @@ Feature: Display claims list
     Given I am signed in as a ResolvedWithdrawnClaim user
     And I navigate to the View and amend home page
     When I click on 'View closed claims'
-    Then I should see the heading "Claims closed"
-    And the page title should be "Claims closed - Claim back import duty and VAT - GOV.UK"
+    Then I should see the heading "Closed claims"
+    And the page title should be "Closed claims - Claim back import duty and VAT - GOV.UK"
     And I should see the following static text
-      | Closed claims have been approved or rejected by HMRC or withdrawn, and will be removed from this list after 30 days. |
+      | A claim is closed once HMRC has fully reviewed it, and approved or rejected it. If you withdraw your claim, it will also appear here. You'll see closed claims for 30 days. After that, they're removed from the list, but you can still find an older claim by searching with your claim reference number |
     And I should see the following claims
       | Claim reference | MRN      | Type of claim                 | Claim decision date | Claim decision |
       | NDRC-1005       | MRN23014 | Overpayment or rejected goods | 1 May 2021       | Withdrawn      |
