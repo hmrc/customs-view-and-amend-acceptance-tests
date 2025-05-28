@@ -2,6 +2,7 @@
 
 Feature: Display backend claims status to in progress, pending and closed categories
 
+
   Scenario Outline: Display in-progress status for multiple declarations claims
     Given I am signed in as a <user> user
     And I navigate to the View and amend home page
@@ -13,7 +14,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
     When I click on '<claim ref>'
     Then I should see the following claim details
       | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim status | First MRN | Claim submitted date | Claim amount requested | Claimant‘s name | Claimant‘s email address | Other MRNs included in this claim                                                 |
-      | KWMREF1 | GB98745632101          | <claim type> | In progress  | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
+      | KWMREF1 | GB98765432101          | <claim type> | In progress  | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
     Examples:
       | user                            | claim ref  | claim type                                     |
@@ -50,12 +51,12 @@ Feature: Display backend claims status to in progress, pending and closed catego
 
     Examples:
       | user                                 | claim ref1 | claim ref2 | claim type                            | EORI number1  | EORI number2  |
-      | openAnalysisClaim                    | NDRC-1002  | NDRC-1502  | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
-      | OpenReworkClaim                      | NDRC-1008  | NDRC-1508  | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
-      | PendingDecisionLetterClaim           | NDRC-10016 | NDRC-10516 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
-      | AnalysisReworkClaim                  | NDRC-10018 | NDRC-10518 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
-      | PendingComplianceRecommendationClaim | NDRC-10022 | NDRC-10522 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
-      | PendingComplianceCheckClaim          | NDRC-10024 | NDRC-10524 | Overpayment (C285),Single declaration | GB98745632101 | XI98745632102 |
+      | openAnalysisClaim                    | NDRC-1002  | NDRC-1502  | Overpayment (C285),Single declaration | GB98765432101 | XI98745632102 |
+      | OpenReworkClaim                      | NDRC-1008  | NDRC-1508  | Overpayment (C285),Single declaration | GB98765432101 | XI98745632102 |
+      | PendingDecisionLetterClaim           | NDRC-10016 | NDRC-10516 | Overpayment (C285),Single declaration | GB98765432101 | XI98745632102 |
+      | AnalysisReworkClaim                  | NDRC-10018 | NDRC-10518 | Overpayment (C285),Single declaration | GB98765432101 | XI98745632102 |
+      | PendingComplianceRecommendationClaim | NDRC-10022 | NDRC-10522 | Overpayment (C285),Single declaration | GB98765432101 | XI98745632102 |
+      | PendingComplianceCheckClaim          | NDRC-10024 | NDRC-10524 | Overpayment (C285),Single declaration | GB98765432101 | XI98745632102 |
 
 
   Scenario Outline: Display pending status for multiple declarations claims
@@ -70,7 +71,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
     Then I should see the following claim details
 
       | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim status | First MRN | Claim submitted date | Claim amount requested | Claimant‘s name | Claimant‘s email address | Other MRNs included in this claim                                                 |
-      | KWMREF1 | GB98745632101          | <claim type> | Pending      | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
+      | KWMREF1 | GB98765432101          | <claim type> | Pending      | MRN23014  | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
 
     Examples:
@@ -91,7 +92,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
     When I click on '<claim ref1>'
     Then I should see the following claim details
       | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim status | Claim submitted date | Claim amount requested | Claimant‘s name | Claimant‘s email address |
-      | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | Pending      | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   |
+      | MRN23014 | KWMREF1 | GB98765432101       | <claim type> | Pending      | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   |
     When I click on back link to previous page
     Then I should see the heading "Claims needing more information"
     When I click on '<claim ref2>'
@@ -114,7 +115,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
     When I click on '<claim ref>'
     Then I should see the following claim details
       | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim decision   | First MRN | Claim submitted date | Claim decision date | Claim amount requested | Claimant‘s name | Claimant‘s email address | Other MRNs included in this claim                                                 |
-      | KWMREF1 | GB98745632101          | <claim type> | <claim decision> | MRN23014  | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
+      | KWMREF1 | GB98765432101          | <claim type> | <claim decision> | MRN23014  | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | Claimant email address   | MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010 |
 
     Examples:
       | user                        | claim ref  | claim type                                     | claim decision  |
@@ -134,7 +135,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
     When I click on '<claim ref1>'
     Then I should see the following claim details
       | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim decision   | Claim submitted date | Claim decision date | Claim amount requested | Claimant‘s name | Claimant‘s email address |
-      | MRN23014 | KWMREF1 | GB98745632101          | <claim type> | <claim decision> | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | Claimant email address   |
+      | MRN23014 | KWMREF1 | GB98765432101     | <claim type> | <claim decision> | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | Claimant email address   |
     When I click on back link to previous page
     Then I should see the heading "Claims closed"
     When I click on '<claim ref2>'
