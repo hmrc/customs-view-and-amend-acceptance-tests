@@ -104,11 +104,12 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | user                | claim ref1 | claim ref2 | claim type                            |
       | PendingQueriedClaim | NDRC-1004  | NDRC-1504  | Overpayment (C285),Single declaration |
 
+
   Scenario Outline: Display closed status for multiple declarations claims
     Given I am signed in as a <user> user
     And I navigate to the View and amend home page
     When I click on 'View closed claims'
-    Then I should see the heading "Claims closed"
+    Then I should see the heading "Closed claims"
     And I should see the following claims
       | Claim reference | MRN      | Type of claim                 | Claim decision date | Claim decision   |
       | <claim ref>     | MRN23014 | Overpayment or rejected goods | 1 May 2021       | <claim decision> |
@@ -127,7 +128,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
     Given I am signed in as a <user> user
     And I navigate to the View and amend home page
     When I click on 'View closed claims'
-    Then I should see the heading "Claims closed"
+    Then I should see the heading "Closed claims"
     And I should see the following claims
       | Claim reference | MRN      | Type of claim                 | Claim decision date | Claim decision   |
       | <claim ref1>    | MRN23014 | Overpayment or rejected goods | 1 May 2021       | <claim decision> |
@@ -137,7 +138,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim decision   | Claim submitted date | Claim decision date | Claim amount requested | Claimant‘s name | Claimant‘s email address |
       | MRN23014 | KWMREF1 | GB98765432101     | <claim type> | <claim decision> | 1 May 2020       | 1 May 2021         | £900000.00             | Claimant name   | Claimant email address   |
     When I click on back link to previous page
-    Then I should see the heading "Claims closed"
+    Then I should see the heading "Closed claims"
     When I click on '<claim ref2>'
     Then I should see the following claim details
       | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type   | Claim decision   | Claim submitted date | Claim decision date | Claim amount requested | Claimant‘s name | Claimant‘s email address |

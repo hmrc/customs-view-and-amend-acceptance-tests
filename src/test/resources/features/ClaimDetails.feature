@@ -61,7 +61,7 @@ Feature: View claim details page
       | claims status                        | claim number | page title                                                                              |
       | View claims needing more information | NDRC-21      | Claims needing more information (page 1 of 2) - Claim back import duty and VAT - GOV.UK |
       | View claims in progress              | NDRC-1       | Claims in progress (page 1 of 2) - Claim back import duty and VAT - GOV.UK              |
-      | View closed claims                   | NDRC-41      | Claims closed (page 1 of 2) - Claim back import duty and VAT - GOV.UK                   |
+      | View closed claims                   | NDRC-41      | Closed claims (page 1 of 2) - Claim back import duty and VAT - GOV.UK                   |
 
   Scenario: Navigate to home page using Claims summary link
     Given I am signed in as a pagination user
