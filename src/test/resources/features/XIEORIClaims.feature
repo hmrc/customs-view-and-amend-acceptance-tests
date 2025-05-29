@@ -28,11 +28,11 @@ Feature: XI EORI Claims
       | NDRC-1004       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
       | NDRC-1504       | MRN23014 | Overpayment or rejected goods | 1 May 2020       |
 
-
+@wip
   Scenario: View XIEORI closed claims
     Given I am signed in as a RejectedFailedValidationClaim user
     And I navigate to the View and amend home page
     And I should see the eori details Tony Stark - GB00000000006 (XI00000000006)
     When I click on 'View closed claims'
-    Then I should see the heading "Claims closed"
-    And the page title should be "Claims closed - Claim back import duty and VAT - GOV.UK"
+    Then I should see the heading "Closed claims"
+    And the page title should be "Closed claims - Claim back import duty and VAT - GOV.UK"

@@ -104,7 +104,7 @@ Feature: Display backend claims status to in progress, pending and closed catego
       | user                | claim ref1 | claim ref2 | claim type                            |
       | PendingQueriedClaim | NDRC-1004  | NDRC-1504  | Overpayment (C285),Single declaration |
 
-  @wip
+
   Scenario Outline: Display closed status for multiple declarations claims
     Given I am signed in as a <user> user
     And I navigate to the View and amend home page
