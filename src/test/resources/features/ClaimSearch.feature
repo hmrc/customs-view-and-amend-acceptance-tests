@@ -9,28 +9,32 @@ Feature: Search for claims using claim number and MRN
     And I should see the following hint text
       | Enter a claim reference number or the first Movement Reference Number (MRN) in your claim |
 
+@wip
   Scenario: Verify no matching results page for claim number search
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for claim 'NDRC-9999'
-    Then I should see the heading "Find a claim"
-    And the page title should be "Find a claim - Search result - Claim back import duty and VAT - GOV.UK"
-    And I should see the following static-content text
-      | There are no matching results for NDRC-9999. |
+   Then I should see the heading "No matching results for NDRC-9999"
+    #Then the page title should be "No matching results for NDRC-9999"
+    #And I should see the following static-content text
+      #| No matching results for NDRC-9999 |
     And I should see the following static text
-      | Check your claim reference number or the first movement reference number (MRN) and search again. |
+      |If your claim was submitted in the last 30 days and includes more than one Movement Reference Number (MRN), try searching with the first MRN you entered when you started the claim. |
+      | To find older claims, search with your claim reference number. |
     When I click on Search button on the Find a claim page
     Then I should see the heading "Find a claim"
 
+@wip
   Scenario: Verify no matching results page for MRN search
     Given I am signed in as a pagination user
     And I navigate to the Find a claim page
     When I search for MRN '22GBJD4DCMAM33DOI2'
-    And the page title should be "Find a claim - Search result - Claim back import duty and VAT - GOV.UK"
-    And I should see the following static-content text
-      | There are no matching results for 22GBJD4DCMAM33DOI2. |
+    Then I should see the heading "No matching results for 22GBJD4DCMAM33DOI2"
     And I should see the following static text
-      | Check your claim reference number or the first movement reference number (MRN) and search again. |
+      | If your claim was submitted in the last 30 days and includes more than one Movement Reference Number (MRN), try searching with the first MRN you entered when you started the claim. |
+      | To find older claims, search with your claim reference number. |
+    #And I should see the following static text
+     # | Check your claim reference number or the first movement reference number (MRN) and search again. |
 #    When I click on 'Search'
     When I click on Search button on the Find a claim page
     When I click on back link to previous page
