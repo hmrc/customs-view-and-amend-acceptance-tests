@@ -14,7 +14,7 @@ Feature: View customs view and amend home page details
     And the page title should be "Claim dashboard - Claim back import duty and VAT - GOV.UK"
     And I should see the following notification bar links
       | Claim dashboard    |
-      | Find a claim      |
+      | Search for a claim      |
       | Start a new claim |
     And I should see the eori details Tony Stark - GB744638982001
 
