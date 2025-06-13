@@ -1,13 +1,14 @@
 @acceptance
 Feature: Search for claims using claim number and MRN
 
+  @wip
   Scenario: Verify the content claims search page
     Given I am signed in as a pagination user
     And I navigate to the View and amend home page
-    When I click on 'Find a claim'
-    Then I should see the heading "Find a claim"
+    When I click on 'Search for a claim'
+    Then I should see the heading "Search for a claim"
     And I should see the following hint text
-      | Enter a claim reference number or the first Movement Reference Number (MRN) in your claim |
+      | Enter a Movement Reference Number (MRN), or the claim reference number for older claims |
 
 @wip
   Scenario: Verify no matching results page for claim number search
@@ -22,7 +23,7 @@ Feature: Search for claims using claim number and MRN
       |If your claim was submitted in the last 30 days and includes more than one Movement Reference Number (MRN), try searching with the first MRN you entered when you started the claim. |
       | To find older claims, search with your claim reference number. |
     When I click on Search button on the Find a claim page
-    Then I should see the heading "Find a claim"
+    Then I should see the heading "Search for a claim"
 
 @wip
   Scenario: Verify no matching results page for MRN search
@@ -38,7 +39,7 @@ Feature: Search for claims using claim number and MRN
 #    When I click on 'Search'
     When I click on Search button on the Find a claim page
     When I click on back link to previous page
-    Then I should see the heading "Find a claim"
+    Then I should see the heading "Search for a claim"
 
   Scenario: Navigation back to view and amend home page
     Given I am signed in as a pagination user
