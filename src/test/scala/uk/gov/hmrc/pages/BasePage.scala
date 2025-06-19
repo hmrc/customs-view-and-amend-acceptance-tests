@@ -88,14 +88,14 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
     }
 
   def uploadDocument(file: String): Unit = {
-    driver.setFileDetector(new LocalFileDetector)
+    //driver.setFileDetector(new LocalFileDetector)
     if (file != "") {
       enterText("file", System.getProperty("user.dir") + "/src/test/resources/files/" + file)
     }
   }
 
   def uploadDocument(docNumber: Int, file: String): Unit = {
-    driver.setFileDetector(new LocalFileDetector)
+    //driver.setFileDetector(new LocalFileDetector)
     if (file != ""){
       enterText("file-" + docNumber, System.getProperty("user.dir") + "/src/test/resources/files/" + file)
   }

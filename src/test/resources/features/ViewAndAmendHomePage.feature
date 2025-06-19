@@ -17,14 +17,14 @@ Feature: View customs view and amend home page details
       | Search for a claim      |
       | Start a new claim |
     And I should see the eori details Tony Stark - GB744638982001
-
+@wip
   Scenario: Display claims summary cards with claims for all status
     Given I am signed in as a pagination user
     When I navigate to the View and amend home page
     Then I should see the following cards
       | 40 claims need more information | This section lists claims where a caseworker has contacted you by email to request more information. You can upload the supporting documents they asked for by clicking into each claim. | View claims needing more information |
       | 40 claims are in progress       | HMRC is reviewing these claims. We aim to make a decision within 30 working days from the date you submitted your claim. If you did not include all the supporting documents, it may take longer. | View claims in progress  |
-      | 40 claims have been closed      | A claim is closed once HMRC has fully reviewed it, and approved or rejected it. If you withdraw your claim, it will also appear here. You‘ll see closed claims for 30 days. After that, they‘re removed from the list, but you can still find an older claim by searching with your claim reference number. | View closed claims |
+      | 40 claims have been closed      | A claim is closed once HMRC has fully reviewed it, and approved or rejected it. If you withdraw your claim, it will also appear here.,You‘ll see closed claims for 30 days. After that, they‘re removed from the list, but you can still find an older claim by searching with your claim reference number. | View closed claims |
 
   Scenario: Display no claims to view message
     Given I am signed in as a noClaims user

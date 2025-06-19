@@ -1,6 +1,7 @@
 @acceptance
 Feature: Pending claim submission by adding additional document
 
+
   Scenario: Pending claim submission by adding commercial invoice document
     Given I am signed in as a pagination user
     And I navigate to the View and amend home page
@@ -27,6 +28,7 @@ Feature: Pending claim submission by adding additional document
     And I select radio button "No" on "Choose Files Page"
     And I click continue if I'm on "Choose Files Page"
     Then I am presented with the "Claim Submitted Page"
+
 
   Scenario: Pending claim submission by selecting multiple files
     Given I am signed in as a pagination user
