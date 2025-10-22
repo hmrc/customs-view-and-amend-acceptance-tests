@@ -18,11 +18,11 @@ package uk.gov.hmrc.pages
 
 import org.openqa.selenium.By
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 object ViewAndAmendHomePage extends CustomsFinancialsWebPage {
 
-  override lazy val url = baseUrl + "/claim-back-import-duty-vat/claims-status"
+  override lazy val url: String = baseUrl + "/claim-back-import-duty-vat/claims-status"
 
   def notificationBarLinks: List[String] = webDriver
     .findElement(By.className("hmrc-account-menu"))
@@ -32,13 +32,13 @@ object ViewAndAmendHomePage extends CustomsFinancialsWebPage {
     .toList
 
   def eoriCompany: String = webDriver.findElement(By.cssSelector("#main-content > span")).getText.trim
-  def cardDetails = webDriver
+  def cardDetails: List[List[String]] = webDriver
     .findElements(By.cssSelector(".custom-card"))
     .asScala
     .map { card =>
       val heading = card.findElement(By.tagName("h2")).getText.trim
       val text    = card.findElements(By.tagName("p")).asScala.map(_.getText).toList.mkString(",").trim
-      val link    = card.findElements(By.tagName("a")).asScala.headOption.map(_.getText.trim).getOrElse(null)
+      val link    = card.findElements(By.tagName("a")).asScala.headOption.map(_.getText.trim).orNull
       List(heading, text, link)
     }
     .toList

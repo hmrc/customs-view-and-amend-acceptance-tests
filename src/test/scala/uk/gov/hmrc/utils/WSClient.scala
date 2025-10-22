@@ -17,7 +17,6 @@
 package uk.gov.hmrc.utils
 
 import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
 import com.typesafe.config.ConfigFactory
 import play.api.libs.json.JsValue
 import play.api.libs.ws.JsonBodyWritables._
@@ -31,7 +30,7 @@ object WSClient {
 
   import scala.concurrent.ExecutionContext.Implicits.global
   private implicit val system: ActorSystem = ActorSystem()
-  private implicit val mat: ActorMaterializer = ActorMaterializer()
+ // private implicit val mat: ActorMaterializer = ActorMaterializer()
   private val wsClient = StandaloneAhcWSClient(config = AhcWSClientConfigFactory.forConfig(ConfigFactory.load()))
 
 
@@ -42,7 +41,7 @@ object WSClient {
     request(url).addHttpHeaders(headers:_*).withCookies(cookie.toSeq:_*).get()
   }
 
-  def httpPost(url: String, requestBody: JsValue, headers: (String, String)*) = {
+  def httpPost(url: String, requestBody: JsValue, headers: (String, String)*): Future[StandaloneWSRequest#Self#Response] = {
     def request(url: String): StandaloneWSRequest = {
       wsClient.url(url)
     }
@@ -59,7 +58,8 @@ case class DownloadedFile(data: Array[Byte], mimeType: String, disposition: Stri
   def sizeDescription: String = data.length match {
     case kb if 1000 until 1000000 contains kb => f"${kb.toFloat / 1000}%1.1f kB"
     case mb if mb >= 1000000 => f"${mb.toFloat / 1000000}%1.1f MB"
-    case _ => data.length + " bytes"
+    //case _ => data.length + " bytes"
+    case _ => s"${data.length} bytes"
   }
 }
 

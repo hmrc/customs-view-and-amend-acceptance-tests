@@ -17,8 +17,7 @@
 package uk.gov.hmrc.pages
 
 import org.openqa.selenium.By
-
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 object ClaimDetailsPage extends CustomsFinancialsWebPage {
 

@@ -22,7 +22,7 @@ import org.scalatest.exceptions.TestFailedException
 import uk.gov.hmrc.pages.BasePage
 
 import java.io.{File, FileNotFoundException}
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 object PageObjectFinder extends BasePage {
 
@@ -54,8 +54,6 @@ object PageObjectFinder extends BasePage {
   }
 
   implicit class DataTableConverters(dataTable: DataTable) {
-
-    import scala.collection.JavaConverters._
 
     def asScalaListOfStrings: List[String] = dataTable.cells().asScala.flatMap(_.asScala).toList
   }

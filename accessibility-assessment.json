@@ -1,0 +1,10 @@
+{
+  "exclusions": [
+    {
+      "path": "http://localhost:10110/upload-customs-documents",
+      "reason": "Design decision by GOV.UK team"
+    }
+
+
+  ]
+}

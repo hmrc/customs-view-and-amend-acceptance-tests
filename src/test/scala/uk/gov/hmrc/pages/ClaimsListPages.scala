@@ -18,33 +18,33 @@ package uk.gov.hmrc.pages
 
 import org.openqa.selenium.By
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 object ClaimsListPages extends CustomsFinancialsWebPage {
 
-  val inProgressClaimsPageUrl = baseUrl + "/claim-back-import-duty-vat/claims-status/claims-in-progress"
+  val inProgressClaimsPageUrl: String = baseUrl + "/claim-back-import-duty-vat/claims-status/claims-in-progress"
 
-  def tableCaption = webDriver.findElement(By.tagName("caption")).getText.trim
+  def tableCaption: String = webDriver.findElement(By.tagName("caption")).getText.trim
 
-  def claimsList = webDriver
+  def claimsList: List[List[String]] = webDriver
     .findElement(By.tagName("table"))
     .findElements(By.tagName("tr"))
     .asScala
     .map(_.findElements(By.xpath("td | th")).asScala.map(_.getText.trim).toList)
     .toList
 
-  def paginationBlockPresence = webDriver.findElements(By.id("pagination-label")).asScala.isEmpty
+  def paginationBlockPresence: Boolean = webDriver.findElements(By.id("pagination-label")).asScala.isEmpty
 
-  def paginationBlockContent(tag: String) = webDriver
+  def paginationBlockContent(tag: String): List[String] = webDriver
     .findElement(By.cssSelector(".govuk-pagination__list"))
     .findElements(By.tagName(tag))
     .asScala
     .map(_.getText.trim.split("\n").head)
     .toList
 
-  def paginationResultsText = webDriver.findElement(By.cssSelector(".govuk-pagination__results")).getText.trim
+  def paginationResultsText: String = webDriver.findElement(By.cssSelector(".govuk-pagination__results")).getText.trim
 
-  def clickOnPaginationLink(linkText: String) = webDriver
+  def clickOnPaginationLink(linkText: String): Unit = webDriver
     .findElement(By.cssSelector(".govuk-pagination__list"))
     .findElement(By.partialLinkText(linkText))
     .click()

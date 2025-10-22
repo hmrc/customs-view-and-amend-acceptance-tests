@@ -22,21 +22,17 @@ import org.openqa.selenium.support.ui.ExpectedCondition
 object CustomExpectedConditions {
 
 
-  def urlEndsWith(suffix: String)(implicit webDriver: WebDriver): ExpectedCondition[Boolean] = {
-    new ExpectedCondition[Boolean] {
-      override def apply(wd: WebDriver): Boolean = {
-        val u = wd.getCurrentUrl
-        u.endsWith(suffix)
-      }
+  def urlEndsWith(suffix: String): ExpectedCondition[Boolean] = {
+    (wd: WebDriver) => {
+      val u = wd.getCurrentUrl
+      u.endsWith(suffix)
     }
   }
 
-  def pageTitleIs(title: String)(implicit webDriver: WebDriver): ExpectedCondition[Boolean] = {
-    new ExpectedCondition[Boolean] {
-      override def apply(wd: WebDriver): Boolean = {
-        val u = wd.getTitle
-        u.equals(title)
-      }
+  def pageTitleIs(title: String): ExpectedCondition[Boolean] = {
+    (wd: WebDriver) => {
+      val u = wd.getTitle
+      u.equals(title)
     }
   }
 

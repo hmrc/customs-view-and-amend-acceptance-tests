@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.pages
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 import uk.gov.hmrc.utils.{Configuration, TestDataLoader}
 
 case class Enrolment(name: String, identifier: String, value: String, state: String)
@@ -28,8 +28,8 @@ trait AuthLoginStubPage extends WebPage {
 
   override lazy val url: String = s"${Configuration.settings.AUTH_LOGIN_STUB}/gg-sign-in"
 
-  implicit val enrolmentFormats = Json.format[Enrolment]
-  implicit val userFormats = Json.format[User]
+  implicit val enrolmentFormats: OFormat[Enrolment] = Json.format[Enrolment]
+  implicit val userFormats: OFormat[User] = Json.format[User]
 
   def loginAuth(userType:String, continueUrl: String, fixedEori: Option[String] = None): Unit = {
     val user = TestDataLoader.loadFromJson[User](s"user-$userType")

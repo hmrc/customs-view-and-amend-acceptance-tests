@@ -17,14 +17,14 @@
 package uk.gov.hmrc.pages
 
 import org.openqa.selenium.{By, WebDriver, WebElement}
-import org.scalatest.Assertions
+import org.scalatest.{Assertion, Assertions}
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.selenium.WebBrowser
 import play.api.libs.ws.{DefaultWSCookie, WSCookie}
 import uk.gov.hmrc.utils.{Configuration, StartUpTearDown}
 
-import java.util.NoSuchElementException
-import scala.collection.JavaConverters._
+import java.util
+import scala.jdk.CollectionConverters._
 
 
 trait WebPage extends WebBrowser with Assertions with Matchers with StartUpTearDown{
@@ -38,7 +38,7 @@ trait WebPage extends WebBrowser with Assertions with Matchers with StartUpTearD
     go to url
   }
 
-  def getCurrentUrl() = webDriver.getCurrentUrl
+  def getCurrentUrl: String = webDriver.getCurrentUrl
 
   def elementText(selector: String): String = {
     try {
@@ -56,7 +56,7 @@ trait WebPage extends WebBrowser with Assertions with Matchers with StartUpTearD
     }
   }
 
-  def elementsByCss(selector: String) = {
+  def elementsByCss(selector: String): util.List[WebElement] = {
     try {
       webDriver.findElements(By.className(selector))
     } catch {
@@ -64,7 +64,7 @@ trait WebPage extends WebBrowser with Assertions with Matchers with StartUpTearD
     }
   }
 
-  def elementsByPartialLinkText(element: WebElement, partialLinkText: String) = {
+  def elementsByPartialLinkText(element: WebElement, partialLinkText: String): util.List[WebElement] = {
     try {
       element.findElements(By.partialLinkText(partialLinkText))
     } catch {
@@ -76,10 +76,10 @@ trait WebPage extends WebBrowser with Assertions with Matchers with StartUpTearD
     webDriver.findElement(By.id(id))
   }
 
-  def getCookies() = webDriver.manage().getCookies.asScala
+  def getCookies: Set[WSCookie] = webDriver.manage().getCookies.asScala
     .map(cookie => DefaultWSCookie(cookie.getName, cookie.getValue).asInstanceOf[WSCookie]).toSet
 
-  def assertElementInPageWithText(element: String, exists: Boolean, expectedParagraphText: String) = {
+  def assertElementInPageWithText(element: String, exists: Boolean, expectedParagraphText: String): Assertion = {
     val allPageLinks = elementTextAll(element)
     if (exists) {
       allPageLinks should contain(expectedParagraphText)

@@ -21,7 +21,7 @@ import io.cucumber.datatable.DataTable
 package object stepdefs {
 
   implicit class DataTableConverters(dataTable: DataTable) {
-    import scala.collection.JavaConverters._
+    import scala.jdk.CollectionConverters._
 
     def asScalaListOfStrings: List[String] = dataTable.cells().asScala.flatMap(_.asScala).toList
 

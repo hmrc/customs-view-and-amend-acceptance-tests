@@ -17,13 +17,11 @@
 package uk.gov.hmrc.stepdefs
 
 import io.cucumber.datatable.DataTable
-import org.openqa.selenium.By
-import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
 import uk.gov.hmrc.pages.ClaimsListPages.claimsList
 import uk.gov.hmrc.pages.ViewAndAmendHomePage.{cardDetails, eoriCompany, notificationBarLinks}
 import uk.gov.hmrc.pages.{ClaimDetailsPage, ClaimSearchPage, ClaimsListPages, CustomsFinancialsWebPage}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class ViewAndAmendSteps extends CustomsFinancialsWebPage {
 
