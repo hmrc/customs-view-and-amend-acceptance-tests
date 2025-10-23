@@ -18,29 +18,29 @@ package uk.gov.hmrc.pages
 
 import org.openqa.selenium.{By, WebElement}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 object CommonPage extends CustomsFinancialsWebPage {
 
-  def continue(buttonName: String) = webDriver.findElements(By.tagName("button"))
+  def continue(buttonName: String): WebElement = webDriver.findElements(By.tagName("button"))
     .asScala.filter(_.getText == buttonName).head
 
   def getLinkUrl(linkText: String): String = webDriver.findElement(By.partialLinkText(linkText)).getAttribute("href")
 
   private def cookieBanner() = webDriver.findElement(By.cssSelector(".cbanner-govuk-cookie-banner"))
 
-  def cookieBannerText() = cookieBanner().getText.split("\n").toList
+  def cookieBannerText(): List[String] = cookieBanner().getText.split("\n").toList
 
-  def cookieBannerLinksButtonsText(tag: String) = cookieBanner().findElements(By.tagName(tag)).asScala
+  def cookieBannerLinksButtonsText(tag: String): List[String] = cookieBanner().findElements(By.tagName(tag)).asScala
     .map(_.getText.trim).toList
 
-  def cookieBannerLinkUrl(linkText: String) = cookieBanner().findElement(By.partialLinkText(linkText))
+  def cookieBannerLinkUrl(linkText: String): String = cookieBanner().findElement(By.partialLinkText(linkText))
     .getAttribute("href").trim
 
-  def button(buttonName: String) = cookieBanner().findElements(By.tagName("button"))
+  def button(buttonName: String): WebElement = cookieBanner().findElements(By.tagName("button"))
     .asScala.filter(_.getText == buttonName).head
 
-  def cookieBannerPresence() = !webDriver.findElements(By.cssSelector(".cbanner-govuk-cookie-banner"))
+  def cookieBannerPresence(): Boolean = !webDriver.findElements(By.cssSelector(".cbanner-govuk-cookie-banner"))
     .isEmpty
 
   def recruitmentBannerTextIsNotVisible(): Boolean = !recruitmentBanner().isDisplayed
@@ -59,7 +59,7 @@ object CommonPage extends CustomsFinancialsWebPage {
     recruitmentBanner().findElement(By.cssSelector(".govuk-phase-banner__text")).getText.trim
   }
 
-  def clickNoThanksButtonOnBanner() = recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__close")).click()
+  def clickNoThanksButtonOnBanner(): Unit = recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__close")).click()
 
   def clickOnSearchButton(): WebElement = webDriver.findElement(By.cssSelector(".govuk-button"))
 

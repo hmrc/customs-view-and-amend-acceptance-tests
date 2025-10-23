@@ -1,9 +1,9 @@
-import sbt.{Test, _}
+import sbt.{Test, *}
 
 object Dependencies {
 
   val test = Seq(
-    "uk.gov.hmrc"         %% "ui-test-runner"          % "0.42.0"   % Test,
+    "uk.gov.hmrc"         %% "ui-test-runner"          % "0.50.0"   % Test,
     "org.scalatest"       %% "scalatest"               % "3.2.19"   % Test,
     "org.scalatestplus"   %% "selenium-4-12"           % "3.2.17.0" % Test,
     "com.vladsch.flexmark" % "flexmark-all"            % "0.64.8"   % Test,

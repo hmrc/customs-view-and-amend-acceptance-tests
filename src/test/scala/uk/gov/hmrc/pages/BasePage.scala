@@ -15,7 +15,6 @@
  */
 
 package uk.gov.hmrc.pages
-import org.openqa.selenium.remote.LocalFileDetector
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait}
 import org.openqa.selenium.{By, Keys, WebDriver, WebElement}
 import org.scalatest.Assertion

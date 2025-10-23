@@ -28,13 +28,12 @@ class SignInSteps extends CustomsFinancialsWebPage {
   private val continueUrl = SignInPage.continueUrl.getOrElse(ViewAndAmendHomePage.url)
 
   private var signedInUserType: Option[String] = None
-  private var signedInNumberOfAccounts: Option[String] = None
+
 
   Given("""^I am not signed in$"""){ () =>
     println("*** BEFORE ***" + webDriver.manage().getCookies)
     delete all cookies
     signedInUserType = None
-    signedInNumberOfAccounts = None
     println("*** AFTER ***" + webDriver.manage().getCookies)
   }
 
@@ -54,11 +53,15 @@ class SignInSteps extends CustomsFinancialsWebPage {
     go to PageObjectFinder.page(page)
   }
 
-  def bookmarkedUrl(dutyDefermentType: String) = {
+  def bookmarkedUrl(dutyDefermentType: String): String = {
     dutyDefermentType match {
-      case x if x.contains("Duty deferment requested statements bookmarked url") => "http://localhost:9396/customs/historic-statement/requested/duty-deferment/980831025ef64f389e2397566637a5e9"
+      case x if x.contains("Duty deferment requested statements bookmarked url") =>
+        "http://localhost:9396/customs/historic-statement/requested/duty-deferment/980831025ef64f389e2397566637a5e9"
+      case _ =>
+        throw new IllegalArgumentException(s"Unexpected dutyDefermentType: $dutyDefermentType")
     }
   }
+
 
   private def doLogin(fillAuthLoginStubForm: => Unit) = {
     AuthLoginStubPage.goToPage()
