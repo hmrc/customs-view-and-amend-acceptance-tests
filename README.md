@@ -1,5 +1,5 @@
 # cds-reimbursement-claim-ui-tests
-UI test suite for the `<digital service name>` using WebDriver and `<scalatest/cucumber>`.
+UI test suite for the Customs Reimbursement Frontend service using WebDriver and `<scalatest/cucumber>`.
 
 # Cloning the project and service startup
 
@@ -8,11 +8,15 @@ Clone this project to the directory of your choice
 # Service manager profile required to run the test
 On a Terminal instance, start up all services using:
 
-```sm2 -start CDSRC_ALL ```
+```
+sm2 --start CDSRC_ALL
+```
 
 If you want to run the Customs Reimbursement Frontend service locally, stop the service using:
 
-```sm2 -stop CDSRC_FRONTEND```
+```
+sm2 --stop CDSRC_FRONTEND
+```
 
 Then run the Frontend locally using:
 
