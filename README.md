@@ -1,5 +1,5 @@
-# cds-reimbursement-claim-ui-tests
-UI test suite for the Customs Reimbursement Frontend service using WebDriver and `<scalatest/cucumber>`.
+# customs-view-and-amend-acceptance-tests
+UI test suite for the Customs View And Amend Frontend service using Cucumber.
 
 # Cloning the project and service startup
 
@@ -31,32 +31,6 @@ Then run the Frontend locally using:
 
 Security and Accessibility tests
 The accessibility and ZAP tests are run as part of Jenkins job. We can get the latest reports from the corresponding acceptance-tests customs-cash-account-acceptance-tests job.
-
-#### Running the tests against a test environment
-
-To run the tests against an environment set the corresponding `host` environment property as specified under
-`<env>.host.services` in the [application.conf](/src/test/resources/application.conf).
-
-For example, to execute the `run_tests.sh` script against QA  environment using Chrome remote-webdriver
-
-    ./run_tests.sh qa remote-chrome
-
-## Installing local driver binaries
-
-This project supports UI test execution using Firefox (Geckodriver) and Chrome (Chromedriver) browsers.
-
-See the `drivers/` directory for some helpful scripts to do the installation work for you.  They should work on both Mac and Linux by running the following command:
-
-    ./installGeckodriver.sh <operating-system> <driver-version>
-    or
-    ./installChromedriver <operating-system> <driver-version>
-
-- *<operating-system>* defaults to **linux64**, however it also supports **macos**
-- *<driver-version>* defaults to **0.21.0** for Gecko/Firefox, and the latest release for Chrome.  You can, however, however pass any version available at the [Geckodriver](https://github.com/mozilla/geckodriver/tags) or [Chromedriver](http://chromedriver.storage.googleapis.com/) repositories.
-
-**Note 1:** *You will need to ensure that you have a recent version of Chrome and/or Firefox installed for the later versions of the drivers to work reliably.*
-
-**Note 2** *These scripts use sudo to set the right permissions on the drivers so you will likely be prompted to enter your password.*
 
 ### Scalafmt
 This repository uses [Scalafmt](https://scalameta.org/scalafmt/), a code formatter for Scala. The formatting rules configured for this repository are defined within [.scalafmt.conf](.scalafmt.conf).
