@@ -1,5 +1,5 @@
 # cds-reimbursement-claim-ui-tests
-UI test suite for the `<digital service name>` using WebDriver and `<scalatest/cucumber>`.
+UI test suite for the Customs Reimbursement Frontend service using WebDriver and `<scalatest/cucumber>`.
 
 # Cloning the project and service startup
 
