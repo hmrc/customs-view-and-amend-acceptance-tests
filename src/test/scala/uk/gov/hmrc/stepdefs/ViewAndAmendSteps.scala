@@ -25,27 +25,27 @@ import scala.jdk.CollectionConverters._
 
 class ViewAndAmendSteps extends CustomsFinancialsWebPage {
 
-  And("""^I should see the following notification bar links$""") { data: DataTable =>
+  And("""^I should see the following notification bar links$""") { (data: DataTable) =>
     val expected = data.asScalaListOfStrings
     notificationBarLinks should be(expected)
   }
 
-  And("""^I should see the eori details (.*)$""") { eoriDetails: String =>
+  And("""^I should see the eori details (.*)$""") { (eoriDetails: String) =>
     eoriCompany should be(eoriDetails)
   }
 
-  And("""^I should see the following cards$""") { data: DataTable =>
+  And("""^I should see the following cards$""") { (data: DataTable) =>
     val expectedCardDetails = data.asScalaListOfLists
     cardDetails should be(expectedCardDetails)
   }
 
-  And("""^I should see the following claims$""") { data: DataTable =>
+  And("""^I should see the following claims$""") { (data: DataTable) =>
     val expected = data.asScalaListOfLists
     val actual   = claimsList
     actual should be(expected)
   }
 
-  Then("""^I should see the following claim details$""") { data: DataTable =>
+  Then("""^I should see the following claim details$""") { (data: DataTable) =>
     val expected = data.asMaps().asScala.toList.flatMap(_.asScala.toMap).toMap
     val actual   = ClaimDetailsPage.claimDetails
     actual should be(expected)
@@ -64,12 +64,12 @@ class ViewAndAmendSteps extends CustomsFinancialsWebPage {
     ClaimsListPages.paginationBlockContent(tagName) should be(expected)
   }
 
-  And("""^I should see the following pagination results text$""") { data: DataTable =>
+  And("""^I should see the following pagination results text$""") { (data: DataTable) =>
     val expectedText = data.asScalaListOfStrings.head
     ClaimsListPages.paginationResultsText should be(expectedText)
   }
 
-  When("""^I click on pagination link "(.*)"$""") { linkName: String =>
+  When("""^I click on pagination link "(.*)"$""") { (linkName: String) =>
     ClaimsListPages.clickOnPaginationLink(linkName)
   }
 
@@ -83,7 +83,7 @@ class ViewAndAmendSteps extends CustomsFinancialsWebPage {
     ClaimSearchPage.submit()
   }
 
-  And("""^I should see the table heading "(.*)"$""") { expectedTableHeading: String =>
+  And("""^I should see the table heading "(.*)"$""") { (expectedTableHeading: String) =>
     ClaimsListPages.tableCaption should be(expectedTableHeading)
   }
 }

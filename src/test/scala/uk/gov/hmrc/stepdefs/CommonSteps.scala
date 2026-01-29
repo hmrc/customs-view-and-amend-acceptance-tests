@@ -78,7 +78,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
     assertElementInPageWithText("a", notWord.isEmpty, expectedLinkText)
   }
 
-  When("""^I click on '(.*)'$""") { selectedLink: String =>
+  When("""^I click on '(.*)'$""") { (selectedLink: String) =>
     click on partialLinkText(selectedLink)
   }
 
@@ -96,7 +96,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
     actual should be(expected) withClue s"$actual is not same as $expected"
   }
 
-  Then("""^I should see the Help and support text""") { data: DataTable =>
+  Then("""^I should see the Help and support text""") { (data: DataTable) =>
     val text = data.asScalaListOfStrings.mkString("\n")
     helpText() should be(text)
   }
@@ -109,11 +109,11 @@ class CommonSteps extends CustomsFinancialsWebPage {
     }
   }
 
-  Then("""^I am redirected to the "([^"]*)" page$""") { expectedPageTitle: String =>
+  Then("""^I am redirected to the "([^"]*)" page$""") { (expectedPageTitle: String) =>
     pageTitle should be(expectedPageTitle)
   }
 
-  Then("""^I should see a cookie consent banner with the following details$""") { data: DataTable =>
+  Then("""^I should see a cookie consent banner with the following details$""") { (data: DataTable) =>
     val expectedText = data.asScalaListOfStrings
     CommonPage.cookieBannerText() should be(expectedText)
   }
@@ -132,7 +132,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
       CommonPage.cookieBannerLinksButtonsText(tagName) should be(expectedText)
   }
 
-  When("""^I click on (.*) button$""") { buttonName: String =>
+  When("""^I click on (.*) button$""") { (buttonName: String) =>
     CommonPage.button(buttonName).click()
   }
 
@@ -150,7 +150,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
     actualUrl should include(expectedUrl)
   }
 
-  Then("""^I should see a banner with the following information$""") { data: DataTable =>
+  Then("""^I should see a banner with the following information$""") { (data: DataTable) =>
     val expectedText = data.asScalaListOfStrings
     val actualText   = CommonPage.recruitmentBannerText()
     actualText should be(expectedText)
@@ -163,7 +163,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
     actualText should be(expectedText)
   }
 
-  Then("""^the "(.*)" url is correct$""") { linkName: String =>
+  Then("""^the "(.*)" url is correct$""") { (linkName: String) =>
     linkName match {
       case "Economic Operator and Registration Identification (EORI) number (opens in a new window or tab)" =>
         NotSubscribedToCDSPage.registerForCdsLinkUrl should endWith("/customs/register-for-cds")
@@ -194,7 +194,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
 
   }
 
-  Then("""^I should see the following text in bullet points$""") { expectedText: DataTable =>
+  Then("""^I should see the following text in bullet points$""") { (expectedText: DataTable) =>
     val actualText = elementTextAll(".govuk-list--bullet").head.split("\n")
     actualText should be(expectedText.asScalaListOfStrings)
   }
@@ -258,7 +258,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
     PageObjectFinder.page(page).clickContinueButton()
   }
 
-  Then("""I am presented with the {string}""") { page: String =>
+  Then("""I am presented with the {string}""") { (page: String) =>
     PageObjectFinder.page(page).waitForPageHeader
     PageObjectFinder.page(page).checkURL
     PageObjectFinder.page(page).checkPageHeader()
@@ -285,7 +285,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
     PageObjectFinder.page(page).clickRadioButton(choice)
   }
 
-  Then("""I am presented with the {string} error page""") { page: String =>
+  Then("""I am presented with the {string} error page""") { (page: String) =>
     PageObjectFinder.page(page).waitForPageHeader
     PageObjectFinder.page(page).checkPageErrorTitle()
   }

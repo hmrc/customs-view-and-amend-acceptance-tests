@@ -22,6 +22,7 @@ import play.api.libs.json.JsValue
 import play.api.libs.ws.JsonBodyWritables._
 import play.api.libs.ws._
 import play.api.libs.ws.ahc.{AhcWSClientConfigFactory, StandaloneAhcWSClient}
+import play.api.libs.ws.{StandaloneWSRequest, StandaloneWSResponse}
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
@@ -30,35 +31,41 @@ object WSClient {
 
   import scala.concurrent.ExecutionContext.Implicits.global
   private implicit val system: ActorSystem = ActorSystem()
- // private implicit val mat: ActorMaterializer = ActorMaterializer()
   private val wsClient = StandaloneAhcWSClient(config = AhcWSClientConfigFactory.forConfig(ConfigFactory.load()))
 
 
-  def httpGet(url: String, cookie: Set[WSCookie]=Set.empty, headers: Seq[(String, String)]=Nil): Future[StandaloneWSRequest#Response] = {
-    def request(url: String): StandaloneWSRequest = {
-      wsClient.url(url)
-    }
-    request(url).addHttpHeaders(headers:_*).withCookies(cookie.toSeq:_*).get()
+  def httpGet(
+               url: String,
+               cookie: Set[WSCookie] = Set.empty,
+               headers: Seq[(String, String)] = Nil
+             ): Future[StandaloneWSResponse] = {
+    wsClient
+      .url(url)
+      .addHttpHeaders(headers: _*)
+      .withCookies(cookie.toSeq: _*)
+      .get()
   }
 
-  def httpPost(url: String, requestBody: JsValue, headers: (String, String)*): Future[StandaloneWSRequest#Self#Response] = {
-    def request(url: String): StandaloneWSRequest = {
-      wsClient.url(url)
-    }
-    request(url).withHttpHeaders(headers: _*).post(requestBody)
+  def httpPost(
+                url: String,
+                requestBody: JsValue,
+                headers: (String, String)*
+              ): Future[StandaloneWSResponse] = {
+    wsClient
+      .url(url)
+      .withHttpHeaders(headers: _*)
+      .post(requestBody)
   }
 
   def captureLinkContent(url: String, cookies: Set[WSCookie]) : DownloadedFile = {
     Await.result(httpGet(url, cookies).map { r => DownloadedFile(r)}, 20.seconds)
   }
-
 }
 
 case class DownloadedFile(data: Array[Byte], mimeType: String, disposition: String, name: String) {
   def sizeDescription: String = data.length match {
     case kb if 1000 until 1000000 contains kb => f"${kb.toFloat / 1000}%1.1f kB"
     case mb if mb >= 1000000 => f"${mb.toFloat / 1000000}%1.1f MB"
-    //case _ => data.length + " bytes"
     case _ => s"${data.length} bytes"
   }
 }

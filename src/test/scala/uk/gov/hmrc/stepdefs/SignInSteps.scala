@@ -49,7 +49,7 @@ class SignInSteps extends CustomsFinancialsWebPage {
     }
   }
 
-  Then("""I navigate to the {string}""") { page: String =>
+  Then("""I navigate to the {string}""") { (page: String) =>
     go to PageObjectFinder.page(page)
   }
 
