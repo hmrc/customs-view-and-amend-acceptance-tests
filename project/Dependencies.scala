@@ -11,12 +11,12 @@ object Dependencies {
     "io.cucumber"          % "cucumber-junit"          % "7.22.2"   % Test,
     "junit"                % "junit"                   % "4.13.2"   % Test,
     "com.novocode"         % "junit-interface"         % "0.11"     % Test,
-    "com.typesafe.play"   %% "play-ahc-ws-standalone"  % "2.2.14"   % Test,
-    "com.typesafe.play"   %% "play-ws-standalone-json" % "2.2.14",
-    "com.typesafe.play"   %% "play-json"               % "2.10.8",
-    "com.typesafe.akka"   %% "akka-http"               % "10.5.3"   % Test,
-    "org.mongodb.scala"   %% "mongo-scala-driver"      % "5.6.4",
-    "com.typesafe"         % "config"                  % "1.4.6"    % Test
+    "com.typesafe.play"   %% "play-ahc-ws-standalone"  % "2.2.11"   % Test,
+    "com.typesafe.play"   %% "play-ws-standalone-json" % "2.2.11",
+    "com.typesafe.play"   %% "play-json"               % "2.10.6",
+    "com.typesafe.akka"   %% "akka-http"               % "10.2.0"   % Test,
+    "org.mongodb.scala"   %% "mongo-scala-driver"      % "5.5.0",
+    "com.typesafe"         % "config"                  % "1.4.3"    % Test
   )
 
 }
