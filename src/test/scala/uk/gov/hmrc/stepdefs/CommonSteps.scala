@@ -207,8 +207,9 @@ class CommonSteps extends CustomsFinancialsWebPage {
   }
 
   And("""^the user has a verified email address in the data store$""") { () =>
-    val url      = "http://localhost:9893/customs-data-store/eori/GB123456789012/verified-email"
-    val response = WSClient.httpGet(url, Set.empty)
+    val url      = "http://localhost:9893/customs-data-store/eori/verified-email-third-party"
+    val body = Json.obj("eori" -> "GB123456789012")
+    val response = WSClient.httpPost(url, body)
     val result   = Await.result(response.map(_.status), 5 seconds)
     assert(result == 200, s"$result is received")
   }
