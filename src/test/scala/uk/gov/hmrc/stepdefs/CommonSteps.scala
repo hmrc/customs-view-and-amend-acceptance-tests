@@ -17,9 +17,6 @@
 package uk.gov.hmrc.stepdefs
 
 import io.cucumber.datatable.DataTable
-
-import java.util.{List => JList}
-import scala.jdk.CollectionConverters._
 import org.openqa.selenium.By
 import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
 import play.api.libs.json.Json
@@ -32,10 +29,12 @@ import uk.gov.hmrc.pages.generic.PageObjectFinder
 import uk.gov.hmrc.utils.DropMongo.dropMongo
 import uk.gov.hmrc.utils.{Configuration, WSClient}
 
+import java.time.Duration
+import java.util.{List => JList}
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.DurationInt
-import java.time.Duration
+import scala.jdk.CollectionConverters._
 import scala.language.postfixOps
 
 class CommonSteps extends CustomsFinancialsWebPage {
@@ -179,18 +178,20 @@ class CommonSteps extends CustomsFinancialsWebPage {
 
   Then("""^I should see the following (static|hint|static-content|label|) text$""") {
     (staticOrhintWord: String, expectedText: DataTable) =>
-      val actualText = staticOrhintWord match {
+      val actualText                     = staticOrhintWord match {
         case "static"         => elementTextAll("#main-content p.govuk-body")
         case "static-content" => elementTextAll("#main-content > h2")
         case "hint"           => List(ClaimSearchPage.hintText)
         case "label"          => List(ClaimSearchPage.labelText)
       }
-      val expectedTextList: List[String] = expectedText.asList(classOf[String]).asInstanceOf[JList[String]].asScala
+      val expectedTextList: List[String] = expectedText
+        .asList(classOf[String])
+        .asInstanceOf[JList[String]]
+        .asScala
         .flatMap(element => Option(element).map(_.trim).filter(_.nonEmpty))
         .toList
-      val filteredActualText = actualText.flatMap(_.split("\n").map(_.trim)).filter(_.nonEmpty).toList
+      val filteredActualText             = actualText.flatMap(_.split("\n").map(_.trim)).filter(_.nonEmpty).toList
       filteredActualText shouldEqual expectedTextList
-
 
   }
 
@@ -207,8 +208,9 @@ class CommonSteps extends CustomsFinancialsWebPage {
   }
 
   And("""^the user has a verified email address in the data store$""") { () =>
-    val url      = "http://localhost:9893/customs-data-store/eori/GB123456789012/verified-email"
-    val response = WSClient.httpGet(url, Set.empty)
+    val url      = "http://localhost:9893/customs-data-store/eori/verified-email-third-party"
+    val body     = Json.obj("eori" -> "GB123456789012")
+    val response = WSClient.httpPost(url, body)
     val result   = Await.result(response.map(_.status), 5 seconds)
     assert(result == 200, s"$result is received")
   }
@@ -295,8 +297,9 @@ class CommonSteps extends CustomsFinancialsWebPage {
     PageObjectFinder.page(page).checkPageErrorTitle(duty)
   }
 
-  Then("""The error summary title is {string} and the error message is {string}""") { (errorSummaryTitle: String, errorMessage: String) =>
-    PageObjectFinder.checkPageErrorSummaryTitle(errorSummaryTitle)
-    PageObjectFinder.checkPageErrorMessage(errorMessage)
+  Then("""The error summary title is {string} and the error message is {string}""") {
+    (errorSummaryTitle: String, errorMessage: String) =>
+      PageObjectFinder.checkPageErrorSummaryTitle(errorSummaryTitle)
+      PageObjectFinder.checkPageErrorMessage(errorMessage)
   }
 }
