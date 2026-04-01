@@ -24,11 +24,11 @@ Feature: View claim details page
     When I click on 'NDRC-1004'
     Then I should see the heading "Claim reference NDRC-1004"
     And I should see the following static text
-      | Claim details: This claim requires additional information or documentation.                                                  |
+      | Claim details: This claim requires additional information or documentation.                                                 |
       | Check the inbox of Claimant email address for missing documents and any requests for more information from your caseworker. |
-      | If your claim was submitted online, upload your supporting documents.                                                        |
-      | Valid file formats: Excel, Outlook, JPG, PNG, PDF, CSV, TXT or Word.                                                                                                               |
-      | If your claim was submitted manually, you will need to send your supporting documents by post.                               |
+      | If your claim was submitted online, upload your supporting documents.                                                       |
+      | Valid file formats: Excel, JPG, PNG, PDF, CSV, TXT or Word.                                                                 |
+      | If your claim was submitted manually, you will need to send your supporting documents by post.                              |
     And I should see the following claim details
       | MRN      | Local Reference Number (LRN)     | Claimant‘s EORI number | Claim type                            | Claim status | Claim submitted date | Claim amount requested | Claimant‘s name | Claimant‘s email address |
       | MRN23014 | KWMREF1 | GB98765432101          | Overpayment (C285),Single declaration | Pending      | 1 May 2020       | £900000.00             | Claimant name   | Claimant email address   |
