@@ -25,7 +25,7 @@ object ViewAndAmendHomePage extends CustomsFinancialsWebPage {
   override lazy val url: String = baseUrl + "/claim-back-import-duty-vat/claims-status"
 
   def notificationBarLinks: List[String] = webDriver
-    .findElement(By.className("hmrc-account-menu"))
+    .findElement(By.className("govuk-service-navigation__list"))
     .findElements(By.tagName("li"))
     .asScala
     .map(_.getText.trim)
