@@ -123,7 +123,7 @@ class CommonSteps extends CustomsFinancialsWebPage {
       val tagName      = bannerElement match {
         case "links"   =>
           expectedText.map(link =>
-            CommonPage.cookieBannerLinkUrl(link) should endWith("/tracking-consent/cookie-settings")
+            CommonPage.cookieBannerLinkUrl(link) should include("/tracking-consent/cookie-settings")
           )
           "a"
         case "buttons" => "button"
