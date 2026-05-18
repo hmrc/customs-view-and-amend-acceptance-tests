@@ -15,12 +15,58 @@
  */
 
 package uk.gov.hmrc.pages
-import uk.gov.hmrc.utils.Configuration
+
+import org.openqa.selenium.support.ui.WebDriverWait
+import uk.gov.hmrc.utils.{Configuration, CustomExpectedConditions}
 
 import java.net.{URL, URLDecoder}
 import java.nio.charset.StandardCharsets
+import java.time.Duration
 
-object SignInPage extends SignInPage
+object SignInPage extends SignInPage {
+
+  private var signedInUserType: Option[String] = None
+
+  def resetSignIn(): Unit =
+    signedInUserType = None
+
+  def userNotSignedIn(): Unit = {
+    delete all cookies
+    signedInUserType = None
+  }
+
+  def userIsSignedIn(dutyDefermentType: String, userType: String): Unit = {
+    val redirectUrl = if (dutyDefermentType.isEmpty) continueUrl.getOrElse(ViewAndAmendHomePage.url)
+    else bookmarkedUrl(dutyDefermentType)
+    signedInUserType match {
+      case Some(`userType`) =>
+        println(s"=============> skipping login - already logged in as $userType")
+      case _ =>
+        doLogin {
+          AuthLoginStubPage.loginAuth(userType, redirectUrl)
+          signedInUserType = Some(userType)
+        }
+    }
+  }
+
+  private def bookmarkedUrl(dutyDefermentType: String): String = dutyDefermentType match {
+    case x if x.contains("Duty deferment requested statements bookmarked url") =>
+      "http://localhost:9396/customs/historic-statement/requested/duty-deferment/980831025ef64f389e2397566637a5e9"
+    case _ =>
+      throw new IllegalArgumentException(s"Unexpected dutyDefermentType: $dutyDefermentType")
+  }
+
+  private def doLogin(fillAuthLoginStubForm: => Unit): Unit = {
+    AuthLoginStubPage.goToPage()
+    fillAuthLoginStubForm
+    AuthLoginStubPage.submit()
+
+    if (Configuration.environment.toString.equals("Dev") && !signedInUserType.contains("notsubscribed")) {
+      val wait = new WebDriverWait(webDriver, Duration.ofSeconds(10))
+      wait.until(CustomExpectedConditions.urlEndsWith(continueUrl.getOrElse(ViewAndAmendHomePage.url)))
+    }
+  }
+}
 
 trait SignInPage extends WebPage {
 

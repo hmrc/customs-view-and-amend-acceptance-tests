@@ -16,11 +16,59 @@
 
 package uk.gov.hmrc.pages
 
+import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
 import org.openqa.selenium.{By, WebElement}
 
+import java.time.Duration
 import scala.jdk.CollectionConverters._
 
 object CommonPage extends CustomsFinancialsWebPage {
+
+  def navigateToPage(bookmarkWord: String, page: String): Unit =
+    if (bookmarkWord.isEmpty) {
+      page match {
+        case "View and amend home"     => ViewAndAmendHomePage.goToPage()
+        case "Customs Financials Home" => goTo(financialsBaseUrl + "/customs/payment-records")
+        case "in progress claims list" => goTo(ClaimsListPages.inProgressClaimsPageUrl)
+        case "Find a claim"            => ClaimSearchPage.goToPage()
+        case _                         => throw new IllegalArgumentException(s"No such page - $page")
+      }
+    } else {
+      webDriver.get(bookmarkUrl)
+    }
+
+  def userClicksOn(selectedLink: String): Unit =
+    click on partialLinkText(selectedLink)
+
+  def userShouldSeeCookieConsentBanner(expectedText: Seq[String]): Unit =
+    cookieBannerText() should be(expectedText)
+
+  def userShouldSeeBannerElements(bannerElement: String, expectedText: Seq[String]): Unit = {
+    val tagName = bannerElement match {
+      case "links"   =>
+        expectedText.foreach(link =>
+          cookieBannerLinkUrl(link) should endWith("/tracking-consent/cookie-settings")
+        )
+        "a"
+      case "buttons" => "button"
+    }
+    cookieBannerLinksButtonsText(tagName) should be(expectedText)
+  }
+
+  def userClicksButton(buttonName: String): Unit =
+    button(buttonName).click()
+
+  def userShouldSeeHeading(notWord: String, subWord: String, expectedHeadingText: String): Unit = {
+    val headingTag = subWord match {
+      case "sub-"   => "h2"
+      case ""       => "h1"
+      case "small " => "h3"
+      case _        => subWord.trim
+    }
+    val wait       = new WebDriverWait(webDriver, Duration.ofSeconds(5))
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName(headingTag)))
+    assertElementInPageWithText(headingTag, notWord.isEmpty, expectedHeadingText)
+  }
 
   def continue(buttonName: String): WebElement = webDriver.findElements(By.tagName("button"))
     .asScala.filter(_.getText == buttonName).head

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.utils
+package uk.gov.hmrc.specs
 
-import org.openqa.selenium.WebDriver
-import uk.gov.hmrc.selenium.webdriver.Driver
+import org.scalatest.Suites
 
-trait StartUpTearDown {
-
-  if (!Option(System.getProperty("browser")).exists(_.nonEmpty)) {
-    System.setProperty("browser", "chrome")
-  }
-
-  implicit def webDriver: WebDriver = Driver.instance
-}
+class E2ETestRunnerOrderSpec extends Suites()
