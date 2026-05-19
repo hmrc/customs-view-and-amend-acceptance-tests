@@ -42,4 +42,13 @@ object ViewAndAmendHomePage extends CustomsFinancialsWebPage {
       List(heading, text, link)
     }
     .toList
+
+  def userShouldSeeNotificationBarLinks(expected: Seq[String]): Unit =
+    notificationBarLinks should be(expected)
+
+  def userShouldSeeEoriDetails(eoriDetails: String): Unit =
+    eoriCompany should be(eoriDetails)
+
+  def userShouldSeeCards(expected: Seq[Seq[String]]): Unit =
+    cardDetails should be(expected.map(_.toList).toList)
 }

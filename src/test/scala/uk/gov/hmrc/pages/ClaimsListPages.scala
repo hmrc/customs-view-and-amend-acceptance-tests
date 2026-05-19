@@ -48,4 +48,7 @@ object ClaimsListPages extends CustomsFinancialsWebPage {
     .findElement(By.cssSelector(".govuk-pagination__list"))
     .findElement(By.partialLinkText(linkText))
     .click()
+
+  def userShouldSeeClaims(expected: Seq[Seq[String]]): Unit =
+    claimsList should be(expected.map(_.toList).toList)
 }
