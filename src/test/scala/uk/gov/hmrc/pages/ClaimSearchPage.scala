@@ -29,4 +29,8 @@ object ClaimSearchPage extends CustomsFinancialsWebPage {
 
   def enterClaim(text: String) = inputTextBox.sendKeys(text)
 
+  def userSearchesFor(caseNumber: String): Unit = {
+    enterClaim(caseNumber)
+    submit()
+  }
 }

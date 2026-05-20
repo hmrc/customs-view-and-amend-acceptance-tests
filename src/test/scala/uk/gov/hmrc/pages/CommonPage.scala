@@ -47,6 +47,9 @@ object CommonPage extends CustomsFinancialsWebPage {
   def userClicksOn(selectedLink: String): Unit =
     click on partialLinkText(selectedLink)
 
+  def userClicksSearchButton(): Unit =
+    clickOnSearchButton().click()
+
   def userShouldSeeBackLink(): Unit = {
     val actual   = backLink().getText.trim
     val expected = "Back"

@@ -20,9 +20,12 @@ import org.scalatest.Suites
 
 class AcceptanceTestRunnerOrderSpec
     extends Suites(
+      new ClaimDetailsSpec,
+      new ClaimSearchSpec,
       new ClaimsListSpec,
       new CookieBannerSpec,
       new EmailVerificationSpec,
       new LogoutSpec,
+      new NDRCClaimStatusSpec,
       new ViewAndAmendHomePageSpec
     )

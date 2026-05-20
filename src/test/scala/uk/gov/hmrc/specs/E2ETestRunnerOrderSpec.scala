@@ -18,4 +18,8 @@ package uk.gov.hmrc.specs
 
 import org.scalatest.Suites
 
-class E2ETestRunnerOrderSpec extends Suites()
+class E2ETestRunnerOrderSpec
+    extends Suites(
+      new ClaimDetailsSpec,
+      new ClaimSearchSpec
+    )

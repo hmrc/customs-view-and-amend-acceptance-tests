@@ -29,4 +29,6 @@ object ClaimDetailsPage extends CustomsFinancialsWebPage {
     }
     }.toMap
 
+  def userShouldSeeClaimDetails(expected: Map[String, String]): Unit =
+    claimDetails should be(expected)
 }
