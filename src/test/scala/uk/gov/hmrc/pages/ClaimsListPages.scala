@@ -51,4 +51,21 @@ object ClaimsListPages extends CustomsFinancialsWebPage {
 
   def userShouldSeeClaims(expected: Seq[Seq[String]]): Unit =
     claimsList should be(expected.map(_.toList).toList)
+
+  def userShouldSeePaginationContent(linkOrContent: String, expected: Seq[String]): Unit = {
+    val tagName = linkOrContent match {
+      case "content" => "li"
+      case "links"   => "a"
+    }
+    paginationBlockContent(tagName) should be(expected)
+  }
+
+  def userShouldSeePaginationResultsText(expected: String): Unit =
+    paginationResultsText should be(expected)
+
+  def userClicksOnPaginationLink(linkName: String): Unit =
+    clickOnPaginationLink(linkName)
+
+  def userEntersInQueryParameter(pageNumber: String): Unit =
+    goTo(baseUrl + s"/claim-back-import-duty-vat/claims-status/claims-in-progress?page=$pageNumber")
 }

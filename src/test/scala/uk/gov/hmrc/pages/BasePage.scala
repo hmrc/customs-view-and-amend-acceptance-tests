@@ -33,7 +33,7 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
   val title: String = ""
 
   /** Fluent Wait config * */
-  var fluentWait: Wait[WebDriver] = new FluentWait[WebDriver](driver)
+  def fluentWait: Wait[WebDriver] = new FluentWait[WebDriver](driver)
     .withTimeout(Duration.ofSeconds(20))
     .pollingEvery(Duration.ofMillis(500))
 

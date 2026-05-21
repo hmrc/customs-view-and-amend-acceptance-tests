@@ -27,5 +27,7 @@ class AcceptanceTestRunnerOrderSpec
       new EmailVerificationSpec,
       new LogoutSpec,
       new NDRCClaimStatusSpec,
+      new PaginationSpec,
+      new PendingClaimSubmissionSpec,
       new ViewAndAmendHomePageSpec
     )

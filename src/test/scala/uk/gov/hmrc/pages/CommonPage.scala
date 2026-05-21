@@ -19,6 +19,8 @@ package uk.gov.hmrc.pages
 import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
 import org.openqa.selenium.{By, WebElement}
 import play.api.libs.json.Json
+import uk.gov.hmrc.pages.ChooseFilesPage.waitForPageToLoad
+import uk.gov.hmrc.pages.generic.PageObjectFinder
 import uk.gov.hmrc.utils.DropMongo.dropMongo
 import uk.gov.hmrc.utils.{Configuration, WSClient}
 
@@ -49,6 +51,58 @@ object CommonPage extends CustomsFinancialsWebPage {
 
   def userClicksSearchButton(): Unit =
     clickOnSearchButton().click()
+
+  def userIsPresentedWith(page: String): Unit = {
+    val p = PageObjectFinder.page(page)
+    p.waitForPageHeader
+    p.checkURL
+    p.checkPageHeader()
+    p.checkPageTitle()
+  }
+
+  def userIsPresentedWith(page: String, specificPage: String): Unit = {
+    val p = PageObjectFinder.page(page)
+    p.waitForPageHeader
+    p.checkURL
+    p.checkPageTitle(specificPage)
+  }
+
+  def userIsPresentedWithErrorPage(page: String): Unit = {
+    val p = PageObjectFinder.page(page)
+    p.waitForPageHeader
+    p.checkPageErrorTitle()
+  }
+
+  def userIsPresentedWithErrorPage(page: String, duty: String): Unit = {
+    val p = PageObjectFinder.page(page)
+    p.waitForPageHeader
+    p.checkPageErrorTitle(duty)
+  }
+
+  def userClicksContinueOn(page: String): Unit = {
+    val p = PageObjectFinder.page(page)
+    p.waitForPageHeader
+    p.clickContinueButton()
+  }
+
+  def userClicksContinueIfOn(page: String): Unit =
+    PageObjectFinder.page(page).continuouslyClickContinue()
+
+  def userSelectsRadioButton(choice: String, page: String): Unit = {
+    val p = PageObjectFinder.page(page)
+    p.waitForPageHeader
+    p.clickRadioButton(choice)
+  }
+
+  def userUploadsFile(fileNumber: Int, file: String, page: String): Unit = {
+    PageObjectFinder.page(page).uploadDocument(fileNumber, file)
+    waitForPageToLoad()
+  }
+
+  def errorSummaryTitleAndMessage(errorSummaryTitle: String, errorMessage: String): Unit = {
+    PageObjectFinder.checkPageErrorSummaryTitle(errorSummaryTitle)
+    PageObjectFinder.checkPageErrorMessage(errorMessage)
+  }
 
   def userShouldSeeBackLink(): Unit = {
     val actual   = backLink().getText.trim
