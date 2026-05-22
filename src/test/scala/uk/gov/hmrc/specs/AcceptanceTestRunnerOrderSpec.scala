@@ -29,5 +29,6 @@ class AcceptanceTestRunnerOrderSpec
       new NDRCClaimStatusSpec,
       new PaginationSpec,
       new PendingClaimSubmissionSpec,
-      new ViewAndAmendHomePageSpec
+      new ViewAndAmendHomePageSpec,
+      new XIEORIClaimsSpec
     )
