@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.pages.generic
 
-import io.cucumber.datatable.DataTable
 import org.apache.commons.io.FileUtils
 import org.scalatest.exceptions.TestFailedException
 import uk.gov.hmrc.pages.BasePage
@@ -49,12 +48,5 @@ object PageObjectFinder extends BasePage {
       .getOrElse(throw new TestFailedException(s"$page does not exist in tests, or it does not conform to Web page format", new FileNotFoundException(), 12))
   }
 
-  def file(path: String): File = {
-    new File(path)
-  }
-
-  implicit class DataTableConverters(dataTable: DataTable) {
-
-    def asScalaListOfStrings: List[String] = dataTable.cells().asScala.flatMap(_.asScala).toList
-  }
+  def file(path: String): File = new File(path)
 }

@@ -16,14 +16,13 @@
 
 package uk.gov.hmrc.pages
 
-import io.cucumber.scala.{EN, ScalaDsl}
 import org.openqa.selenium.{By, WebElement}
 import org.scalatest.AppendedClues
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.should.Matchers
 import uk.gov.hmrc.utils.StartUpTearDown
 
-class CustomsFinancialsWebPage extends WebPage with ScalaDsl with EN with Matchers with StartUpTearDown with ScalaFutures with AppendedClues {
+class CustomsFinancialsWebPage extends WebPage with Matchers with StartUpTearDown with ScalaFutures with AppendedClues {
 
   var bookmarkUrl: String = ""
 
