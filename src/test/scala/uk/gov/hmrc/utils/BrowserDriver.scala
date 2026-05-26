@@ -19,12 +19,12 @@ package uk.gov.hmrc.utils
 import org.openqa.selenium.WebDriver
 import uk.gov.hmrc.selenium.webdriver.Driver
 
- trait BrowserDriver {
+trait BrowserDriver {
 
-   if (!Option(System.getProperty("browser")).exists(_.nonEmpty)) {
-     System.setProperty("browser", "chrome")
-   }
-   
-   implicit def driver: WebDriver = Driver.instance :WebDriver
+  if (!Option(System.getProperty("browser")).exists(_.nonEmpty)) {
+    System.setProperty("browser", "chrome")
+  }
+
+  implicit def driver: WebDriver = Driver.instance: WebDriver
 
 }

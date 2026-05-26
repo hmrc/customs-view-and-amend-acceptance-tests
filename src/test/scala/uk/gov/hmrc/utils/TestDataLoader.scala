@@ -22,8 +22,9 @@ import scala.io.Source
 
 object TestDataLoader {
 
-  def loadFromJson[A](resource: String)(implicit reads: Reads[A]): A = {
-    Json.parse(Source.fromInputStream(getClass.getResourceAsStream(s"/test-data/${resource}.json")).getLines().mkString).as[A]
-  }
+  def loadFromJson[A](resource: String)(implicit reads: Reads[A]): A =
+    Json
+      .parse(Source.fromInputStream(getClass.getResourceAsStream(s"/test-data/$resource.json")).getLines().mkString)
+      .as[A]
 
 }

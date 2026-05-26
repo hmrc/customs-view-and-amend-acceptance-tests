@@ -119,9 +119,7 @@ object CommonPage extends CustomsFinancialsWebPage {
   def userShouldSeeBannerElements(bannerElement: String, expectedText: Seq[String]): Unit = {
     val tagName = bannerElement match {
       case "links"   =>
-        expectedText.foreach(link =>
-          cookieBannerLinkUrl(link) should endWith("/tracking-consent/cookie-settings")
-        )
+        expectedText.foreach(link => cookieBannerLinkUrl(link) should endWith("/tracking-consent/cookie-settings"))
         "a"
       case "buttons" => "button"
     }
@@ -152,14 +150,14 @@ object CommonPage extends CustomsFinancialsWebPage {
     }
 
   def userShouldSeeStaticText(staticOrhintWord: String, expectedText: Seq[String]): Unit = {
-    val actualText            = staticOrhintWord match {
+    val actualText         = staticOrhintWord match {
       case "static"         => elementTextAll("#main-content p.govuk-body")
       case "static-content" => elementTextAll("#main-content > h2")
       case "hint"           => List(ClaimSearchPage.hintText)
       case "label"          => List(ClaimSearchPage.labelText)
     }
-    val expectedTextList      = expectedText.flatMap(t => Option(t).map(_.trim).filter(_.nonEmpty)).toList
-    val filteredActualText    = actualText.flatMap(_.split("\n").map(_.trim)).filter(_.nonEmpty)
+    val expectedTextList   = expectedText.flatMap(t => Option(t).map(_.trim).filter(_.nonEmpty)).toList
+    val filteredActualText = actualText.flatMap(_.split("\n").map(_.trim)).filter(_.nonEmpty)
     filteredActualText shouldEqual expectedTextList
   }
 
@@ -233,8 +231,8 @@ object CommonPage extends CustomsFinancialsWebPage {
     assertElementInPageWithText(headingTag, notWord.isEmpty, expectedHeadingText)
   }
 
-  def continue(buttonName: String): WebElement = webDriver.findElements(By.tagName("button"))
-    .asScala.filter(_.getText == buttonName).head
+  def continue(buttonName: String): WebElement =
+    webDriver.findElements(By.tagName("button")).asScala.filter(_.getText == buttonName).head
 
   def getLinkUrl(linkText: String): String = webDriver.findElement(By.partialLinkText(linkText)).getAttribute("href")
 
@@ -242,35 +240,42 @@ object CommonPage extends CustomsFinancialsWebPage {
 
   def cookieBannerText(): List[String] = cookieBanner().getText.split("\n").toList
 
-  def cookieBannerLinksButtonsText(tag: String): List[String] = cookieBanner().findElements(By.tagName(tag)).asScala
-    .map(_.getText.trim).toList
+  def cookieBannerLinksButtonsText(tag: String): List[String] = cookieBanner()
+    .findElements(By.tagName(tag))
+    .asScala
+    .map(_.getText.trim)
+    .toList
 
-  def cookieBannerLinkUrl(linkText: String): String = cookieBanner().findElement(By.partialLinkText(linkText))
-    .getAttribute("href").trim
+  def cookieBannerLinkUrl(linkText: String): String = cookieBanner()
+    .findElement(By.partialLinkText(linkText))
+    .getAttribute("href")
+    .trim
 
-  def button(buttonName: String): WebElement = cookieBanner().findElements(By.tagName("button"))
-    .asScala.filter(_.getText == buttonName).head
+  def button(buttonName: String): WebElement =
+    cookieBanner().findElements(By.tagName("button")).asScala.filter(_.getText == buttonName).head
 
-  def cookieBannerPresence(): Boolean = !webDriver.findElements(By.cssSelector(".cbanner-govuk-cookie-banner"))
-    .isEmpty
+  def cookieBannerPresence(): Boolean = !webDriver.findElements(By.cssSelector(".cbanner-govuk-cookie-banner")).isEmpty
 
   def recruitmentBannerTextIsNotVisible(): Boolean = !recruitmentBanner().isDisplayed
 
-  def recruitmentBannerSignUpHref(): String = webDriver.findElement(By.cssSelector(".hmrc-user-research-banner__link")).getAttribute("href")
+  def recruitmentBannerSignUpHref(): String =
+    webDriver.findElement(By.cssSelector(".hmrc-user-research-banner__link")).getAttribute("href")
 
-  def recruitmentBannerIsNotPresent(): Boolean = webDriver.findElements(By.cssSelector(".hmrc-user-research-banner--show")).isEmpty()
+  def recruitmentBannerIsNotPresent(): Boolean =
+    webDriver.findElements(By.cssSelector(".hmrc-user-research-banner--show")).isEmpty()
 
   private def recruitmentBanner(): WebElement = webDriver.findElement(By.cssSelector(".govuk-phase-banner"))
 
   def recruitmentBannerText() = List(recruitmentBannerHeadingText(), recruitmentBannerNoThanksButtonText())
 
-  private def recruitmentBannerHeadingText() = recruitmentBanner().findElement(By.cssSelector(".govuk-tag.govuk-phase-banner__content__tag")).getText.trim
+  private def recruitmentBannerHeadingText() =
+    recruitmentBanner().findElement(By.cssSelector(".govuk-tag.govuk-phase-banner__content__tag")).getText.trim
 
-  private def recruitmentBannerNoThanksButtonText() = {
+  private def recruitmentBannerNoThanksButtonText() =
     recruitmentBanner().findElement(By.cssSelector(".govuk-phase-banner__text")).getText.trim
-  }
 
-  def clickNoThanksButtonOnBanner(): Unit = recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__close")).click()
+  def clickNoThanksButtonOnBanner(): Unit =
+    recruitmentBanner().findElement(By.cssSelector(".hmrc-user-research-banner__close")).click()
 
   def clickOnSearchButton(): WebElement = webDriver.findElement(By.cssSelector(".govuk-button"))
 

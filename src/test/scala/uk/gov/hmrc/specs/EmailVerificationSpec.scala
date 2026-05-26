@@ -19,19 +19,7 @@ package uk.gov.hmrc.specs
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
-import uk.gov.hmrc.pages.CommonPage.{
-  customsDataStoreIsEmpty,
-  emailIsUndeliverable,
-  navigateToPage,
-  pageTitleShouldBe,
-  theUrlIsCorrect,
-  userHasVerifiedEmailInDataStore,
-  userIsRedirectedToPage,
-  userShouldSeeHeading,
-  userShouldSeeLinkTo,
-  userShouldSeeStaticText,
-  userShouldSeeTextInBulletPoints
-}
+import uk.gov.hmrc.pages.CommonPage.{customsDataStoreIsEmpty, emailIsUndeliverable, navigateToPage, pageTitleShouldBe, theUrlIsCorrect, userHasVerifiedEmailInDataStore, userIsRedirectedToPage, userShouldSeeHeading, userShouldSeeLinkTo, userShouldSeeStaticText, userShouldSeeTextInBulletPoints}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.AcceptanceTest

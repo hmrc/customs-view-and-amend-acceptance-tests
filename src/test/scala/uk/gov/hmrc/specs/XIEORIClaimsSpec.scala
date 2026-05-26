@@ -20,12 +20,7 @@ import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.pages.ClaimsListPages.userShouldSeeClaims
-import uk.gov.hmrc.pages.CommonPage.{
-  navigateToPage,
-  pageTitleShouldBe,
-  userClicksOn,
-  userShouldSeeHeading
-}
+import uk.gov.hmrc.pages.CommonPage.{navigateToPage, pageTitleShouldBe, userClicksOn, userShouldSeeHeading}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
 import uk.gov.hmrc.pages.ViewAndAmendHomePage.userShouldSeeEoriDetails
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}

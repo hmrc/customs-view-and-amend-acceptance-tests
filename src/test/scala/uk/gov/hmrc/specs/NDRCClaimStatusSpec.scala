@@ -23,12 +23,7 @@ import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.pages.ClaimDetailsPage.userShouldSeeClaimDetails
 import uk.gov.hmrc.pages.ClaimsListPages.userShouldSeeClaims
-import uk.gov.hmrc.pages.CommonPage.{
-  navigateToPage,
-  userClicksBackLink,
-  userClicksOn,
-  userShouldSeeHeading
-}
+import uk.gov.hmrc.pages.CommonPage.{navigateToPage, userClicksBackLink, userClicksOn, userShouldSeeHeading}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.AcceptanceTest
@@ -99,12 +94,54 @@ class NDRCClaimStatusSpec
     Scenario("Display in-progress status for single declaration claims", AcceptanceTest) {
       val examples = Table(
         ("user", "claim ref1", "claim ref2", "claim type", "EORI number1", "EORI number2"),
-        ("openAnalysisClaim", "NDRC-1002", "NDRC-1502", "Overpayment (C285),Single declaration", "GB98765432101", "XI98745632102"),
-        ("OpenReworkClaim", "NDRC-1008", "NDRC-1508", "Overpayment (C285),Single declaration", "GB98765432101", "XI98745632102"),
-        ("PendingDecisionLetterClaim", "NDRC-10016", "NDRC-10516", "Overpayment (C285),Single declaration", "GB98765432101", "XI98745632102"),
-        ("AnalysisReworkClaim", "NDRC-10018", "NDRC-10518", "Overpayment (C285),Single declaration", "GB98765432101", "XI98745632102"),
-        ("PendingComplianceRecommendationClaim", "NDRC-10022", "NDRC-10522", "Overpayment (C285),Single declaration", "GB98765432101", "XI98745632102"),
-        ("PendingComplianceCheckClaim", "NDRC-10024", "NDRC-10524", "Overpayment (C285),Single declaration", "GB98765432101", "XI98745632102")
+        (
+          "openAnalysisClaim",
+          "NDRC-1002",
+          "NDRC-1502",
+          "Overpayment (C285),Single declaration",
+          "GB98765432101",
+          "XI98745632102"
+        ),
+        (
+          "OpenReworkClaim",
+          "NDRC-1008",
+          "NDRC-1508",
+          "Overpayment (C285),Single declaration",
+          "GB98765432101",
+          "XI98745632102"
+        ),
+        (
+          "PendingDecisionLetterClaim",
+          "NDRC-10016",
+          "NDRC-10516",
+          "Overpayment (C285),Single declaration",
+          "GB98765432101",
+          "XI98745632102"
+        ),
+        (
+          "AnalysisReworkClaim",
+          "NDRC-10018",
+          "NDRC-10518",
+          "Overpayment (C285),Single declaration",
+          "GB98765432101",
+          "XI98745632102"
+        ),
+        (
+          "PendingComplianceRecommendationClaim",
+          "NDRC-10022",
+          "NDRC-10522",
+          "Overpayment (C285),Single declaration",
+          "GB98765432101",
+          "XI98745632102"
+        ),
+        (
+          "PendingComplianceCheckClaim",
+          "NDRC-10024",
+          "NDRC-10524",
+          "Overpayment (C285),Single declaration",
+          "GB98765432101",
+          "XI98745632102"
+        )
       )
       forAll(examples) { (user, claimRef1, claimRef2, claimType, eori1, eori2) =>
         Given(s"User is signed in as a $user user")
@@ -223,7 +260,12 @@ class NDRCClaimStatusSpec
         ("user", "claim ref", "claim type", "claim decision"),
         ("ResolvedWithdrawnClaim", "NDRC-1005", "Rejected goods (C&E1179),Multiple declarations", "Withdrawn"),
         ("ResolvedRejectedClaim", "NDRC-1007", "Rejected goods (C&E1179),Multiple declarations", "Rejected"),
-        ("ResolvedPartialRefusedClaim", "NDRC-10015", "Rejected goods (C&E1179),Multiple declarations", "Partial Refused")
+        (
+          "ResolvedPartialRefusedClaim",
+          "NDRC-10015",
+          "Rejected goods (C&E1179),Multiple declarations",
+          "Partial Refused"
+        )
       )
       forAll(examples) { (user, claimRef, claimType, claimDecision) =>
         Given(s"User is signed in as a $user user")

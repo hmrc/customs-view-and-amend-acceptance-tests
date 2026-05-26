@@ -22,7 +22,7 @@ import uk.gov.hmrc.conf.TestConfiguration
 object ChooseFileTypePage extends BasePage {
   override val url: String = TestConfiguration.url("view-and-upload") + "/claims-status/choose-file-type/NDRC-21"
 
-  override val title       = "Add supporting documents to your claim"
+  override val title = "Add supporting documents to your claim"
 
   override def expectedPageErrorTitle: Option[String] = Some(
     "Error: Add supporting documents to your claim - Claim back import duty and VAT - GOV.UK"

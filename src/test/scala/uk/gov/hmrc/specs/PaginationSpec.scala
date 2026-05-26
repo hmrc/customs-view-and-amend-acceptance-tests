@@ -21,12 +21,7 @@ import org.scalatest.prop.TableDrivenPropertyChecks.forAll
 import org.scalatest.prop.Tables.Table
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
-import uk.gov.hmrc.pages.ClaimsListPages.{
-  userClicksOnPaginationLink,
-  userEntersInQueryParameter,
-  userShouldSeePaginationContent,
-  userShouldSeePaginationResultsText
-}
+import uk.gov.hmrc.pages.ClaimsListPages.{userClicksOnPaginationLink, userEntersInQueryParameter, userShouldSeePaginationContent, userShouldSeePaginationResultsText}
 import uk.gov.hmrc.pages.CommonPage.navigateToPage
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}

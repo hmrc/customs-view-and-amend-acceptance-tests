@@ -31,7 +31,7 @@ object ViewAndAmendHomePage extends CustomsFinancialsWebPage {
     .map(_.getText.trim)
     .toList
 
-  def eoriCompany: String = webDriver.findElement(By.cssSelector("#main-content > span")).getText.trim
+  def eoriCompany: String             = webDriver.findElement(By.cssSelector("#main-content > span")).getText.trim
   def cardDetails: List[List[String]] = webDriver
     .findElements(By.cssSelector(".custom-card"))
     .asScala

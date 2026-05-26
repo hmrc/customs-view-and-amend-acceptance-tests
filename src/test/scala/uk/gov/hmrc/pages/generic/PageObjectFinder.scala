@@ -26,26 +26,35 @@ import scala.jdk.CollectionConverters._
 object PageObjectFinder extends BasePage {
 
   override val title: String = ""
-  override val url: String = ""
+  override val url: String   = ""
 
   private val files = {
     val directories = Seq(
       file("src/test/scala/uk/gov/hmrc/pages/")
     )
 
-    val fileList: File => List[File] = f => FileUtils
-      .listFiles(f, Array("scala"), true)
-      .asScala.toList
+    val fileList: File => List[File] = f =>
+      FileUtils
+        .listFiles(f, Array("scala"), true)
+        .asScala
+        .toList
 
     directories.flatMap(fileList)
   }
 
   def page(pageIn: String): BasePage = {
     val page = pageIn.replaceAll(" ", "")
-    files.find(_.getName == s"$page.scala")
+    files
+      .find(_.getName == s"$page.scala")
       .map(_.getAbsolutePath.replaceAll(".*/(uk/.*).scala", "$1").replaceAll("/", "."))
       .map(str => Class.forName(str + "$").getField("MODULE$").get(classOf[BasePage]).asInstanceOf[BasePage])
-      .getOrElse(throw new TestFailedException(s"$page does not exist in tests, or it does not conform to Web page format", new FileNotFoundException(), 12))
+      .getOrElse(
+        throw new TestFailedException(
+          s"$page does not exist in tests, or it does not conform to Web page format",
+          new FileNotFoundException(),
+          12
+        )
+      )
   }
 
   def file(path: String): File = new File(path)

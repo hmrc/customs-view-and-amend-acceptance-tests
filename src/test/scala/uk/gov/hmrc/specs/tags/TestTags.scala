@@ -19,4 +19,4 @@ package uk.gov.hmrc.specs.tags
 import org.scalatest.Tag
 
 object AcceptanceTest extends Tag("AcceptanceTest")
-object E2ETest        extends Tag("E2ETest")
+object E2ETest extends Tag("E2ETest")

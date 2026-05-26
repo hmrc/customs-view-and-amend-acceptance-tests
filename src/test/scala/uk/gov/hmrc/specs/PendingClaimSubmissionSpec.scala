@@ -19,18 +19,7 @@ package uk.gov.hmrc.specs
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
-import uk.gov.hmrc.pages.CommonPage.{
-  errorSummaryTitleAndMessage,
-  navigateToPage,
-  userClicksContinueIfOn,
-  userClicksContinueOn,
-  userClicksOn,
-  userIsPresentedWith,
-  userIsPresentedWithErrorPage,
-  userSelectsRadioButton,
-  userShouldSeeHeading,
-  userUploadsFile
-}
+import uk.gov.hmrc.pages.CommonPage.{errorSummaryTitleAndMessage, navigateToPage, userClicksContinueIfOn, userClicksContinueOn, userClicksOn, userIsPresentedWith, userIsPresentedWithErrorPage, userSelectsRadioButton, userShouldSeeHeading, userUploadsFile}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.AcceptanceTest
@@ -195,7 +184,9 @@ class PendingClaimSubmissionSpec
       userClicksContinueOn("Choose File Type Page")
       Then("User is presented with the 'Choose File Type Page' error page")
       userIsPresentedWithErrorPage("Choose File Type Page")
-      And("The error summary title is 'There is a problem' and the error message is 'Select which type of document you are uploading'")
+      And(
+        "The error summary title is 'There is a problem' and the error message is 'Select which type of document you are uploading'"
+      )
       errorSummaryTitleAndMessage("There is a problem", "Select which type of document you are uploading")
 
       When("User selects radio button 'Commercial invoice' on 'Choose File Type Page'")
@@ -208,8 +199,13 @@ class PendingClaimSubmissionSpec
       userClicksContinueOn("Choose Files Page")
       And("User is presented with the 'Choose Files Page' 'commercial invoice' error page")
       userIsPresentedWithErrorPage("Choose Files Page", "commercial invoice")
-      And("The error summary title is 'There is a problem' and the error message is 'Select yes to add a different type of supporting document to your claim'")
-      errorSummaryTitleAndMessage("There is a problem", "Select yes to add a different type of supporting document to your claim")
+      And(
+        "The error summary title is 'There is a problem' and the error message is 'Select yes to add a different type of supporting document to your claim'"
+      )
+      errorSummaryTitleAndMessage(
+        "There is a problem",
+        "Select yes to add a different type of supporting document to your claim"
+      )
 
       When("User uploads a 1 'document.pdf' file on 'Choose Files Page'")
       userUploadsFile(1, "document.pdf", "Choose Files Page")

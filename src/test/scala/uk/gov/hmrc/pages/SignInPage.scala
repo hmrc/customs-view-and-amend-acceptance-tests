@@ -36,12 +36,13 @@ object SignInPage extends SignInPage {
   }
 
   def userIsSignedIn(dutyDefermentType: String, userType: String): Unit = {
-    val redirectUrl = if (dutyDefermentType.isEmpty) continueUrl.getOrElse(ViewAndAmendHomePage.url)
-    else bookmarkedUrl(dutyDefermentType)
+    val redirectUrl =
+      if (dutyDefermentType.isEmpty) continueUrl.getOrElse(ViewAndAmendHomePage.url)
+      else bookmarkedUrl(dutyDefermentType)
     signedInUserType match {
       case Some(`userType`) =>
         println(s"=============> skipping login - already logged in as $userType")
-      case _ =>
+      case _                =>
         doLogin {
           AuthLoginStubPage.loginAuth(userType, redirectUrl)
           signedInUserType = Some(userType)
@@ -52,7 +53,7 @@ object SignInPage extends SignInPage {
   private def bookmarkedUrl(dutyDefermentType: String): String = dutyDefermentType match {
     case x if x.contains("Duty deferment requested statements bookmarked url") =>
       "http://localhost:9396/customs/historic-statement/requested/duty-deferment/980831025ef64f389e2397566637a5e9"
-    case _ =>
+    case _                                                                     =>
       throw new IllegalArgumentException(s"Unexpected dutyDefermentType: $dutyDefermentType")
   }
 
@@ -74,16 +75,21 @@ trait SignInPage extends WebPage {
 
   def continueUrl: Option[String] = {
     val q: Option[String] = webDriver.getCurrentUrl match {
-      case notInitialized if notInitialized == "data:," => None //Chrome
+      case notInitialized if notInitialized == "data:,"          => None //Chrome
       case notInitializedIe if notInitializedIe == "about:blank" => None //IE & Firefox
-      case notInitializedSafari if notInitializedSafari == "" => None //Safari
-      case initialized => Option(new URL(initialized).getQuery)
+      case notInitializedSafari if notInitializedSafari == ""    => None //Safari
+      case initialized                                           => Option(new URL(initialized).getQuery)
     }
     q.flatMap { str =>
-      str.split("&").map(v => {
-        val m =  v.split("=", 2).map(s => URLDecoder.decode(s, StandardCharsets.UTF_8.name()))
-        m(0) -> m(1)
-      }).toMap.get("continue").map(relativeUrl => baseUrl + relativeUrl)
+      str
+        .split("&")
+        .map { v =>
+          val m = v.split("=", 2).map(s => URLDecoder.decode(s, StandardCharsets.UTF_8.name()))
+          m(0) -> m(1)
+        }
+        .toMap
+        .get("continue")
+        .map(relativeUrl => baseUrl + relativeUrl)
     }
   }
 

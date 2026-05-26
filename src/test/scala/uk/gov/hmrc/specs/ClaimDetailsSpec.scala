@@ -22,15 +22,7 @@ import org.scalatest.prop.Tables.Table
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.pages.ClaimDetailsPage.userShouldSeeClaimDetails
-import uk.gov.hmrc.pages.CommonPage.{
-  navigateToPage,
-  pageTitleShouldBe,
-  userClicksBackLink,
-  userClicksOn,
-  userShouldSeeBackLink,
-  userShouldSeeHeading,
-  userShouldSeeStaticText
-}
+import uk.gov.hmrc.pages.CommonPage.{navigateToPage, pageTitleShouldBe, userClicksBackLink, userClicksOn, userShouldSeeBackLink, userShouldSeeHeading, userShouldSeeStaticText}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.{AcceptanceTest, E2ETest}
@@ -106,7 +98,7 @@ class ClaimDetailsSpec
           "Local Reference Number (LRN)" -> "KWMREF1",
           "Claimant‘s EORI number"       -> "GB98765432101",
           "Claim type"                   -> "Overpayment (C285),Single declaration",
-          "Claim status"                  -> "Pending",
+          "Claim status"                 -> "Pending",
           "Claim submitted date"         -> "1 May 2020",
           "Claim amount requested"       -> "£900000.00",
           "Claimant‘s name"              -> "Claimant name",

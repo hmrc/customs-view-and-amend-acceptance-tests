@@ -23,7 +23,7 @@ import uk.gov.hmrc.pages.BasePage
 object AuthorityLoginStubPage extends BasePage {
 
   override val url: String = TestConfiguration.url("auth-login-stub") + "/gg-sign-in"
-  override val title = "Authority Wizard"
+  override val title       = "Authority Wizard"
 
   override def expectedPageErrorTitle: Option[String] = Some("")
 
@@ -31,9 +31,8 @@ object AuthorityLoginStubPage extends BasePage {
 
   override def expectedPageHeader: Option[String] = Some("Authority Wizard")
 
-  def enterRedirectURL(url: String): Unit = {
+  def enterRedirectURL(url: String): Unit =
     driver.findElement(By.cssSelector("#redirectionUrl")).sendKeys(url)
-  }
 
   def enrolments(eKey: String, IDName: String, IDValue: String): Unit = {
     driver.findElement(By.id("enrolment[0].name")).sendKeys(eKey)
@@ -41,8 +40,7 @@ object AuthorityLoginStubPage extends BasePage {
     driver.findElement(By.id("input-0-0-value")).sendKeys(IDValue)
   }
 
-  override def clickContinueButton(): Unit ={
+  override def clickContinueButton(): Unit =
     click on id("submit")
-  }
 
 }

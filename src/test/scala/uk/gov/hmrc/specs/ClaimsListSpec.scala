@@ -22,15 +22,7 @@ import org.scalatest.prop.Tables.Table
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.pages.ClaimsListPages.userShouldSeeClaims
-import uk.gov.hmrc.pages.CommonPage.{
-  navigateToPage,
-  pageTitleShouldBe,
-  userClicksBackLink,
-  userClicksOn,
-  userShouldSeeBackLink,
-  userShouldSeeHeading,
-  userShouldSeeStaticText
-}
+import uk.gov.hmrc.pages.CommonPage.{navigateToPage, pageTitleShouldBe, userClicksBackLink, userClicksOn, userShouldSeeBackLink, userShouldSeeHeading, userShouldSeeStaticText}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
 import uk.gov.hmrc.pages.ViewAndAmendHomePage.userShouldSeeEoriDetails
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}

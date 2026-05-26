@@ -21,16 +21,7 @@ import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.pages.ClaimDetailsPage.userShouldSeeClaimDetails
 import uk.gov.hmrc.pages.ClaimSearchPage.userSearchesFor
-import uk.gov.hmrc.pages.CommonPage.{
-  navigateToPage,
-  pageTitleShouldBe,
-  userClicksBackLink,
-  userClicksOn,
-  userClicksSearchButton,
-  userShouldSeeBackLink,
-  userShouldSeeHeading,
-  userShouldSeeStaticText
-}
+import uk.gov.hmrc.pages.CommonPage.{navigateToPage, pageTitleShouldBe, userClicksBackLink, userClicksOn, userClicksSearchButton, userShouldSeeBackLink, userShouldSeeHeading, userShouldSeeStaticText}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.{AcceptanceTest, E2ETest}

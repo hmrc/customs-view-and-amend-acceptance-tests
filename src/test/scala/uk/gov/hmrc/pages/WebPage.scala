@@ -26,71 +26,64 @@ import uk.gov.hmrc.utils.{Configuration, StartUpTearDown}
 import java.util
 import scala.jdk.CollectionConverters._
 
-
-trait WebPage extends WebBrowser with Assertions with Matchers with StartUpTearDown{
+trait WebPage extends WebBrowser with Assertions with Matchers with StartUpTearDown {
 
   lazy val url = ""
 
-  def financialsBaseUrl: String = if (envBaseUrl.startsWith("http://local")) s"$envBaseUrl:$financialsPort" else envBaseUrl
-  def baseUrl: String = if (envBaseUrl.startsWith("http://local")) s"$envBaseUrl:$viewAndAmendPort" else envBaseUrl
+  def financialsBaseUrl: String =
+    if (envBaseUrl.startsWith("http://local")) s"$envBaseUrl:$financialsPort" else envBaseUrl
+  def baseUrl: String           = if (envBaseUrl.startsWith("http://local")) s"$envBaseUrl:$viewAndAmendPort" else envBaseUrl
 
-  def goToPage(): Unit = {
+  def goToPage(): Unit =
     go to url
-  }
 
   def getCurrentUrl: String = webDriver.getCurrentUrl
 
-  def elementText(selector: String): String = {
-    try {
-      find(cssSelector(selector)).get.text.trim
-    } catch {
+  def elementText(selector: String): String =
+    try find(cssSelector(selector)).get.text.trim
+    catch {
       case _: NoSuchElementException => fail(s"Selector $selector not found in page")
     }
-  }
 
-  def elementTextAll(selector: String): List[String] = {
-    try {
-      findAll(cssSelector(selector)).map(_.underlying.getText.trim).toList
-    } catch {
+  def elementTextAll(selector: String): List[String] =
+    try findAll(cssSelector(selector)).map(_.underlying.getText.trim).toList
+    catch {
       case _: NoSuchElementException => fail(s"Selector $selector not found in page")
     }
-  }
 
-  def elementsByCss(selector: String): util.List[WebElement] = {
-    try {
-      webDriver.findElements(By.className(selector))
-    } catch {
+  def elementsByCss(selector: String): util.List[WebElement] =
+    try webDriver.findElements(By.className(selector))
+    catch {
       case _: NoSuchElementException => fail(s"Selector $selector not found in page")
     }
-  }
 
-  def elementsByPartialLinkText(element: WebElement, partialLinkText: String): util.List[WebElement] = {
-    try {
-      element.findElements(By.partialLinkText(partialLinkText))
-    } catch {
+  def elementsByPartialLinkText(element: WebElement, partialLinkText: String): util.List[WebElement] =
+    try element.findElements(By.partialLinkText(partialLinkText))
+    catch {
       case _: NoSuchElementException => fail(s"Link Text $partialLinkText not found in page")
     }
-  }
 
-  protected def findElementById(id: String)(implicit webDriver: WebDriver): WebElement = {
+  protected def findElementById(id: String)(implicit webDriver: WebDriver): WebElement =
     webDriver.findElement(By.id(id))
-  }
 
-  def getCookies: Set[WSCookie] = webDriver.manage().getCookies.asScala
-    .map(cookie => DefaultWSCookie(cookie.getName, cookie.getValue).asInstanceOf[WSCookie]).toSet
+  def getCookies: Set[WSCookie] = webDriver
+    .manage()
+    .getCookies
+    .asScala
+    .map(cookie => DefaultWSCookie(cookie.getName, cookie.getValue).asInstanceOf[WSCookie])
+    .toSet
 
   def assertElementInPageWithText(element: String, exists: Boolean, expectedParagraphText: String): Assertion = {
     val allPageLinks = elementTextAll(element)
     if (exists) {
       allPageLinks should contain(expectedParagraphText)
-    }
-    else {
+    } else {
       allPageLinks should not contain expectedParagraphText
     }
   }
 
-  private lazy val envBaseUrl : String = Configuration.settings.baseUrl
-  private val financialsPort = 9876
-  private val viewAndAmendPort = 9399
+  private lazy val envBaseUrl: String = Configuration.settings.baseUrl
+  private val financialsPort          = 9876
+  private val viewAndAmendPort        = 9399
 
 }

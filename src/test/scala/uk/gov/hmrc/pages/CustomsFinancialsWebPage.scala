@@ -26,21 +26,15 @@ class CustomsFinancialsWebPage extends WebPage with Matchers with StartUpTearDow
 
   var bookmarkUrl: String = ""
 
-  def helpText(): String = {
+  def helpText(): String =
     findElementById("help-message").getText
-  }
 
-  def backLink(): WebElement = {
+  def backLink(): WebElement =
     webDriver.findElement(By.cssSelector(".govuk-back-link"))
-  }
 
-  def getTextById(id: String) = {
+  def getTextById(id: String) =
     findElementById(id).getText.trim
-  }
 
-  def clearFieldById(id: String) = {
+  def clearFieldById(id: String) =
     findElementById(id).clear()
-  }
 }
-
-
