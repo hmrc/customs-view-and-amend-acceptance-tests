@@ -57,11 +57,16 @@ class CookieBannerSpec
         "Reject additional cookies",
         "View cookie preferences"
       )
+      cookieBannerDetails.foreach(detail => info(s"- $detail"))
       userShouldSeeCookieConsentBanner(cookieBannerDetails)
       And("User should see the following links on the cookie banner")
-      userShouldSeeBannerElements("links", Seq("View cookie preferences"))
+      val cookieBannerLinks = Seq("View cookie preferences")
+      cookieBannerLinks.foreach(link => info(s"- $link"))
+      userShouldSeeBannerElements("links", cookieBannerLinks)
       And("User should see the following buttons on the cookie banner")
-      userShouldSeeBannerElements("buttons", Seq("Accept additional cookies", "Reject additional cookies"))
+      val cookieBannerButtons = Seq("Accept additional cookies", "Reject additional cookies")
+      cookieBannerButtons.foreach(button => info(s"- $button"))
+      userShouldSeeBannerElements("buttons", cookieBannerButtons)
     }
 
     Scenario("Accept cookies on cookie consent banner", AcceptanceTest) {
@@ -71,16 +76,20 @@ class CookieBannerSpec
       And("User clicks on Accept additional cookies button")
       userClicksButton("Accept additional cookies")
       Then("User should see a cookie consent banner with the following details")
-      userShouldSeeCookieConsentBanner(
-        Seq(
-          "You have accepted additional cookies. You can change your cookie settings at any time.",
-          "Hide cookies message"
-        )
+      val cookieBannerDetails = Seq(
+        "You have accepted additional cookies. You can change your cookie settings at any time.",
+        "Hide cookies message"
       )
+      cookieBannerDetails.foreach(detail => info(s"- $detail"))
+      userShouldSeeCookieConsentBanner(cookieBannerDetails)
       And("User should see the following links on the cookie banner")
-      userShouldSeeBannerElements("links", Seq("change your cookie settings"))
+      val cookieBannerLinks = Seq("change your cookie settings")
+      cookieBannerLinks.foreach(link => info(s"- $link"))
+      userShouldSeeBannerElements("links", cookieBannerLinks)
       And("User should see the following buttons on the cookie banner")
-      userShouldSeeBannerElements("buttons", Seq("Hide cookies message"))
+      val cookieBannerButtons = Seq("Hide cookies message")
+      cookieBannerButtons.foreach(button => info(s"- $button"))
+      userShouldSeeBannerElements("buttons", cookieBannerButtons)
       When("User clicks on Hide cookies message button")
       userClicksButton("Hide cookies message")
       Then("User should not see cookie consent banner")
@@ -94,16 +103,20 @@ class CookieBannerSpec
       And("User clicks on Reject additional cookies button")
       userClicksButton("Reject additional cookies")
       Then("User should see a cookie consent banner with the following details")
-      userShouldSeeCookieConsentBanner(
-        Seq(
-          "You have rejected additional cookies. You can change your cookie settings at any time.",
-          "Hide cookies message"
-        )
+      val cookieBannerDetails = Seq(
+        "You have rejected additional cookies. You can change your cookie settings at any time.",
+        "Hide cookies message"
       )
+      cookieBannerDetails.foreach(detail => info(s"- $detail"))
+      userShouldSeeCookieConsentBanner(cookieBannerDetails)
       And("User should see the following links on the cookie banner")
-      userShouldSeeBannerElements("links", Seq("change your cookie settings"))
+      val cookieBannerLinks = Seq("change your cookie settings")
+      cookieBannerLinks.foreach(link => info(s"- $link"))
+      userShouldSeeBannerElements("links", cookieBannerLinks)
       And("User should see the following buttons on the cookie banner")
-      userShouldSeeBannerElements("buttons", Seq("Hide cookies message"))
+      val cookieBannerButtons = Seq("Hide cookies message")
+      cookieBannerButtons.foreach(button => info(s"- $button"))
+      userShouldSeeBannerElements("buttons", cookieBannerButtons)
       When("User clicks on Hide cookies message button")
       userClicksButton("Hide cookies message")
       Then("User should not see cookie consent banner")

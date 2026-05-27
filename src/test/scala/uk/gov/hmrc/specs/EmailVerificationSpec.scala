@@ -52,21 +52,20 @@ class EmailVerificationSpec
       And("The 'Verify or change email address' url is correct")
       theUrlIsCorrect("Verify or change email address")
       And("User should see the following static text")
-      userShouldSeeStaticText(
-        "static",
-        Seq(
-          "This is the email address your organisation has registered for the Customs Declaration Service (CDS). You need to verify this email address or change it. You can verify the email instantly provided you have access to the email account.",
-          "This will be the only email address we use for:"
-        )
+      val unverifiedStaticText = Seq(
+        "This is the email address your organisation has registered for the Customs Declaration Service (CDS). You need to verify this email address or change it. You can verify the email instantly provided you have access to the email account.",
+        "This will be the only email address we use for:"
       )
+      unverifiedStaticText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", unverifiedStaticText)
       And("User should see the following text in bullet points")
-      userShouldSeeTextInBulletPoints(
-        Seq(
-          "updates on changes to the Customs Declaration Service",
-          "urgent updates about goods in customs",
-          "some financial notifications, including Direct Debit notices and VAT"
-        )
+      val unverifiedBullets = Seq(
+        "updates on changes to the Customs Declaration Service",
+        "urgent updates about goods in customs",
+        "some financial notifications, including Direct Debit notices and VAT"
       )
+      unverifiedBullets.foreach(line => info(s"- $line"))
+      userShouldSeeTextInBulletPoints(unverifiedBullets)
     }
 
     Scenario("Display undeliverable email page", AcceptanceTest) {
@@ -89,22 +88,21 @@ class EmailVerificationSpec
       And("User should see the heading 'There‘s a problem with the CDS registered email address'")
       userShouldSeeHeading("", "", "There‘s a problem with the CDS registered email address")
       And("User should see the following static text")
-      userShouldSeeStaticText(
-        "static",
-        Seq(
-          "We tried to send you an email but it could not be delivered. This could be because the inbox is full, or due to a technical problem with your email provider.",
-          "This is the email address your organisation has registered for the Customs Declaration Service (CDS). You need to verify this email address or change it. You can verify the email instantly provided you have access to the email account.",
-          "This will be the only email address we use for:"
-        )
+      val undeliverableStaticText = Seq(
+        "We tried to send you an email but it could not be delivered. This could be because the inbox is full, or due to a technical problem with your email provider.",
+        "This is the email address your organisation has registered for the Customs Declaration Service (CDS). You need to verify this email address or change it. You can verify the email instantly provided you have access to the email account.",
+        "This will be the only email address we use for:"
       )
+      undeliverableStaticText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", undeliverableStaticText)
       And("User should see the following text in bullet points")
-      userShouldSeeTextInBulletPoints(
-        Seq(
-          "updates on changes to the Customs Declaration Service",
-          "urgent updates about goods in customs",
-          "some financial notifications, including Direct Debit notices and VAT"
-        )
+      val undeliverableBullets = Seq(
+        "updates on changes to the Customs Declaration Service",
+        "urgent updates about goods in customs",
+        "some financial notifications, including Direct Debit notices and VAT"
       )
+      undeliverableBullets.foreach(line => info(s"- $line"))
+      userShouldSeeTextInBulletPoints(undeliverableBullets)
       And("User should see a link to 'Verify or change email address'")
       userShouldSeeLinkTo("", "Verify or change email address")
       And("The 'Verify or change email address' url is correct")

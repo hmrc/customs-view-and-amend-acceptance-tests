@@ -52,12 +52,12 @@ class ClaimsListSpec
       And("The page title should be 'Claims in progress - Claim back import duty and VAT - GOV.UK'")
       pageTitleShouldBe("Claims in progress - Claim back import duty and VAT - GOV.UK")
       And("User should see the following claims")
-      userShouldSeeClaims(
-        Seq(
-          Seq("Claim reference", "MRN", "Type of claim", "Claim submitted date"),
-          Seq("NDRC-1001", "MRN23014", "Overpayment or rejected goods", "1 May 2020")
-        )
+      val inProgressClaims = Seq(
+        Seq("Claim reference", "MRN", "Type of claim", "Claim submitted date"),
+        Seq("NDRC-1001", "MRN23014", "Overpayment or rejected goods", "1 May 2020")
       )
+      inProgressClaims.foreach(row => info(s"- ${row.mkString(" | ")}"))
+      userShouldSeeClaims(inProgressClaims)
     }
 
     Scenario("Verify content on pending claims list page", AcceptanceTest) {
@@ -74,13 +74,13 @@ class ClaimsListSpec
       And("The page title should be 'Claims needing more information - Claim back import duty and VAT - GOV.UK'")
       pageTitleShouldBe("Claims needing more information - Claim back import duty and VAT - GOV.UK")
       And("User should see the following claims")
-      userShouldSeeClaims(
-        Seq(
-          Seq("Claim reference", "MRN", "Type of claim", "Claim submitted date"),
-          Seq("NDRC-1004", "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
-          Seq("NDRC-1504", "MRN23014", "Overpayment or rejected goods", "1 May 2020")
-        )
+      val pendingClaims = Seq(
+        Seq("Claim reference", "MRN", "Type of claim", "Claim submitted date"),
+        Seq("NDRC-1004", "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
+        Seq("NDRC-1504", "MRN23014", "Overpayment or rejected goods", "1 May 2020")
       )
+      pendingClaims.foreach(row => info(s"- ${row.mkString(" | ")}"))
+      userShouldSeeClaims(pendingClaims)
     }
 
     Scenario("Verify content on closed claims list page", AcceptanceTest) {
@@ -95,20 +95,19 @@ class ClaimsListSpec
       And("The page title should be 'Closed claims - Claim back import duty and VAT - GOV.UK'")
       pageTitleShouldBe("Closed claims - Claim back import duty and VAT - GOV.UK")
       And("User should see the following static text")
-      userShouldSeeStaticText(
-        "static",
-        Seq(
-          "This page shows claims that were approved, rejected, or withdrawn in the past 30 days.",
-          "To view older closed claims, search using the claim reference number."
-        )
+      val closedStaticText = Seq(
+        "This page shows claims that were approved, rejected, or withdrawn in the past 30 days.",
+        "To view older closed claims, search using the claim reference number."
       )
+      closedStaticText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", closedStaticText)
       And("User should see the following claims")
-      userShouldSeeClaims(
-        Seq(
-          Seq("Claim reference", "MRN", "Type of claim", "Claim decision date", "Claim decision"),
-          Seq("NDRC-1005", "MRN23014", "Overpayment or rejected goods", "1 May 2021", "Withdrawn")
-        )
+      val closedClaims = Seq(
+        Seq("Claim reference", "MRN", "Type of claim", "Claim decision date", "Claim decision"),
+        Seq("NDRC-1005", "MRN23014", "Overpayment or rejected goods", "1 May 2021", "Withdrawn")
       )
+      closedClaims.foreach(row => info(s"- ${row.mkString(" | ")}"))
+      userShouldSeeClaims(closedClaims)
     }
 
     Scenario("Navigation back to view and amend home page", AcceptanceTest) {
@@ -142,7 +141,9 @@ class ClaimsListSpec
       Then("User should see the heading 'Sorry, there is a problem with the service'")
       userShouldSeeHeading("", "", "Sorry, there is a problem with the service")
       And("User should see the following static text")
-      userShouldSeeStaticText("static", Seq("Try again later."))
+      val errorStaticText = Seq("Try again later.")
+      errorStaticText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", errorStaticText)
     }
   }
 }

@@ -55,13 +55,13 @@ class XIEORIClaimsSpec
       And("The page title should be 'Claims in progress - Claim back import duty and VAT - GOV.UK'")
       pageTitleShouldBe("Claims in progress - Claim back import duty and VAT - GOV.UK")
       And("User should see the following claims")
-      userShouldSeeClaims(
-        Seq(
-          inProgressHeaders,
-          Seq("NDRC-1002", "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
-          Seq("NDRC-1502", "MRN23014", "Overpayment or rejected goods", "1 May 2020")
-        )
+      val inProgressClaims = Seq(
+        inProgressHeaders,
+        Seq("NDRC-1002", "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
+        Seq("NDRC-1502", "MRN23014", "Overpayment or rejected goods", "1 May 2020")
       )
+      inProgressClaims.foreach(row => info(s"- ${row.mkString(" | ")}"))
+      userShouldSeeClaims(inProgressClaims)
     }
 
     Scenario("View XIEORI claims needing more information", AcceptanceTest) {
@@ -78,13 +78,13 @@ class XIEORIClaimsSpec
       And("The page title should be 'Claims needing more information - Claim back import duty and VAT - GOV.UK'")
       pageTitleShouldBe("Claims needing more information - Claim back import duty and VAT - GOV.UK")
       And("User should see the following claims")
-      userShouldSeeClaims(
-        Seq(
-          inProgressHeaders,
-          Seq("NDRC-1004", "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
-          Seq("NDRC-1504", "MRN23014", "Overpayment or rejected goods", "1 May 2020")
-        )
+      val pendingClaims = Seq(
+        inProgressHeaders,
+        Seq("NDRC-1004", "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
+        Seq("NDRC-1504", "MRN23014", "Overpayment or rejected goods", "1 May 2020")
       )
+      pendingClaims.foreach(row => info(s"- ${row.mkString(" | ")}"))
+      userShouldSeeClaims(pendingClaims)
     }
 
     Scenario("View XIEORI closed claims", AcceptanceTest) {

@@ -45,9 +45,13 @@ class PaginationSpec
       When("User navigates to the in progress claims list page")
       navigateToPage("", "in progress claims list")
       Then("User should see the following pagination content")
-      userShouldSeePaginationContent("content", Seq("1", "2", "Next"))
+      val firstPageContent = Seq("1", "2", "Next")
+      firstPageContent.foreach(item => info(s"- $item"))
+      userShouldSeePaginationContent("content", firstPageContent)
       And("User should see the following pagination links")
-      userShouldSeePaginationContent("links", Seq("1", "2", "Next"))
+      val firstPageLinks = Seq("1", "2", "Next")
+      firstPageLinks.foreach(item => info(s"- $item"))
+      userShouldSeePaginationContent("links", firstPageLinks)
       And("User should see the following pagination results text")
       userShouldSeePaginationResultsText("Showing 1 to 20 of 40 claims")
     }
@@ -62,9 +66,13 @@ class PaginationSpec
       Then("User should see the following pagination results text")
       userShouldSeePaginationResultsText("Showing 21 to 40 of 40 claims")
       And("User should see the following pagination content")
-      userShouldSeePaginationContent("content", Seq("Previous", "1", "2"))
+      val secondPageContent = Seq("Previous", "1", "2")
+      secondPageContent.foreach(item => info(s"- $item"))
+      userShouldSeePaginationContent("content", secondPageContent)
       And("User should see the following pagination links")
-      userShouldSeePaginationContent("links", Seq("Previous", "1", "2"))
+      val secondPageLinks = Seq("Previous", "1", "2")
+      secondPageLinks.foreach(item => info(s"- $item"))
+      userShouldSeePaginationContent("links", secondPageLinks)
     }
 
     Scenario("Navigate to pages using previous link on pagination", AcceptanceTest) {
@@ -79,9 +87,13 @@ class PaginationSpec
       Then("User should see the following pagination results text")
       userShouldSeePaginationResultsText("Showing 1 to 20 of 40 claims")
       And("User should see the following pagination content")
-      userShouldSeePaginationContent("content", Seq("1", "2", "Next"))
+      val previousPageContent = Seq("1", "2", "Next")
+      previousPageContent.foreach(item => info(s"- $item"))
+      userShouldSeePaginationContent("content", previousPageContent)
       And("User should see the following pagination links")
-      userShouldSeePaginationContent("links", Seq("1", "2", "Next"))
+      val previousPageLinks = Seq("1", "2", "Next")
+      previousPageLinks.foreach(item => info(s"- $item"))
+      userShouldSeePaginationContent("links", previousPageLinks)
     }
 
     Scenario("Navigate to pages using pagination number links", AcceptanceTest) {
@@ -94,13 +106,17 @@ class PaginationSpec
       Then("User should see the following pagination results text")
       userShouldSeePaginationResultsText("Showing 21 to 40 of 40 claims")
       And("User should see the following pagination links")
-      userShouldSeePaginationContent("links", Seq("Previous", "1", "2"))
+      val page2Links = Seq("Previous", "1", "2")
+      page2Links.foreach(item => info(s"- $item"))
+      userShouldSeePaginationContent("links", page2Links)
       When("User clicks on pagination link '1'")
       userClicksOnPaginationLink("1")
       Then("User should see the following pagination results text")
       userShouldSeePaginationResultsText("Showing 1 to 20 of 40 claims")
       And("User should see the following pagination links")
-      userShouldSeePaginationContent("links", Seq("1", "2", "Next"))
+      val page1Links = Seq("1", "2", "Next")
+      page1Links.foreach(item => info(s"- $item"))
+      userShouldSeePaginationContent("links", page1Links)
     }
 
     Scenario("User enters invalid number or higher than available pages in query parameter", AcceptanceTest) {

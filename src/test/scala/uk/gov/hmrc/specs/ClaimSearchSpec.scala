@@ -48,10 +48,9 @@ class ClaimSearchSpec
       Then("User should see the heading 'Search for a claim'")
       userShouldSeeHeading("", "", "Search for a claim")
       And("User should see the following hint text")
-      userShouldSeeStaticText(
-        "hint",
-        Seq("Enter a Movement Reference Number (MRN), or the claim reference number for older claims")
-      )
+      val hintText = Seq("Enter a Movement Reference Number (MRN), or the claim reference number for older claims")
+      hintText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("hint", hintText)
     }
 
     Scenario("Verify no matching results page for claim number search", AcceptanceTest) {
@@ -64,13 +63,12 @@ class ClaimSearchSpec
       Then("User should see the heading 'No matching results for NDRC-9999'")
       userShouldSeeHeading("", "", "No matching results for NDRC-9999")
       And("User should see the following static text")
-      userShouldSeeStaticText(
-        "static",
-        Seq(
-          "If your claim was submitted in the last 30 days and includes more than one Movement Reference Number (MRN), try searching with the first MRN you entered when you started the claim.",
-          "To find older claims, search with your claim reference number."
-        )
+      val noMatchClaimText = Seq(
+        "If your claim was submitted in the last 30 days and includes more than one Movement Reference Number (MRN), try searching with the first MRN you entered when you started the claim.",
+        "To find older claims, search with your claim reference number."
       )
+      noMatchClaimText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", noMatchClaimText)
       When("User clicks on Search button on the Find a claim page")
       userClicksSearchButton()
       Then("User should see the heading 'Search for a claim'")
@@ -87,13 +85,12 @@ class ClaimSearchSpec
       Then("User should see the heading 'No matching results for 22GBJD4DCMAM33DOI2'")
       userShouldSeeHeading("", "", "No matching results for 22GBJD4DCMAM33DOI2")
       And("User should see the following static text")
-      userShouldSeeStaticText(
-        "static",
-        Seq(
-          "If your claim was submitted in the last 30 days and includes more than one Movement Reference Number (MRN), try searching with the first MRN you entered when you started the claim.",
-          "To find older claims, search with your claim reference number."
-        )
+      val noMatchMrnText = Seq(
+        "If your claim was submitted in the last 30 days and includes more than one Movement Reference Number (MRN), try searching with the first MRN you entered when you started the claim.",
+        "To find older claims, search with your claim reference number."
       )
+      noMatchMrnText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", noMatchMrnText)
       When("User clicks on Search button on the Find a claim page")
       userClicksSearchButton()
       When("User clicks on back link to previous page")
@@ -125,22 +122,24 @@ class ClaimSearchSpec
       Then("User should see the heading 'Claim reference NDRC-42'")
       userShouldSeeHeading("", "", "Claim reference NDRC-42")
       And("User should see the following static text")
-      userShouldSeeStaticText("static", Seq("Claim details: This claim has been closed"))
+      val closedClaimText = Seq("Claim details: This claim has been closed")
+      closedClaimText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", closedClaimText)
       And("User should see the following claim details")
-      userShouldSeeClaimDetails(
-        Map(
-          "MRN"                          -> "MRN23014",
-          "Local Reference Number (LRN)" -> "KWMREF1",
-          "Claimant‘s EORI number"       -> "GB98765432101",
-          "Claim type"                   -> "Overpayment (C285),Single declaration",
-          "Claim submitted date"         -> "1 May 2020",
-          "Claim decision date"          -> "1 May 2021",
-          "Claim decision"               -> "Approved",
-          "Claim amount requested"       -> "£900000.00",
-          "Claimant‘s name"              -> "Claimant name",
-          "Claimant‘s email address"     -> "Claimant email address"
-        )
+      val closedClaimDetails = Map(
+        "MRN"                          -> "MRN23014",
+        "Local Reference Number (LRN)" -> "KWMREF1",
+        "Claimant‘s EORI number"       -> "GB98765432101",
+        "Claim type"                   -> "Overpayment (C285),Single declaration",
+        "Claim submitted date"         -> "1 May 2020",
+        "Claim decision date"          -> "1 May 2021",
+        "Claim decision"               -> "Approved",
+        "Claim amount requested"       -> "£900000.00",
+        "Claimant‘s name"              -> "Claimant name",
+        "Claimant‘s email address"     -> "Claimant email address"
       )
+      closedClaimDetails.foreach { case (k, v) => info(s"- $k: $v") }
+      userShouldSeeClaimDetails(closedClaimDetails)
     }
 
     Scenario("Search in progress claims using claim number", AcceptanceTest) {
@@ -153,22 +152,24 @@ class ClaimSearchSpec
       Then("User should see the heading 'Claim reference NDRC-1'")
       userShouldSeeHeading("", "", "Claim reference NDRC-1")
       And("User should see the following static text")
-      userShouldSeeStaticText("static", Seq("Claim details: This claim is open and being reviewed by HMRC."))
+      val inProgressClaimText = Seq("Claim details: This claim is open and being reviewed by HMRC.")
+      inProgressClaimText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", inProgressClaimText)
       And("User should see the following claim details")
-      userShouldSeeClaimDetails(
-        Map(
-          "Local Reference Number (LRN)"      -> "KWMREF1",
-          "Claimant‘s EORI number"            -> "GB98765432101",
-          "Claim type"                        -> "Rejected goods (C&E1179),Multiple declarations",
-          "Claim status"                      -> "In progress",
-          "First MRN"                         -> "MRN23014",
-          "Claim submitted date"              -> "1 May 2020",
-          "Claim amount requested"            -> "£900000.00",
-          "Claimant‘s name"                   -> "Claimant name",
-          "Claimant‘s email address"          -> "Claimant email address",
-          "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
-        )
+      val inProgressClaimDetails = Map(
+        "Local Reference Number (LRN)"      -> "KWMREF1",
+        "Claimant‘s EORI number"            -> "GB98765432101",
+        "Claim type"                        -> "Rejected goods (C&E1179),Multiple declarations",
+        "Claim status"                      -> "In progress",
+        "First MRN"                         -> "MRN23014",
+        "Claim submitted date"              -> "1 May 2020",
+        "Claim amount requested"            -> "£900000.00",
+        "Claimant‘s name"                   -> "Claimant name",
+        "Claimant‘s email address"          -> "Claimant email address",
+        "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
       )
+      inProgressClaimDetails.foreach { case (k, v) => info(s"- $k: $v") }
+      userShouldSeeClaimDetails(inProgressClaimDetails)
     }
 
     Scenario("Search pending claims using claim number", AcceptanceTest) {
@@ -181,31 +182,30 @@ class ClaimSearchSpec
       Then("User should see the heading 'Claim reference NDRC-21'")
       userShouldSeeHeading("", "", "Claim reference NDRC-21")
       And("User should see the following static text")
-      userShouldSeeStaticText(
-        "static",
-        Seq(
-          "Claim details: This claim requires additional information or documentation.",
-          "Check the inbox of Claimant email address for missing documents and any requests for more information from your caseworker.",
-          "If your claim was submitted online, upload your supporting documents.",
-          "Valid file formats: Excel, JPG, PNG, PDF, CSV, TXT or Word.",
-          "If your claim was submitted manually, you will need to send your supporting documents by post."
-        )
+      val pendingClaimText = Seq(
+        "Claim details: This claim requires additional information or documentation.",
+        "Check the inbox of Claimant email address for missing documents and any requests for more information from your caseworker.",
+        "If your claim was submitted online, upload your supporting documents.",
+        "Valid file formats: Excel, JPG, PNG, PDF, CSV, TXT or Word.",
+        "If your claim was submitted manually, you will need to send your supporting documents by post."
       )
+      pendingClaimText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", pendingClaimText)
       And("User should see the following claim details")
-      userShouldSeeClaimDetails(
-        Map(
-          "Local Reference Number (LRN)"      -> "KWMREF1",
-          "Claimant‘s EORI number"            -> "GB98765432101",
-          "Claim type"                        -> "Rejected goods (C&E1179),Multiple declarations",
-          "Claim status"                      -> "Pending",
-          "First MRN"                         -> "MRN23014",
-          "Claim submitted date"              -> "1 May 2020",
-          "Claim amount requested"            -> "£900000.00",
-          "Claimant‘s name"                   -> "Claimant name",
-          "Claimant‘s email address"          -> "Claimant email address",
-          "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
-        )
+      val pendingClaimDetails = Map(
+        "Local Reference Number (LRN)"      -> "KWMREF1",
+        "Claimant‘s EORI number"            -> "GB98765432101",
+        "Claim type"                        -> "Rejected goods (C&E1179),Multiple declarations",
+        "Claim status"                      -> "Pending",
+        "First MRN"                         -> "MRN23014",
+        "Claim submitted date"              -> "1 May 2020",
+        "Claim amount requested"            -> "£900000.00",
+        "Claimant‘s name"                   -> "Claimant name",
+        "Claimant‘s email address"          -> "Claimant email address",
+        "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
       )
+      pendingClaimDetails.foreach { case (k, v) => info(s"- $k: $v") }
+      userShouldSeeClaimDetails(pendingClaimDetails)
     }
   }
 }

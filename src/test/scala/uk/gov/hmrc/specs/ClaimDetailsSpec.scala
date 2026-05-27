@@ -51,22 +51,24 @@ class ClaimDetailsSpec
       Then("User should see the heading 'Claim reference NDRC-1001'")
       userShouldSeeHeading("", "", "Claim reference NDRC-1001")
       And("User should see the following static text")
-      userShouldSeeStaticText("static", Seq("Claim details: This claim is open and being reviewed by HMRC."))
+      val inProgressClaimText = Seq("Claim details: This claim is open and being reviewed by HMRC.")
+      inProgressClaimText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", inProgressClaimText)
       And("User should see the following claim details")
-      userShouldSeeClaimDetails(
-        Map(
-          "Local Reference Number (LRN)"      -> "KWMREF1",
-          "Claimant‘s EORI number"            -> "GB98765432101",
-          "Claim type"                        -> "Rejected goods (C&E1179),Multiple declarations",
-          "Claim status"                      -> "In progress",
-          "First MRN"                         -> "MRN23014",
-          "Claim submitted date"              -> "1 May 2020",
-          "Claim amount requested"            -> "£900000.00",
-          "Claimant‘s name"                   -> "Claimant name",
-          "Claimant‘s email address"          -> "Claimant email address",
-          "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
-        )
+      val inProgressClaimDetails = Map(
+        "Local Reference Number (LRN)"      -> "KWMREF1",
+        "Claimant‘s EORI number"            -> "GB98765432101",
+        "Claim type"                        -> "Rejected goods (C&E1179),Multiple declarations",
+        "Claim status"                      -> "In progress",
+        "First MRN"                         -> "MRN23014",
+        "Claim submitted date"              -> "1 May 2020",
+        "Claim amount requested"            -> "£900000.00",
+        "Claimant‘s name"                   -> "Claimant name",
+        "Claimant‘s email address"          -> "Claimant email address",
+        "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
       )
+      inProgressClaimDetails.foreach { case (k, v) => info(s"- $k: $v") }
+      userShouldSeeClaimDetails(inProgressClaimDetails)
     }
 
     Scenario("View pending claim details", E2ETest) {
@@ -81,30 +83,29 @@ class ClaimDetailsSpec
       Then("User should see the heading 'Claim reference NDRC-1004'")
       userShouldSeeHeading("", "", "Claim reference NDRC-1004")
       And("User should see the following static text")
-      userShouldSeeStaticText(
-        "static",
-        Seq(
-          "Claim details: This claim requires additional information or documentation.",
-          "Check the inbox of Claimant email address for missing documents and any requests for more information from your caseworker.",
-          "If your claim was submitted online, upload your supporting documents.",
-          "Valid file formats: Excel, JPG, PNG, PDF, CSV, TXT or Word.",
-          "If your claim was submitted manually, you will need to send your supporting documents by post."
-        )
+      val pendingClaimText = Seq(
+        "Claim details: This claim requires additional information or documentation.",
+        "Check the inbox of Claimant email address for missing documents and any requests for more information from your caseworker.",
+        "If your claim was submitted online, upload your supporting documents.",
+        "Valid file formats: Excel, JPG, PNG, PDF, CSV, TXT or Word.",
+        "If your claim was submitted manually, you will need to send your supporting documents by post."
       )
+      pendingClaimText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", pendingClaimText)
       And("User should see the following claim details")
-      userShouldSeeClaimDetails(
-        Map(
-          "MRN"                          -> "MRN23014",
-          "Local Reference Number (LRN)" -> "KWMREF1",
-          "Claimant‘s EORI number"       -> "GB98765432101",
-          "Claim type"                   -> "Overpayment (C285),Single declaration",
-          "Claim status"                 -> "Pending",
-          "Claim submitted date"         -> "1 May 2020",
-          "Claim amount requested"       -> "£900000.00",
-          "Claimant‘s name"              -> "Claimant name",
-          "Claimant‘s email address"     -> "Claimant email address"
-        )
+      val pendingClaimDetails = Map(
+        "MRN"                          -> "MRN23014",
+        "Local Reference Number (LRN)" -> "KWMREF1",
+        "Claimant‘s EORI number"       -> "GB98765432101",
+        "Claim type"                   -> "Overpayment (C285),Single declaration",
+        "Claim status"                 -> "Pending",
+        "Claim submitted date"         -> "1 May 2020",
+        "Claim amount requested"       -> "£900000.00",
+        "Claimant‘s name"              -> "Claimant name",
+        "Claimant‘s email address"     -> "Claimant email address"
       )
+      pendingClaimDetails.foreach { case (k, v) => info(s"- $k: $v") }
+      userShouldSeeClaimDetails(pendingClaimDetails)
       When("User clicks on 'Upload a file'")
       userClicksOn("Upload a file")
       And("User should see the heading 'Add supporting documents to your claim NDRC-1004'")
@@ -123,22 +124,24 @@ class ClaimDetailsSpec
       Then("User should see the heading 'Claim reference NDRC-10014'")
       userShouldSeeHeading("", "", "Claim reference NDRC-10014")
       And("User should see the following static text")
-      userShouldSeeStaticText("static", Seq("Claim details: This claim has been closed"))
+      val closedClaimText = Seq("Claim details: This claim has been closed")
+      closedClaimText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", closedClaimText)
       And("User should see the following claim details")
-      userShouldSeeClaimDetails(
-        Map(
-          "MRN"                          -> "MRN23014",
-          "Local Reference Number (LRN)" -> "KWMREF1",
-          "Claimant‘s EORI number"       -> "GB98765432101",
-          "Claim type"                   -> "Overpayment (C285),Single declaration",
-          "Claim decision"               -> "Approved",
-          "Claim submitted date"         -> "1 May 2020",
-          "Claim decision date"          -> "1 May 2021",
-          "Claim amount requested"       -> "£900000.00",
-          "Claimant‘s name"              -> "Claimant name",
-          "Claimant‘s email address"     -> "Claimant email address"
-        )
+      val closedClaimDetails = Map(
+        "MRN"                          -> "MRN23014",
+        "Local Reference Number (LRN)" -> "KWMREF1",
+        "Claimant‘s EORI number"       -> "GB98765432101",
+        "Claim type"                   -> "Overpayment (C285),Single declaration",
+        "Claim decision"               -> "Approved",
+        "Claim submitted date"         -> "1 May 2020",
+        "Claim decision date"          -> "1 May 2021",
+        "Claim amount requested"       -> "£900000.00",
+        "Claimant‘s name"              -> "Claimant name",
+        "Claimant‘s email address"     -> "Claimant email address"
       )
+      closedClaimDetails.foreach { case (k, v) => info(s"- $k: $v") }
+      userShouldSeeClaimDetails(closedClaimDetails)
     }
 
     Scenario("Navigation back to claims list page", AcceptanceTest) {

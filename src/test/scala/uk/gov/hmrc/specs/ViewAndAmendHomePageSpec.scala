@@ -58,7 +58,9 @@ class ViewAndAmendHomePageSpec
       And("The page title should be 'Claim dashboard - Claim back import duty and VAT - GOV.UK'")
       pageTitleShouldBe("Claim dashboard - Claim back import duty and VAT - GOV.UK")
       And("User should see the following notification bar links")
-      userShouldSeeNotificationBarLinks(Seq("Claim dashboard", "Search for a claim", "Start a new claim"))
+      val notificationBarLinks = Seq("Claim dashboard", "Search for a claim", "Start a new claim")
+      notificationBarLinks.foreach(link => info(s"- $link"))
+      userShouldSeeNotificationBarLinks(notificationBarLinks)
       And("User should see the eori details Tony Stark - GB744638982001")
       userShouldSeeEoriDetails("Tony Stark - GB744638982001")
     }
@@ -69,25 +71,28 @@ class ViewAndAmendHomePageSpec
       When("User navigates to the View and amend home page")
       navigateToPage("", "View and amend home")
       Then("User should see the following cards")
-      userShouldSeeCards(
+      val cards = Seq(
         Seq(
-          Seq(
-            "40 claims need more information",
-            "This section lists claims where a caseworker has contacted you by email to request more information. You can upload the supporting documents they asked for by clicking into each claim.",
-            "View claims needing more information"
-          ),
-          Seq(
-            "40 claims are in progress",
-            "HMRC is reviewing these claims. We aim to make a decision within 30 working days from the date you submitted your claim. If you did not include all the supporting documents, it may take longer.",
-            "View claims in progress"
-          ),
-          Seq(
-            "40 claims have been closed",
-            "A claim is closed once HMRC has fully reviewed it, and approved or rejected it. If you withdraw your claim, it will also appear here.,You‘ll see closed claims for 30 days. After that, they‘re removed from the list, but you can still find an older claim by searching with your claim reference number.",
-            "View closed claims"
-          )
+          "40 claims need more information",
+          "This section lists claims where a caseworker has contacted you by email to request more information. You can upload the supporting documents they asked for by clicking into each claim.",
+          "View claims needing more information"
+        ),
+        Seq(
+          "40 claims are in progress",
+          "HMRC is reviewing these claims. We aim to make a decision within 30 working days from the date you submitted your claim. If you did not include all the supporting documents, it may take longer.",
+          "View claims in progress"
+        ),
+        Seq(
+          "40 claims have been closed",
+          "A claim is closed once HMRC has fully reviewed it, and approved or rejected it. If you withdraw your claim, it will also appear here.,You‘ll see closed claims for 30 days. After that, they‘re removed from the list, but you can still find an older claim by searching with your claim reference number.",
+          "View closed claims"
         )
       )
+      cards.foreach { card =>
+        info(s"- ${card.head}")
+        card.tail.foreach(line => info(s"    $line"))
+      }
+      userShouldSeeCards(cards)
     }
 
     Scenario("Display no claims to view message", AcceptanceTest) {
@@ -98,13 +103,12 @@ class ViewAndAmendHomePageSpec
       Then("User should see the heading 'Claim dashboard'")
       userShouldSeeHeading("", "", "Claim dashboard")
       And("User should see the following static text")
-      userShouldSeeStaticText(
-        "static",
-        Seq(
-          "You have no claims to view.",
-          "It can take up to 24 hours for new claims to appear."
-        )
+      val noClaimsStaticText = Seq(
+        "You have no claims to view.",
+        "It can take up to 24 hours for new claims to appear."
       )
+      noClaimsStaticText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", noClaimsStaticText)
     }
 
     Scenario("Display error page when hods returned an error", AcceptanceTest) {
@@ -115,7 +119,9 @@ class ViewAndAmendHomePageSpec
       Then("User should see the heading 'Sorry, there is a problem with the service'")
       userShouldSeeHeading("", "", "Sorry, there is a problem with the service")
       And("User should see the following static text")
-      userShouldSeeStaticText("static", Seq("Try again later."))
+      val errorStaticText = Seq("Try again later.")
+      errorStaticText.foreach(line => info(s"- $line"))
+      userShouldSeeStaticText("static", errorStaticText)
     }
 
     Scenario("View Deskpro link on homepage", AcceptanceTest) {
@@ -135,12 +141,12 @@ class ViewAndAmendHomePageSpec
       When("User navigates to the View and amend home page")
       navigateToPage("", "View and amend home")
       Then("User should see a banner with the following information")
-      userShouldSeeBannerWithInfo(
-        Seq(
-          "BETA",
-          "This is a new service – your feedback (opens in a new tab) will help us to improve it."
-        )
+      val bannerInfo = Seq(
+        "BETA",
+        "This is a new service – your feedback (opens in a new tab) will help us to improve it."
       )
+      bannerInfo.foreach(line => info(s"- $line"))
+      userShouldSeeBannerWithInfo(bannerInfo)
     }
   }
 }

@@ -65,29 +65,29 @@ class NDRCClaimStatusSpec
         Then("User should see the heading 'Claims in progress'")
         userShouldSeeHeading("", "", "Claims in progress")
         And("User should see the following claims")
-        userShouldSeeClaims(
-          Seq(
-            inProgressMultiHeaders,
-            Seq(claimRef, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
-          )
+        val claims = Seq(
+          inProgressMultiHeaders,
+          Seq(claimRef, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
         )
+        claims.foreach(row => info(s"- ${row.mkString(" | ")}"))
+        userShouldSeeClaims(claims)
         When(s"User clicks on '$claimRef'")
         userClicksOn(claimRef)
         Then("User should see the following claim details")
-        userShouldSeeClaimDetails(
-          Map(
-            "Local Reference Number (LRN)"      -> "KWMREF1",
-            "Claimant‘s EORI number"            -> "GB98765432101",
-            "Claim type"                        -> claimType,
-            "Claim status"                      -> "In progress",
-            "First MRN"                         -> "MRN23014",
-            "Claim submitted date"              -> "1 May 2020",
-            "Claim amount requested"            -> "£900000.00",
-            "Claimant‘s name"                   -> "Claimant name",
-            "Claimant‘s email address"          -> "Claimant email address",
-            "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
-          )
+        val claimDetails = Map(
+          "Local Reference Number (LRN)"      -> "KWMREF1",
+          "Claimant‘s EORI number"            -> "GB98765432101",
+          "Claim type"                        -> claimType,
+          "Claim status"                      -> "In progress",
+          "First MRN"                         -> "MRN23014",
+          "Claim submitted date"              -> "1 May 2020",
+          "Claim amount requested"            -> "£900000.00",
+          "Claimant‘s name"                   -> "Claimant name",
+          "Claimant‘s email address"          -> "Claimant email address",
+          "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
         )
+        claimDetails.foreach { case (k, v) => info(s"- $k: $v") }
+        userShouldSeeClaimDetails(claimDetails)
       }
     }
 
@@ -153,17 +153,19 @@ class NDRCClaimStatusSpec
         Then("User should see the heading 'Claims in progress'")
         userShouldSeeHeading("", "", "Claims in progress")
         And("User should see the following claims")
-        userShouldSeeClaims(
-          Seq(
-            inProgressMultiHeaders,
-            Seq(claimRef1, "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
-            Seq(claimRef2, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
-          )
+        val claims = Seq(
+          inProgressMultiHeaders,
+          Seq(claimRef1, "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
+          Seq(claimRef2, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
         )
+        claims.foreach(row => info(s"- ${row.mkString(" | ")}"))
+        userShouldSeeClaims(claims)
         When(s"User clicks on '$claimRef1'")
         userClicksOn(claimRef1)
         Then("User should see the following claim details")
-        userShouldSeeClaimDetails(singleInProgressDetails(eori1, claimType))
+        val details1 = singleInProgressDetails(eori1, claimType)
+        details1.foreach { case (k, v) => info(s"- $k: $v") }
+        userShouldSeeClaimDetails(details1)
         When("User clicks on back link to previous page")
         userClicksBackLink()
         Then("User should see the heading 'Claims in progress'")
@@ -171,7 +173,9 @@ class NDRCClaimStatusSpec
         When(s"User clicks on '$claimRef2'")
         userClicksOn(claimRef2)
         Then("User should see the following claim details")
-        userShouldSeeClaimDetails(singleInProgressDetails(eori2, claimType))
+        val details2 = singleInProgressDetails(eori2, claimType)
+        details2.foreach { case (k, v) => info(s"- $k: $v") }
+        userShouldSeeClaimDetails(details2)
       }
     }
 
@@ -192,29 +196,29 @@ class NDRCClaimStatusSpec
         Then("User should see the heading 'Claims needing more information'")
         userShouldSeeHeading("", "", "Claims needing more information")
         And("User should see the following claims")
-        userShouldSeeClaims(
-          Seq(
-            inProgressMultiHeaders,
-            Seq(claimRef, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
-          )
+        val claims = Seq(
+          inProgressMultiHeaders,
+          Seq(claimRef, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
         )
+        claims.foreach(row => info(s"- ${row.mkString(" | ")}"))
+        userShouldSeeClaims(claims)
         When(s"User clicks on '$claimRef'")
         userClicksOn(claimRef)
         Then("User should see the following claim details")
-        userShouldSeeClaimDetails(
-          Map(
-            "Local Reference Number (LRN)"      -> "KWMREF1",
-            "Claimant‘s EORI number"            -> "GB98765432101",
-            "Claim type"                        -> claimType,
-            "Claim status"                      -> "Pending",
-            "First MRN"                         -> "MRN23014",
-            "Claim submitted date"              -> "1 May 2020",
-            "Claim amount requested"            -> "£900000.00",
-            "Claimant‘s name"                   -> "Claimant name",
-            "Claimant‘s email address"          -> "Claimant email address",
-            "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
-          )
+        val claimDetails = Map(
+          "Local Reference Number (LRN)"      -> "KWMREF1",
+          "Claimant‘s EORI number"            -> "GB98765432101",
+          "Claim type"                        -> claimType,
+          "Claim status"                      -> "Pending",
+          "First MRN"                         -> "MRN23014",
+          "Claim submitted date"              -> "1 May 2020",
+          "Claim amount requested"            -> "£900000.00",
+          "Claimant‘s name"                   -> "Claimant name",
+          "Claimant‘s email address"          -> "Claimant email address",
+          "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
         )
+        claimDetails.foreach { case (k, v) => info(s"- $k: $v") }
+        userShouldSeeClaimDetails(claimDetails)
       }
     }
 
@@ -233,17 +237,19 @@ class NDRCClaimStatusSpec
         Then("User should see the heading 'Claims needing more information'")
         userShouldSeeHeading("", "", "Claims needing more information")
         And("User should see the following claims")
-        userShouldSeeClaims(
-          Seq(
-            inProgressMultiHeaders,
-            Seq(claimRef1, "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
-            Seq(claimRef2, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
-          )
+        val claims = Seq(
+          inProgressMultiHeaders,
+          Seq(claimRef1, "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
+          Seq(claimRef2, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
         )
+        claims.foreach(row => info(s"- ${row.mkString(" | ")}"))
+        userShouldSeeClaims(claims)
         When(s"User clicks on '$claimRef1'")
         userClicksOn(claimRef1)
         Then("User should see the following claim details")
-        userShouldSeeClaimDetails(singlePendingDetails("GB98765432101", claimType))
+        val details1 = singlePendingDetails("GB98765432101", claimType)
+        details1.foreach { case (k, v) => info(s"- $k: $v") }
+        userShouldSeeClaimDetails(details1)
         When("User clicks on back link to previous page")
         userClicksBackLink()
         Then("User should see the heading 'Claims needing more information'")
@@ -251,7 +257,9 @@ class NDRCClaimStatusSpec
         When(s"User clicks on '$claimRef2'")
         userClicksOn(claimRef2)
         Then("User should see the following claim details")
-        userShouldSeeClaimDetails(singlePendingDetails("XI98745632102", claimType))
+        val details2 = singlePendingDetails("XI98745632102", claimType)
+        details2.foreach { case (k, v) => info(s"- $k: $v") }
+        userShouldSeeClaimDetails(details2)
       }
     }
 
@@ -277,30 +285,30 @@ class NDRCClaimStatusSpec
         Then("User should see the heading 'Closed claims'")
         userShouldSeeHeading("", "", "Closed claims")
         And("User should see the following claims")
-        userShouldSeeClaims(
-          Seq(
-            closedMultiHeaders,
-            Seq(claimRef, "MRN23014", "Overpayment or rejected goods", "1 May 2021", claimDecision)
-          )
+        val claims = Seq(
+          closedMultiHeaders,
+          Seq(claimRef, "MRN23014", "Overpayment or rejected goods", "1 May 2021", claimDecision)
         )
+        claims.foreach(row => info(s"- ${row.mkString(" | ")}"))
+        userShouldSeeClaims(claims)
         When(s"User clicks on '$claimRef'")
         userClicksOn(claimRef)
         Then("User should see the following claim details")
-        userShouldSeeClaimDetails(
-          Map(
-            "Local Reference Number (LRN)"      -> "KWMREF1",
-            "Claimant‘s EORI number"            -> "GB98765432101",
-            "Claim type"                        -> claimType,
-            "Claim decision"                    -> claimDecision,
-            "First MRN"                         -> "MRN23014",
-            "Claim submitted date"              -> "1 May 2020",
-            "Claim decision date"               -> "1 May 2021",
-            "Claim amount requested"            -> "£900000.00",
-            "Claimant‘s name"                   -> "Claimant name",
-            "Claimant‘s email address"          -> "Claimant email address",
-            "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
-          )
+        val claimDetails = Map(
+          "Local Reference Number (LRN)"      -> "KWMREF1",
+          "Claimant‘s EORI number"            -> "GB98765432101",
+          "Claim type"                        -> claimType,
+          "Claim decision"                    -> claimDecision,
+          "First MRN"                         -> "MRN23014",
+          "Claim submitted date"              -> "1 May 2020",
+          "Claim decision date"               -> "1 May 2021",
+          "Claim amount requested"            -> "£900000.00",
+          "Claimant‘s name"                   -> "Claimant name",
+          "Claimant‘s email address"          -> "Claimant email address",
+          "Other MRNs included in this claim" -> "MRN00002,MRN00003,MRN00004,MRN00005,MRN00006,MRN00007,MRN00008,MRN00009,MRN000010"
         )
+        claimDetails.foreach { case (k, v) => info(s"- $k: $v") }
+        userShouldSeeClaimDetails(claimDetails)
       }
     }
 
@@ -321,17 +329,19 @@ class NDRCClaimStatusSpec
         Then("User should see the heading 'Closed claims'")
         userShouldSeeHeading("", "", "Closed claims")
         And("User should see the following claims")
-        userShouldSeeClaims(
-          Seq(
-            closedMultiHeaders,
-            Seq(claimRef1, "MRN23014", "Overpayment or rejected goods", "1 May 2021", claimDecision),
-            Seq(claimRef2, "MRN23014", "Overpayment or rejected goods", "1 May 2021", claimDecision)
-          )
+        val claims = Seq(
+          closedMultiHeaders,
+          Seq(claimRef1, "MRN23014", "Overpayment or rejected goods", "1 May 2021", claimDecision),
+          Seq(claimRef2, "MRN23014", "Overpayment or rejected goods", "1 May 2021", claimDecision)
         )
+        claims.foreach(row => info(s"- ${row.mkString(" | ")}"))
+        userShouldSeeClaims(claims)
         When(s"User clicks on '$claimRef1'")
         userClicksOn(claimRef1)
         Then("User should see the following claim details")
-        userShouldSeeClaimDetails(singleClosedDetails("GB98765432101", claimType, claimDecision))
+        val details1 = singleClosedDetails("GB98765432101", claimType, claimDecision)
+        details1.foreach { case (k, v) => info(s"- $k: $v") }
+        userShouldSeeClaimDetails(details1)
         When("User clicks on back link to previous page")
         userClicksBackLink()
         Then("User should see the heading 'Closed claims'")
@@ -339,7 +349,9 @@ class NDRCClaimStatusSpec
         When(s"User clicks on '$claimRef2'")
         userClicksOn(claimRef2)
         Then("User should see the following claim details")
-        userShouldSeeClaimDetails(singleClosedDetails("XI98745632102", claimType, claimDecision))
+        val details2 = singleClosedDetails("XI98745632102", claimType, claimDecision)
+        details2.foreach { case (k, v) => info(s"- $k: $v") }
+        userShouldSeeClaimDetails(details2)
       }
     }
   }
