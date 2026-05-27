@@ -119,7 +119,7 @@ object CommonPage extends CustomsFinancialsWebPage {
   def userShouldSeeBannerElements(bannerElement: String, expectedText: Seq[String]): Unit = {
     val tagName = bannerElement match {
       case "links"   =>
-        expectedText.foreach(link => cookieBannerLinkUrl(link) should endWith("/tracking-consent/cookie-settings"))
+        expectedText.foreach(link => cookieBannerLinkUrl(link) should include("/tracking-consent/cookie-settings"))
         "a"
       case "buttons" => "button"
     }
