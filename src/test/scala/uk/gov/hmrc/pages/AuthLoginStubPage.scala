@@ -29,9 +29,9 @@ trait AuthLoginStubPage extends WebPage {
   override lazy val url: String = s"${Configuration.settings.AUTH_LOGIN_STUB}/gg-sign-in"
 
   implicit val enrolmentFormats: OFormat[Enrolment] = Json.format[Enrolment]
-  implicit val userFormats: OFormat[User] = Json.format[User]
+  implicit val userFormats: OFormat[User]           = Json.format[User]
 
-  def loginAuth(userType:String, continueUrl: String, fixedEori: Option[String] = None): Unit = {
+  def loginAuth(userType: String, continueUrl: String, fixedEori: Option[String] = None): Unit = {
     val user = TestDataLoader.loadFromJson[User](s"user-$userType")
     //    textField("authorityId").value = user.pid
     textField("redirectionUrl").value = continueUrl
@@ -46,7 +46,6 @@ trait AuthLoginStubPage extends WebPage {
     }
   }
 
-  def paginatorAuth(userType:String, continueUrl: String, numberOfAccounts: String): Unit = {
+  def paginatorAuth(userType: String, continueUrl: String, numberOfAccounts: String): Unit =
     loginAuth(userType, continueUrl, Some("GENERATE" + numberOfAccounts))
-  }
 }

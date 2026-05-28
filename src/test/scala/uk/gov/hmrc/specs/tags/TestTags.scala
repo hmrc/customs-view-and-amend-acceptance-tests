@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.runner
+package uk.gov.hmrc.specs.tags
 
-import io.cucumber.junit.{Cucumber, CucumberOptions}
-import org.junit.runner.RunWith
+import org.scalatest.Tag
 
-@RunWith(classOf[Cucumber])
-@CucumberOptions(
-  features = Array("src/test/resources/features"),
-  glue = Array("uk.gov.hmrc.stepdefs"),
-  plugin = Array("pretty", "html:target/cucumber", "json:target/cucumber.json"),
-  tags = "@wip"
-)
-class RunWip {}
+object AcceptanceTest extends Tag("AcceptanceTest")
+object E2ETest extends Tag("E2ETest")

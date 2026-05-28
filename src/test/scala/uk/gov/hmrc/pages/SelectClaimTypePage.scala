@@ -33,12 +33,11 @@ object SelectClaimTypePage extends BasePage {
 
   override def expectedPageHeader: Option[String] = Some("Choose type of claim")
 
-  override def clickRadioButton(text: String): Unit = {
+  override def clickRadioButton(text: String): Unit =
     text.toLowerCase() match {
-      case "c285"       => click on cssSelector("input[data-id='choose-claim-type-c285']")
-      case "ce1179"     => click on cssSelector("input[data-id='choose-claim-type-ce1179']")
-      case "securities" => click on cssSelector("input[data-id='choose-claim-type-securities']")
+      case "c285"            => click on cssSelector("input[data-id='choose-claim-type-c285']")
+      case "ce1179"          => click on cssSelector("input[data-id='choose-claim-type-ce1179']")
+      case "securities"      => click on cssSelector("input[data-id='choose-claim-type-securities']")
       case "view and upload" => click on cssSelector("input[data-id='choose-claim-type-viewupload']")
     }
-  }
 }

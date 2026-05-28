@@ -21,7 +21,6 @@ import com.typesafe.config.{Config, ConfigFactory}
 import scala.concurrent.duration.{Duration, DurationInt}
 import scala.jdk.DurationConverters._
 
-
 object TestConfiguration {
   val config: Config        = ConfigFactory.load()
   val env: String           = config.getString("environment")
@@ -82,8 +81,6 @@ object TestConfiguration {
 
   private def serviceRoute(service: String): String =
     environmentConfiguration.getString(s"services.$service.productionRoute")
-  def environmentHost: String = envConfig.getString("services.host")
-
-
+  def environmentHost: String                       = envConfig.getString("services.host")
 
 }

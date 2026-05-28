@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc
+package uk.gov.hmrc.specs
 
-import io.cucumber.datatable.DataTable
+import org.scalatest.Suites
 
-package object stepdefs {
-
-  implicit class DataTableConverters(dataTable: DataTable) {
-    import scala.jdk.CollectionConverters._
-
-    def asScalaListOfStrings: List[String] = dataTable.cells().asScala.flatMap(_.asScala).toList
-
-    def asScalaListOfLists: List[List[String]] = dataTable.rows(0).asLists().asScala.map(_.asScala.toList).toList
-
-    def asScalaListOfUtilMaps: List[java.util.Map[String, String]] = dataTable
-      .asMaps().asScala.toList
-  }
-}
+class E2ETestRunnerOrderSpec
+    extends Suites(
+      new ClaimDetailsSpec,
+      new ClaimSearchSpec
+    )

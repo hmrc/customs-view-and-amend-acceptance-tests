@@ -1,5 +1,5 @@
 # customs-view-and-amend-acceptance-tests
-UI test suite for the Customs View And Amend Frontend service using Cucumber.
+UI test suite for the Customs View And Amend Frontend service using ScalaTest.
 
 # Cloning the project and service startup
 
@@ -25,9 +25,10 @@ Then run the Frontend locally using:
 ## Running the Tests
 
 1. Navigate to the directory where the project has been cloned.
-2. To run all acceptance tests on your local machine, use: ```./run_tests.sh```  OR ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV $DRIVER -Ddrivernotquit=true "testOnly uk.gov.hmrc.cdsrc.cucumber.runner.Runner"```
-3. To run all tests that are tagged as "@wip", use: ```./run_tests_wip.sh```
-4. By default, the scripts execute in headless mode. To run them with the browser ui visible, set the below-mentioned property in run_tests_wip.sh script - Argument -Dbrowser.option.headless=false
+2. To run all acceptance tests on your local machine, use: ```./run_acceptance.sh``` OR ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV "testOnly *AcceptanceTestRunnerOrderSpec -- -n AcceptanceTest"```
+3. To run the end-to-end suite, use: ```./run_e2e.sh``` OR ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV "testOnly *E2ETestRunnerOrderSpec -- -n E2ETest"```
+4. To run a single spec, use: ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV "testOnly *<SpecName> -- -n AcceptanceTest"``` (e.g. `*LogoutSpec`).
+5. By default, the scripts execute in headless mode. To run them with the browser UI visible, use: `-Dbrowser.option.headless=false`.
 
 Security and Accessibility tests
 The accessibility and ZAP tests are run as part of Jenkins job. We can get the latest reports from the corresponding acceptance-tests customs-cash-account-acceptance-tests job.

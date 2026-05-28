@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.runner
+package uk.gov.hmrc.specs
 
-import io.cucumber.junit.{Cucumber, CucumberOptions}
-import org.junit.runner.RunWith
+import org.scalatest.Suites
 
-@RunWith(classOf[Cucumber])
-@CucumberOptions(
-  features = Array("src/test/resources/features"),
-  glue = Array("uk.gov.hmrc.stepdefs"),
-  plugin = Array("pretty", "html:target/cucumber", "json:target/cucumber.json"),
-  tags = "@e2e"
-)
-class RunE2E {}
+class AcceptanceTestRunnerOrderSpec
+    extends Suites(
+      new ClaimDetailsSpec,
+      new ClaimSearchSpec,
+      new ClaimsListSpec,
+      new CookieBannerSpec,
+      new EmailVerificationSpec,
+      new LogoutSpec,
+      new NDRCClaimStatusSpec,
+      new PaginationSpec,
+      new PendingClaimSubmissionSpec,
+      new ViewAndAmendHomePageSpec,
+      new XIEORIClaimsSpec
+    )
