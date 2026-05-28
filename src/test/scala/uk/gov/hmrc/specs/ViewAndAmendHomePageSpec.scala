@@ -21,7 +21,7 @@ import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.pages.CommonPage.{navigateToPage, pageTitleShouldBe, thePageUrlIsCorrect, userClicksOn, userShouldSeeBannerWithInfo, userShouldSeeHeading, userShouldSeeLinkTo, userShouldSeeStaticText}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
-import uk.gov.hmrc.pages.ViewAndAmendHomePage.{userShouldSeeCards, userShouldSeeEoriDetails, userShouldSeeNotificationBarLinks}
+import uk.gov.hmrc.pages.ViewAndAmendHomePage.{userShouldSeeEoriDetails, userShouldSeeNotificationBarLinks}
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.AcceptanceTest
 
@@ -63,36 +63,6 @@ class ViewAndAmendHomePageSpec
       userShouldSeeNotificationBarLinks(notificationBarLinks)
       And("User should see the eori details Tony Stark - GB744638982001")
       userShouldSeeEoriDetails("Tony Stark - GB744638982001")
-    }
-
-    ignore("Display claims summary cards with claims for all status", AcceptanceTest) {
-      Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
-      When("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
-      Then("User should see the following cards")
-      val cards = Seq(
-        Seq(
-          "40 claims need more information",
-          "This section lists claims where a caseworker has contacted you by email to request more information. You can upload the supporting documents they asked for by clicking into each claim.",
-          "View claims needing more information"
-        ),
-        Seq(
-          "40 claims are in progress",
-          "HMRC is reviewing these claims. We aim to make a decision within 30 working days from the date you submitted your claim. If you did not include all the supporting documents, it may take longer.",
-          "View claims in progress"
-        ),
-        Seq(
-          "40 claims have been closed",
-          "A claim is closed once HMRC has fully reviewed it, and approved or rejected it. If you withdraw your claim, it will also appear here.,You‘ll see closed claims for 30 days. After that, they‘re removed from the list, but you can still find an older claim by searching with your claim reference number.",
-          "View closed claims"
-        )
-      )
-      cards.foreach { card =>
-        info(s"- ${card.head}")
-        card.tail.foreach(line => info(s"    $line"))
-      }
-      userShouldSeeCards(cards)
     }
 
     Scenario("Display no claims to view message", AcceptanceTest) {
