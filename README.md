@@ -25,8 +25,8 @@ Then run the Frontend locally using:
 ## Running the Tests
 
 1. Navigate to the directory where the project has been cloned.
-2. To run all acceptance tests on your local machine, use: ```./run_tests.sh``` OR ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV "testOnly *AcceptanceTestRunnerOrderSpec -- -n AcceptanceTest"```
-3. To run the end-to-end suite, use: ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV "testOnly *E2ETestRunnerOrderSpec -- -n E2ETest"```
+2. To run all acceptance tests on your local machine, use: ```./run_acceptance.sh``` OR ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV "testOnly *AcceptanceTestRunnerOrderSpec -- -n AcceptanceTest"```
+3. To run the end-to-end suite, use: ```./run_e2e.sh``` OR ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV "testOnly *E2ETestRunnerOrderSpec -- -n E2ETest"```
 4. To run a single spec, use: ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV "testOnly *<SpecName> -- -n AcceptanceTest"``` (e.g. `*LogoutSpec`).
 5. By default, the scripts execute in headless mode. To run them with the browser UI visible, use: `-Dbrowser.option.headless=false`.
 
