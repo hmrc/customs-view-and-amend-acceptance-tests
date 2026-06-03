@@ -23,8 +23,9 @@ import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.pages.ClaimDetailsPage.userShouldSeeClaimDetails
 import uk.gov.hmrc.pages.ClaimsListPages.userShouldSeeClaims
-import uk.gov.hmrc.pages.CommonPage.{navigateToPage, userClicksBackLink, userClicksOn, userShouldSeeHeading}
+import uk.gov.hmrc.pages.CommonPage.{navigateToViewAndAmendHome, userClicksBackLink, userClicksOn, userShouldSeeHeading}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
+import uk.gov.hmrc.pages.Constants.UserType
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.AcceptanceTest
 
@@ -48,24 +49,24 @@ class NDRCClaimStatusSpec
     Scenario("Display in-progress status for multiple declarations claims", AcceptanceTest) {
       val examples = Table(
         ("user", "claim ref", "claim type"),
-        ("openClaim", "NDRC-1001", "Rejected goods (C&E1179),Multiple declarations"),
-        ("PendingApprovalClaim", "NDRC-1003", "Rejected goods (C&E1179),Multiple declarations"),
-        ("PausedClaim", "NDRC-1009", "Rejected goods (C&E1179),Multiple declarations"),
-        ("PendingPaymentConfirmationClaim", "NDRC-10013", "Rejected goods (C&E1179),Multiple declarations"),
-        ("ApprovedClaim", "NDRC-10017", "Rejected goods (C&E1179),Multiple declarations"),
-        ("ReworkPaymentDetailsClaim", "NDRC-10019", "Rejected goods (C&E1179),Multiple declarations")
+        (UserType.OpenClaim, "NDRC-1001", "Rejected goods (C&E1179),Multiple declarations"),
+        (UserType.PendingApprovalClaim, "NDRC-1003", "Rejected goods (C&E1179),Multiple declarations"),
+        (UserType.PausedClaim, "NDRC-1009", "Rejected goods (C&E1179),Multiple declarations"),
+        (UserType.PendingPaymentConfirmationClaim, "NDRC-10013", "Rejected goods (C&E1179),Multiple declarations"),
+        (UserType.ApprovedClaim, "NDRC-10017", "Rejected goods (C&E1179),Multiple declarations"),
+        (UserType.ReworkPaymentDetailsClaim, "NDRC-10019", "Rejected goods (C&E1179),Multiple declarations")
       )
       forAll(examples) { (user, claimRef, claimType) =>
         Given(s"User is signed in as a $user user")
-        userIsSignedIn("", user)
+        userIsSignedIn(user)
         And("User navigates to the View and amend home page")
-        navigateToPage("", "View and amend home")
+        navigateToViewAndAmendHome()
         When("User clicks on 'View claims in progress'")
         userClicksOn("View claims in progress")
         Then("User should see the heading 'Claims in progress'")
-        userShouldSeeHeading("", "", "Claims in progress")
+        userShouldSeeHeading("Claims in progress")
         And("User should see the following claims")
-        val claims = Seq(
+        val claims       = Seq(
           inProgressMultiHeaders,
           Seq(claimRef, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
         )
@@ -95,7 +96,7 @@ class NDRCClaimStatusSpec
       val examples = Table(
         ("user", "claim ref1", "claim ref2", "claim type", "EORI number1", "EORI number2"),
         (
-          "openAnalysisClaim",
+          UserType.OpenAnalysisClaim,
           "NDRC-1002",
           "NDRC-1502",
           "Overpayment (C285),Single declaration",
@@ -103,7 +104,7 @@ class NDRCClaimStatusSpec
           "XI98745632102"
         ),
         (
-          "OpenReworkClaim",
+          UserType.OpenReworkClaim,
           "NDRC-1008",
           "NDRC-1508",
           "Overpayment (C285),Single declaration",
@@ -111,7 +112,7 @@ class NDRCClaimStatusSpec
           "XI98745632102"
         ),
         (
-          "PendingDecisionLetterClaim",
+          UserType.PendingDecisionLetterClaim,
           "NDRC-10016",
           "NDRC-10516",
           "Overpayment (C285),Single declaration",
@@ -119,7 +120,7 @@ class NDRCClaimStatusSpec
           "XI98745632102"
         ),
         (
-          "AnalysisReworkClaim",
+          UserType.AnalysisReworkClaim,
           "NDRC-10018",
           "NDRC-10518",
           "Overpayment (C285),Single declaration",
@@ -127,7 +128,7 @@ class NDRCClaimStatusSpec
           "XI98745632102"
         ),
         (
-          "PendingComplianceRecommendationClaim",
+          UserType.PendingComplianceRecommendationClaim,
           "NDRC-10022",
           "NDRC-10522",
           "Overpayment (C285),Single declaration",
@@ -135,7 +136,7 @@ class NDRCClaimStatusSpec
           "XI98745632102"
         ),
         (
-          "PendingComplianceCheckClaim",
+          UserType.PendingComplianceCheckClaim,
           "NDRC-10024",
           "NDRC-10524",
           "Overpayment (C285),Single declaration",
@@ -145,15 +146,15 @@ class NDRCClaimStatusSpec
       )
       forAll(examples) { (user, claimRef1, claimRef2, claimType, eori1, eori2) =>
         Given(s"User is signed in as a $user user")
-        userIsSignedIn("", user)
+        userIsSignedIn(user)
         And("User navigates to the View and amend home page")
-        navigateToPage("", "View and amend home")
+        navigateToViewAndAmendHome()
         When("User clicks on 'View claims in progress'")
         userClicksOn("View claims in progress")
         Then("User should see the heading 'Claims in progress'")
-        userShouldSeeHeading("", "", "Claims in progress")
+        userShouldSeeHeading("Claims in progress")
         And("User should see the following claims")
-        val claims = Seq(
+        val claims   = Seq(
           inProgressMultiHeaders,
           Seq(claimRef1, "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
           Seq(claimRef2, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
@@ -169,7 +170,7 @@ class NDRCClaimStatusSpec
         When("User clicks on back link to previous page")
         userClicksBackLink()
         Then("User should see the heading 'Claims in progress'")
-        userShouldSeeHeading("", "", "Claims in progress")
+        userShouldSeeHeading("Claims in progress")
         When(s"User clicks on '$claimRef2'")
         userClicksOn(claimRef2)
         Then("User should see the following claim details")
@@ -182,21 +183,21 @@ class NDRCClaimStatusSpec
     Scenario("Display pending status for multiple declarations claims", AcceptanceTest) {
       val examples = Table(
         ("user", "claim ref", "claim type"),
-        ("RTBHsentClaim", "NDRC-10011", "Rejected goods (C&E1179),Multiple declarations"),
-        ("ReplyToRTBHClaim", "NDRC-10021", "Rejected goods (C&E1179),Multiple declarations"),
-        ("PendingComplianceCheckQueryClaim", "NDRC-10023", "Rejected goods (C&E1179),Multiple declarations")
+        (UserType.RTBHsentClaim, "NDRC-10011", "Rejected goods (C&E1179),Multiple declarations"),
+        (UserType.ReplyToRTBHClaim, "NDRC-10021", "Rejected goods (C&E1179),Multiple declarations"),
+        (UserType.PendingComplianceCheckQueryClaim, "NDRC-10023", "Rejected goods (C&E1179),Multiple declarations")
       )
       forAll(examples) { (user, claimRef, claimType) =>
         Given(s"User is signed in as a $user user")
-        userIsSignedIn("", user)
+        userIsSignedIn(user)
         And("User navigates to the View and amend home page")
-        navigateToPage("", "View and amend home")
+        navigateToViewAndAmendHome()
         When("User clicks on 'View claims needing more information'")
         userClicksOn("View claims needing more information")
         Then("User should see the heading 'Claims needing more information'")
-        userShouldSeeHeading("", "", "Claims needing more information")
+        userShouldSeeHeading("Claims needing more information")
         And("User should see the following claims")
-        val claims = Seq(
+        val claims       = Seq(
           inProgressMultiHeaders,
           Seq(claimRef, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
         )
@@ -225,19 +226,19 @@ class NDRCClaimStatusSpec
     Scenario("Display pending status for single declaration claims", AcceptanceTest) {
       val examples = Table(
         ("user", "claim ref1", "claim ref2", "claim type"),
-        ("PendingQueriedClaim", "NDRC-1004", "NDRC-1504", "Overpayment (C285),Single declaration")
+        (UserType.PendingQueriedClaim, "NDRC-1004", "NDRC-1504", "Overpayment (C285),Single declaration")
       )
       forAll(examples) { (user, claimRef1, claimRef2, claimType) =>
         Given(s"User is signed in as a $user user")
-        userIsSignedIn("", user)
+        userIsSignedIn(user)
         And("User navigates to the View and amend home page")
-        navigateToPage("", "View and amend home")
+        navigateToViewAndAmendHome()
         When("User clicks on 'View claims needing more information'")
         userClicksOn("View claims needing more information")
         Then("User should see the heading 'Claims needing more information'")
-        userShouldSeeHeading("", "", "Claims needing more information")
+        userShouldSeeHeading("Claims needing more information")
         And("User should see the following claims")
-        val claims = Seq(
+        val claims   = Seq(
           inProgressMultiHeaders,
           Seq(claimRef1, "MRN23014", "Overpayment or rejected goods", "1 May 2020"),
           Seq(claimRef2, "MRN23014", "Overpayment or rejected goods", "1 May 2020")
@@ -253,7 +254,7 @@ class NDRCClaimStatusSpec
         When("User clicks on back link to previous page")
         userClicksBackLink()
         Then("User should see the heading 'Claims needing more information'")
-        userShouldSeeHeading("", "", "Claims needing more information")
+        userShouldSeeHeading("Claims needing more information")
         When(s"User clicks on '$claimRef2'")
         userClicksOn(claimRef2)
         Then("User should see the following claim details")
@@ -266,10 +267,10 @@ class NDRCClaimStatusSpec
     Scenario("Display closed status for multiple declarations claims", AcceptanceTest) {
       val examples = Table(
         ("user", "claim ref", "claim type", "claim decision"),
-        ("ResolvedWithdrawnClaim", "NDRC-1005", "Rejected goods (C&E1179),Multiple declarations", "Withdrawn"),
-        ("ResolvedRejectedClaim", "NDRC-1007", "Rejected goods (C&E1179),Multiple declarations", "Rejected"),
+        (UserType.ResolvedWithdrawnClaim, "NDRC-1005", "Rejected goods (C&E1179),Multiple declarations", "Withdrawn"),
+        (UserType.ResolvedRejectedClaim, "NDRC-1007", "Rejected goods (C&E1179),Multiple declarations", "Rejected"),
         (
-          "ResolvedPartialRefusedClaim",
+          UserType.ResolvedPartialRefusedClaim,
           "NDRC-10015",
           "Rejected goods (C&E1179),Multiple declarations",
           "Partial Refused"
@@ -277,15 +278,15 @@ class NDRCClaimStatusSpec
       )
       forAll(examples) { (user, claimRef, claimType, claimDecision) =>
         Given(s"User is signed in as a $user user")
-        userIsSignedIn("", user)
+        userIsSignedIn(user)
         And("User navigates to the View and amend home page")
-        navigateToPage("", "View and amend home")
+        navigateToViewAndAmendHome()
         When("User clicks on 'View closed claims'")
         userClicksOn("View closed claims")
         Then("User should see the heading 'Closed claims'")
-        userShouldSeeHeading("", "", "Closed claims")
+        userShouldSeeHeading("Closed claims")
         And("User should see the following claims")
-        val claims = Seq(
+        val claims       = Seq(
           closedMultiHeaders,
           Seq(claimRef, "MRN23014", "Overpayment or rejected goods", "1 May 2021", claimDecision)
         )
@@ -315,21 +316,33 @@ class NDRCClaimStatusSpec
     Scenario("Display closed status for single declaration claims", AcceptanceTest) {
       val examples = Table(
         ("user", "claim ref1", "claim ref2", "claim type", "claim decision"),
-        ("ResolvedNoReplyClaim", "NDRC-10010", "NDRC-10510", "Overpayment (C285),Single declaration", "No Reply"),
-        ("ResolvedRefusedClaim", "NDRC-10012", "NDRC-10512", "Overpayment (C285),Single declaration", "Refused"),
-        ("ResolvedApprovedClaim", "NDRC-10014", "NDRC-10514", "Overpayment (C285),Single declaration", "Approved")
+        (
+          UserType.ResolvedNoReplyClaim,
+          "NDRC-10010",
+          "NDRC-10510",
+          "Overpayment (C285),Single declaration",
+          "No Reply"
+        ),
+        (UserType.ResolvedRefusedClaim, "NDRC-10012", "NDRC-10512", "Overpayment (C285),Single declaration", "Refused"),
+        (
+          UserType.ResolvedApprovedClaim,
+          "NDRC-10014",
+          "NDRC-10514",
+          "Overpayment (C285),Single declaration",
+          "Approved"
+        )
       )
       forAll(examples) { (user, claimRef1, claimRef2, claimType, claimDecision) =>
         Given(s"User is signed in as a $user user")
-        userIsSignedIn("", user)
+        userIsSignedIn(user)
         And("User navigates to the View and amend home page")
-        navigateToPage("", "View and amend home")
+        navigateToViewAndAmendHome()
         When("User clicks on 'View closed claims'")
         userClicksOn("View closed claims")
         Then("User should see the heading 'Closed claims'")
-        userShouldSeeHeading("", "", "Closed claims")
+        userShouldSeeHeading("Closed claims")
         And("User should see the following claims")
-        val claims = Seq(
+        val claims   = Seq(
           closedMultiHeaders,
           Seq(claimRef1, "MRN23014", "Overpayment or rejected goods", "1 May 2021", claimDecision),
           Seq(claimRef2, "MRN23014", "Overpayment or rejected goods", "1 May 2021", claimDecision)
@@ -345,7 +358,7 @@ class NDRCClaimStatusSpec
         When("User clicks on back link to previous page")
         userClicksBackLink()
         Then("User should see the heading 'Closed claims'")
-        userShouldSeeHeading("", "", "Closed claims")
+        userShouldSeeHeading("Closed claims")
         When(s"User clicks on '$claimRef2'")
         userClicksOn(claimRef2)
         Then("User should see the following claim details")

@@ -22,8 +22,10 @@ import org.scalatest.prop.Tables.Table
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.pages.ClaimsListPages.{userClicksOnPaginationLink, userEntersInQueryParameter, userShouldSeePaginationContent, userShouldSeePaginationResultsText}
-import uk.gov.hmrc.pages.CommonPage.navigateToPage
+import uk.gov.hmrc.pages.CommonPage.navigateToInProgressClaimsList
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
+import uk.gov.hmrc.pages.Constants
+import uk.gov.hmrc.pages.Constants.UserType
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.AcceptanceTest
 
@@ -41,26 +43,26 @@ class PaginationSpec
 
     Scenario("A user can see pagination for more than 20 claims", AcceptanceTest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       When("User navigates to the in progress claims list page")
-      navigateToPage("", "in progress claims list")
+      navigateToInProgressClaimsList()
       Then("User should see the following pagination content")
       val firstPageContent = Seq("1", "2", "Next")
       firstPageContent.foreach(item => info(s"- $item"))
-      userShouldSeePaginationContent("content", firstPageContent)
+      userShouldSeePaginationContent(Constants.PaginationContentKind.Content, firstPageContent)
       And("User should see the following pagination links")
-      val firstPageLinks = Seq("1", "2", "Next")
+      val firstPageLinks   = Seq("1", "2", "Next")
       firstPageLinks.foreach(item => info(s"- $item"))
-      userShouldSeePaginationContent("links", firstPageLinks)
+      userShouldSeePaginationContent(Constants.PaginationContentKind.Links, firstPageLinks)
       And("User should see the following pagination results text")
       userShouldSeePaginationResultsText("Showing 1 to 20 of 40 claims")
     }
 
     Scenario("Navigate to pages using next link on pagination", AcceptanceTest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       And("User navigates to the in progress claims list page")
-      navigateToPage("", "in progress claims list")
+      navigateToInProgressClaimsList()
       When("User clicks on pagination link 'Next'")
       userClicksOnPaginationLink("Next")
       Then("User should see the following pagination results text")
@@ -68,18 +70,18 @@ class PaginationSpec
       And("User should see the following pagination content")
       val secondPageContent = Seq("Previous", "1", "2")
       secondPageContent.foreach(item => info(s"- $item"))
-      userShouldSeePaginationContent("content", secondPageContent)
+      userShouldSeePaginationContent(Constants.PaginationContentKind.Content, secondPageContent)
       And("User should see the following pagination links")
-      val secondPageLinks = Seq("Previous", "1", "2")
+      val secondPageLinks   = Seq("Previous", "1", "2")
       secondPageLinks.foreach(item => info(s"- $item"))
-      userShouldSeePaginationContent("links", secondPageLinks)
+      userShouldSeePaginationContent(Constants.PaginationContentKind.Links, secondPageLinks)
     }
 
     Scenario("Navigate to pages using previous link on pagination", AcceptanceTest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       And("User navigates to the in progress claims list page")
-      navigateToPage("", "in progress claims list")
+      navigateToInProgressClaimsList()
       And("User clicks on pagination link '2'")
       userClicksOnPaginationLink("2")
       When("User clicks on pagination link 'Previous'")
@@ -89,18 +91,18 @@ class PaginationSpec
       And("User should see the following pagination content")
       val previousPageContent = Seq("1", "2", "Next")
       previousPageContent.foreach(item => info(s"- $item"))
-      userShouldSeePaginationContent("content", previousPageContent)
+      userShouldSeePaginationContent(Constants.PaginationContentKind.Content, previousPageContent)
       And("User should see the following pagination links")
-      val previousPageLinks = Seq("1", "2", "Next")
+      val previousPageLinks   = Seq("1", "2", "Next")
       previousPageLinks.foreach(item => info(s"- $item"))
-      userShouldSeePaginationContent("links", previousPageLinks)
+      userShouldSeePaginationContent(Constants.PaginationContentKind.Links, previousPageLinks)
     }
 
     Scenario("Navigate to pages using pagination number links", AcceptanceTest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       And("User navigates to the in progress claims list page")
-      navigateToPage("", "in progress claims list")
+      navigateToInProgressClaimsList()
       When("User clicks on pagination link '2'")
       userClicksOnPaginationLink("2")
       Then("User should see the following pagination results text")
@@ -108,7 +110,7 @@ class PaginationSpec
       And("User should see the following pagination links")
       val page2Links = Seq("Previous", "1", "2")
       page2Links.foreach(item => info(s"- $item"))
-      userShouldSeePaginationContent("links", page2Links)
+      userShouldSeePaginationContent(Constants.PaginationContentKind.Links, page2Links)
       When("User clicks on pagination link '1'")
       userClicksOnPaginationLink("1")
       Then("User should see the following pagination results text")
@@ -116,7 +118,7 @@ class PaginationSpec
       And("User should see the following pagination links")
       val page1Links = Seq("1", "2", "Next")
       page1Links.foreach(item => info(s"- $item"))
-      userShouldSeePaginationContent("links", page1Links)
+      userShouldSeePaginationContent(Constants.PaginationContentKind.Links, page1Links)
     }
 
     Scenario("User enters invalid number or higher than available pages in query parameter", AcceptanceTest) {
@@ -127,9 +129,9 @@ class PaginationSpec
       )
       forAll(examples) { (pageNumber, paginationResult) =>
         Given("User is signed in as a pagination user")
-        userIsSignedIn("", "pagination")
+        userIsSignedIn(UserType.Pagination)
         And("User navigates to the in progress claims list page")
-        navigateToPage("", "in progress claims list")
+        navigateToInProgressClaimsList()
         And(s"User enters $pageNumber in the query parameter")
         userEntersInQueryParameter(pageNumber)
         Then("User should see the following pagination results text")

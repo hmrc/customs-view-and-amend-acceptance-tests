@@ -25,6 +25,6 @@ trait BrowserDriver {
     System.setProperty("browser", "chrome")
   }
 
-  implicit def driver: WebDriver = Driver.instance: WebDriver
+  implicit def webDriver: WebDriver = Driver.instance
 
 }

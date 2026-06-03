@@ -19,9 +19,10 @@ package uk.gov.hmrc.specs
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
-import uk.gov.hmrc.pages.CommonPage
-import uk.gov.hmrc.pages.CommonPage.{navigateToPage, userClicksButton, userShouldSeeBannerElements, userShouldSeeCookieConsentBanner}
+import uk.gov.hmrc.pages.CookieBannerPage
+import uk.gov.hmrc.pages.CommonPage.navigateToViewAndAmendHome
 import uk.gov.hmrc.pages.SignInPage.{userIsSignedIn, userNotSignedIn}
+import uk.gov.hmrc.pages.Constants.{BannerElement, CookieButton, UserType}
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.AcceptanceTest
 
@@ -41,13 +42,13 @@ class CookieBannerSpec
       Given("User is not signed in")
       userNotSignedIn()
       And("User is signed in as a registered user")
-      userIsSignedIn("", "registered")
+      userIsSignedIn(UserType.Registered)
     }
 
     Scenario("Cookie consent banner is displayed on view and amend pages", AcceptanceTest) {
       background()
       When(s"User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       Then("User should see a cookie consent banner with the following details")
       val cookieBannerDetails = Seq(
         "Cookies on HMRC services",
@@ -58,93 +59,93 @@ class CookieBannerSpec
         "View cookie preferences"
       )
       cookieBannerDetails.foreach(detail => info(s"- $detail"))
-      userShouldSeeCookieConsentBanner(cookieBannerDetails)
+      CookieBannerPage.shouldShowConsentBanner(cookieBannerDetails)
       And("User should see the following links on the cookie banner")
-      val cookieBannerLinks = Seq("View cookie preferences")
+      val cookieBannerLinks   = Seq("View cookie preferences")
       cookieBannerLinks.foreach(link => info(s"- $link"))
-      userShouldSeeBannerElements("links", cookieBannerLinks)
+      CookieBannerPage.shouldShowElements(BannerElement.Links, cookieBannerLinks)
       And("User should see the following buttons on the cookie banner")
       val cookieBannerButtons = Seq("Accept additional cookies", "Reject additional cookies")
       cookieBannerButtons.foreach(button => info(s"- $button"))
-      userShouldSeeBannerElements("buttons", cookieBannerButtons)
+      CookieBannerPage.shouldShowElements(BannerElement.Buttons, cookieBannerButtons)
     }
 
     Scenario("Accept cookies on cookie consent banner", AcceptanceTest) {
       background()
       When("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       And("User clicks on Accept additional cookies button")
-      userClicksButton("Accept additional cookies")
+      CookieBannerPage.clickButton(CookieButton.AcceptAdditional)
       Then("User should see a cookie consent banner with the following details")
       val cookieBannerDetails = Seq(
         "You have accepted additional cookies. You can change your cookie settings at any time.",
         "Hide cookies message"
       )
       cookieBannerDetails.foreach(detail => info(s"- $detail"))
-      userShouldSeeCookieConsentBanner(cookieBannerDetails)
+      CookieBannerPage.shouldShowConsentBanner(cookieBannerDetails)
       And("User should see the following links on the cookie banner")
-      val cookieBannerLinks = Seq("change your cookie settings")
+      val cookieBannerLinks   = Seq("change your cookie settings")
       cookieBannerLinks.foreach(link => info(s"- $link"))
-      userShouldSeeBannerElements("links", cookieBannerLinks)
+      CookieBannerPage.shouldShowElements(BannerElement.Links, cookieBannerLinks)
       And("User should see the following buttons on the cookie banner")
       val cookieBannerButtons = Seq("Hide cookies message")
       cookieBannerButtons.foreach(button => info(s"- $button"))
-      userShouldSeeBannerElements("buttons", cookieBannerButtons)
+      CookieBannerPage.shouldShowElements(BannerElement.Buttons, cookieBannerButtons)
       When("User clicks on Hide cookies message button")
-      userClicksButton("Hide cookies message")
+      CookieBannerPage.clickButton(CookieButton.HideMessage)
       Then("User should not see cookie consent banner")
-      CommonPage.cookieBannerPresence() should be(false)
+      CookieBannerPage.isVisible should be(false)
     }
 
     Scenario("Reject cookies on cookie consent banner", AcceptanceTest) {
       background()
       When("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       And("User clicks on Reject additional cookies button")
-      userClicksButton("Reject additional cookies")
+      CookieBannerPage.clickButton(CookieButton.RejectAdditional)
       Then("User should see a cookie consent banner with the following details")
       val cookieBannerDetails = Seq(
         "You have rejected additional cookies. You can change your cookie settings at any time.",
         "Hide cookies message"
       )
       cookieBannerDetails.foreach(detail => info(s"- $detail"))
-      userShouldSeeCookieConsentBanner(cookieBannerDetails)
+      CookieBannerPage.shouldShowConsentBanner(cookieBannerDetails)
       And("User should see the following links on the cookie banner")
-      val cookieBannerLinks = Seq("change your cookie settings")
+      val cookieBannerLinks   = Seq("change your cookie settings")
       cookieBannerLinks.foreach(link => info(s"- $link"))
-      userShouldSeeBannerElements("links", cookieBannerLinks)
+      CookieBannerPage.shouldShowElements(BannerElement.Links, cookieBannerLinks)
       And("User should see the following buttons on the cookie banner")
       val cookieBannerButtons = Seq("Hide cookies message")
       cookieBannerButtons.foreach(button => info(s"- $button"))
-      userShouldSeeBannerElements("buttons", cookieBannerButtons)
+      CookieBannerPage.shouldShowElements(BannerElement.Buttons, cookieBannerButtons)
       When("User clicks on Hide cookies message button")
-      userClicksButton("Hide cookies message")
+      CookieBannerPage.clickButton(CookieButton.HideMessage)
       Then("User should not see cookie consent banner")
-      CommonPage.cookieBannerPresence() should be(false)
+      CookieBannerPage.isVisible should be(false)
     }
 
     Scenario("Cookie consent banner is not displayed once it is accepted", AcceptanceTest) {
       background()
       When("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       And("User clicks on Accept additional cookies button")
-      userClicksButton("Accept additional cookies")
+      CookieBannerPage.clickButton(CookieButton.AcceptAdditional)
       And("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       Then("User should not see cookie consent banner")
-      CommonPage.cookieBannerPresence() should be(false)
+      CookieBannerPage.isVisible should be(false)
     }
 
     Scenario("Cookie consent banner is not displayed once it is rejected", AcceptanceTest) {
       background()
       When("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       And("User clicks on Reject additional cookies button")
-      userClicksButton("Reject additional cookies")
+      CookieBannerPage.clickButton(CookieButton.RejectAdditional)
       And("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       Then("User should not see cookie consent banner")
-      CommonPage.cookieBannerPresence() should be(false)
+      CookieBannerPage.isVisible should be(false)
     }
   }
 }

@@ -16,22 +16,26 @@
 
 package uk.gov.hmrc.utils
 
-import akka.actor.ActorSystem
+import org.apache.pekko.actor.ActorSystem
 import com.typesafe.config.ConfigFactory
 import play.api.libs.json.JsValue
-import play.api.libs.ws.JsonBodyWritables._
-import play.api.libs.ws._
+import play.api.libs.ws.JsonBodyWritables.*
+import play.api.libs.ws.*
 import play.api.libs.ws.ahc.{AhcWSClientConfigFactory, StandaloneAhcWSClient}
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.{Await, Future}
 
 object WSClient {
 
   import scala.concurrent.ExecutionContext.Implicits.global
-  private implicit val system: ActorSystem = ActorSystem()
-  // private implicit val mat: ActorMaterializer = ActorMaterializer()
-  private val wsClient                     = StandaloneAhcWSClient(config = AhcWSClientConfigFactory.forConfig(ConfigFactory.load()))
+  private given system: ActorSystem = ActorSystem()
+  private val wsClient              = StandaloneAhcWSClient(config = AhcWSClientConfigFactory.forConfig(ConfigFactory.load()))
+
+  sys.addShutdownHook {
+    wsClient.close()
+    system.terminate()
+  }
 
   def httpGet(
     url: String,
@@ -40,17 +44,17 @@ object WSClient {
   ): Future[StandaloneWSRequest#Response] = {
     def request(url: String): StandaloneWSRequest =
       wsClient.url(url)
-    request(url).addHttpHeaders(headers: _*).withCookies(cookie.toSeq: _*).get()
+    request(url).addHttpHeaders(headers*).withCookies(cookie.toSeq*).get()
   }
 
   def httpPost(
     url: String,
     requestBody: JsValue,
     headers: (String, String)*
-  ): Future[StandaloneWSRequest#Self#Response] = {
+  ): Future[StandaloneWSRequest#Response] = {
     def request(url: String): StandaloneWSRequest =
       wsClient.url(url)
-    request(url).withHttpHeaders(headers: _*).post(requestBody)
+    request(url).withHttpHeaders(headers*).post(requestBody)
   }
 
   def captureLinkContent(url: String, cookies: Set[WSCookie]): DownloadedFile =
@@ -62,7 +66,6 @@ case class DownloadedFile(data: Array[Byte], mimeType: String, disposition: Stri
   def sizeDescription: String = data.length match {
     case kb if 1000 until 1000000 contains kb => f"${kb.toFloat / 1000}%1.1f kB"
     case mb if mb >= 1000000                  => f"${mb.toFloat / 1000000}%1.1f MB"
-    //case _ => data.length + " bytes"
     case _                                    => s"${data.length} bytes"
   }
 }
@@ -71,9 +74,13 @@ object DownloadedFile {
   def apply(resp: StandaloneWSResponse): DownloadedFile = {
     val data         = resp.bodyAsBytes.toArray
     val mimeType     = resp.contentType
-    val hdr          = resp.header("Content-Disposition").getOrElse("").split(";").take(2).map(_.trim).toList
-    val disposition  = hdr.head
-    val name: String = hdr(1).split("=").take(2).map(_.trim).toList(1).replaceAll("\"", "")
+    val parts        = resp.header("Content-Disposition").getOrElse("").split(";").map(_.trim).toList
+    val disposition  = parts.headOption.getOrElse("")
+    val name: String = parts
+      .lift(1)
+      .flatMap(_.split("=", 2).map(_.trim).lift(1))
+      .map(_.stripPrefix("\"").stripSuffix("\""))
+      .getOrElse("")
     DownloadedFile(data, mimeType, disposition, name)
   }
 }

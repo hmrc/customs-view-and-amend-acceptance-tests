@@ -19,8 +19,11 @@ package uk.gov.hmrc.specs
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
-import uk.gov.hmrc.pages.CommonPage.{customsDataStoreIsEmpty, emailIsUndeliverable, navigateToPage, pageTitleShouldBe, theUrlIsCorrect, userHasVerifiedEmailInDataStore, userIsRedirectedToPage, userShouldSeeHeading, userShouldSeeLinkTo, userShouldSeeStaticText, userShouldSeeTextInBulletPoints}
+import uk.gov.hmrc.pages.CommonPage.{customsDataStoreIsEmpty, emailIsUndeliverable, navigateToViewAndAmendHome, pageTitleShouldBe, userHasVerifiedEmailInDataStore, userIsRedirectedToPage, userShouldSeeHeading, userShouldSeeLinkTo, userShouldSeeStaticText, userShouldSeeTextInBulletPoints}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
+import uk.gov.hmrc.pages.VerifyYourEmailPage
+import uk.gov.hmrc.pages.Constants.StaticTextKind
+import uk.gov.hmrc.pages.Constants.UserType
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.AcceptanceTest
 
@@ -38,9 +41,9 @@ class EmailVerificationSpec
 
     Scenario("User without a verified email address is redirected to email verification page", AcceptanceTest) {
       Given("User is signed in as an unverifiedUser user")
-      userIsSignedIn("", "unverifiedUser")
+      userIsSignedIn(UserType.UnverifiedUser)
       When("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       Then(
         "User is redirected to the 'You need to verify the registered CDS email address - Claim back import duty and VAT - GOV.UK' page"
       )
@@ -48,18 +51,18 @@ class EmailVerificationSpec
         "You need to verify the registered CDS email address - Claim back import duty and VAT - GOV.UK"
       )
       And("User should see the heading 'You need to verify the registered CDS email address'")
-      userShouldSeeHeading("", "", "You need to verify the registered CDS email address")
+      userShouldSeeHeading("You need to verify the registered CDS email address")
       And("The 'Verify or change email address' url is correct")
-      theUrlIsCorrect("Verify or change email address")
+      VerifyYourEmailPage.verifyMyEmailLinkUrl()
       And("User should see the following static text")
       val unverifiedStaticText = Seq(
         "This is the email address your organisation has registered for the Customs Declaration Service (CDS). You need to verify this email address or change it. You can verify the email instantly provided you have access to the email account.",
         "This will be the only email address we use for:"
       )
       unverifiedStaticText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", unverifiedStaticText)
+      userShouldSeeStaticText(StaticTextKind.Static, unverifiedStaticText)
       And("User should see the following text in bullet points")
-      val unverifiedBullets = Seq(
+      val unverifiedBullets    = Seq(
         "updates on changes to the Customs Declaration Service",
         "urgent updates about goods in customs",
         "some financial notifications, including Direct Debit notices and VAT"
@@ -76,9 +79,9 @@ class EmailVerificationSpec
       And("The email is undeliverable")
       emailIsUndeliverable()
       And("User signs in as an undeliverableEmail user")
-      userIsSignedIn("", "undeliverableEmail")
+      userIsSignedIn(UserType.UndeliverableEmail)
       When("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       Then(
         "The page title should be 'There‘s a problem with the CDS registered email address - Claim back import duty and VAT - GOV.UK'"
       )
@@ -86,7 +89,7 @@ class EmailVerificationSpec
         "There‘s a problem with the CDS registered email address - Claim back import duty and VAT - GOV.UK"
       )
       And("User should see the heading 'There‘s a problem with the CDS registered email address'")
-      userShouldSeeHeading("", "", "There‘s a problem with the CDS registered email address")
+      userShouldSeeHeading("There‘s a problem with the CDS registered email address")
       And("User should see the following static text")
       val undeliverableStaticText = Seq(
         "We tried to send you an email but it could not be delivered. This could be because the inbox is full, or due to a technical problem with your email provider.",
@@ -94,9 +97,9 @@ class EmailVerificationSpec
         "This will be the only email address we use for:"
       )
       undeliverableStaticText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", undeliverableStaticText)
+      userShouldSeeStaticText(StaticTextKind.Static, undeliverableStaticText)
       And("User should see the following text in bullet points")
-      val undeliverableBullets = Seq(
+      val undeliverableBullets    = Seq(
         "updates on changes to the Customs Declaration Service",
         "urgent updates about goods in customs",
         "some financial notifications, including Direct Debit notices and VAT"
@@ -104,9 +107,9 @@ class EmailVerificationSpec
       undeliverableBullets.foreach(line => info(s"- $line"))
       userShouldSeeTextInBulletPoints(undeliverableBullets)
       And("User should see a link to 'Verify or change email address'")
-      userShouldSeeLinkTo("", "Verify or change email address")
+      userShouldSeeLinkTo("Verify or change email address")
       And("The 'Verify or change email address' url is correct")
-      theUrlIsCorrect("Verify or change email address")
+      VerifyYourEmailPage.verifyMyEmailLinkUrl()
     }
   }
 }

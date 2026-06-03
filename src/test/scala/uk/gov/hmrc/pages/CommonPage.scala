@@ -20,31 +20,22 @@ import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
 import org.openqa.selenium.{By, WebElement}
 import play.api.libs.json.Json
 import uk.gov.hmrc.pages.ChooseFilesPage.waitForPageToLoad
-import uk.gov.hmrc.pages.generic.PageObjectFinder
+import uk.gov.hmrc.pages.Constants.StaticTextKind
 import uk.gov.hmrc.utils.DropMongo.dropMongo
-import uk.gov.hmrc.utils.{Configuration, WSClient}
+import uk.gov.hmrc.utils.{Configuration, Environment, WSClient}
 
 import java.time.Duration
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.DurationInt
-import scala.jdk.CollectionConverters._
-import scala.language.postfixOps
+import scala.jdk.CollectionConverters.*
 
 object CommonPage extends CustomsFinancialsWebPage {
 
-  def navigateToPage(bookmarkWord: String, page: String): Unit =
-    if (bookmarkWord.isEmpty) {
-      page match {
-        case "View and amend home"     => ViewAndAmendHomePage.goToPage()
-        case "Customs Financials Home" => goTo(financialsBaseUrl + "/customs/payment-records")
-        case "in progress claims list" => goTo(ClaimsListPages.inProgressClaimsPageUrl)
-        case "Find a claim"            => ClaimSearchPage.goToPage()
-        case _                         => throw new IllegalArgumentException(s"No such page - $page")
-      }
-    } else {
-      webDriver.get(bookmarkUrl)
-    }
+  def navigateToViewAndAmendHome(): Unit      = ViewAndAmendHomePage.goToPage()
+  def navigateToCustomsFinancialsHome(): Unit = goTo(financialsBaseUrl + "/customs/payment-records")
+  def navigateToInProgressClaimsList(): Unit  = goTo(ClaimsListPages.inProgressClaimsPageUrl)
+  def navigateToFindAClaim(): Unit            = ClaimSearchPage.goToPage()
 
   def userClicksOn(selectedLink: String): Unit =
     click on partialLinkText(selectedLink)
@@ -52,56 +43,57 @@ object CommonPage extends CustomsFinancialsWebPage {
   def userClicksSearchButton(): Unit =
     clickOnSearchButton().click()
 
-  def userIsPresentedWith(page: String): Unit = {
-    val p = PageObjectFinder.page(page)
+  def userIsPresentedWith(p: BasePage): Unit = {
     p.waitForPageHeader
     p.checkURL
     p.checkPageHeader()
     p.checkPageTitle()
   }
 
-  def userIsPresentedWith(page: String, specificPage: String): Unit = {
-    val p = PageObjectFinder.page(page)
+  def userIsPresentedWith(p: BasePage, specificPage: String): Unit = {
     p.waitForPageHeader
     p.checkURL
     p.checkPageTitle(specificPage)
   }
 
-  def userIsPresentedWithErrorPage(page: String): Unit = {
-    val p = PageObjectFinder.page(page)
+  def userIsPresentedWithErrorPage(p: BasePage): Unit = {
     p.waitForPageHeader
     p.checkPageErrorTitle()
   }
 
-  def userIsPresentedWithErrorPage(page: String, duty: String): Unit = {
-    val p = PageObjectFinder.page(page)
+  def userIsPresentedWithErrorPage(p: BasePage, duty: String): Unit = {
     p.waitForPageHeader
     p.checkPageErrorTitle(duty)
   }
 
-  def userClicksContinueOn(page: String): Unit = {
-    val p = PageObjectFinder.page(page)
+  def userClicksContinueOn(p: BasePage): Unit = {
     p.waitForPageHeader
     p.clickContinueButton()
   }
 
-  def userClicksContinueIfOn(page: String): Unit =
-    PageObjectFinder.page(page).continuouslyClickContinue()
+  def userClicksContinueIfOn(p: BasePage): Unit =
+    p.continuouslyClickContinue()
 
-  def userSelectsRadioButton(choice: String, page: String): Unit = {
-    val p = PageObjectFinder.page(page)
-    p.waitForPageHeader
-    p.clickRadioButton(choice)
+  def userSelectsRadioButton(fileType: Constants.FileType): Unit = {
+    ChooseFileTypePage.waitForPageHeader
+    ChooseFileTypePage.clickRadioButton(fileType)
   }
 
-  def userUploadsFile(fileNumber: Int, file: String, page: String): Unit = {
-    PageObjectFinder.page(page).uploadDocument(fileNumber, file)
+  def userSelectsRadioButton(yesNo: Constants.YesNo): Unit = {
+    ChooseFilesPage.waitForPageHeader
+    ChooseFilesPage.clickRadioButton(yesNo)
+  }
+
+  def userUploadsFile(fileNumber: Int, file: String, p: BasePage): Unit = {
+    p.uploadDocument(fileNumber, file)
     waitForPageToLoad()
   }
 
   def errorSummaryTitleAndMessage(errorSummaryTitle: String, errorMessage: String): Unit = {
-    PageObjectFinder.checkPageErrorSummaryTitle(errorSummaryTitle)
-    PageObjectFinder.checkPageErrorMessage(errorMessage)
+    val actualErrorSummaryTitle = webDriver.findElement(By.cssSelector(".govuk-error-summary__title")).getText
+    actualErrorSummaryTitle should be(errorSummaryTitle)
+    val actualErrorMessage = webDriver.findElement(By.cssSelector(".govuk-error-summary__body")).getText
+    assert(actualErrorMessage.contains(errorMessage))
   }
 
   def userShouldSeeBackLink(): Unit = {
@@ -113,48 +105,18 @@ object CommonPage extends CustomsFinancialsWebPage {
   def userClicksBackLink(): Unit =
     backLink().click()
 
-  def userShouldSeeCookieConsentBanner(expectedText: Seq[String]): Unit =
-    cookieBannerText() should be(expectedText)
-
-  def userShouldSeeBannerElements(bannerElement: String, expectedText: Seq[String]): Unit = {
-    val tagName = bannerElement match {
-      case "links"   =>
-        expectedText.foreach(link => cookieBannerLinkUrl(link) should include("/tracking-consent/cookie-settings"))
-        "a"
-      case "buttons" => "button"
-    }
-    cookieBannerLinksButtonsText(tagName) should be(expectedText)
-  }
-
-  def userClicksButton(buttonName: String): Unit =
-    button(buttonName).click()
-
   def userIsRedirectedToPage(expectedPageTitle: String): Unit =
     pageTitle should be(expectedPageTitle)
 
   def pageTitleShouldBe(expectedPageTitle: String): Unit =
     pageTitle should be(expectedPageTitle)
 
-  def theUrlIsCorrect(linkName: String): Unit =
-    linkName match {
-      case "Economic Operator and Registration Identification (EORI) number (opens in a new window or tab)" =>
-        NotSubscribedToCDSPage.registerForCdsLinkUrl should endWith("/customs/register-for-cds")
-      case "get access to CDS (opens in a new window or tab)"                                               =>
-        NotSubscribedToCDSPage.subscribeToCdsLinkUrl should startWith(
-          "https://www.gov.uk/guidance/get-access-to-the-customs-declaration-service"
-        )
-      case "Verify or change email address"                                                                 =>
-        VerifyYourEmailPage.verifyMyEmailLinkUrl(linkName) should endWith("/manage-email-cds/service/customs-finance")
-      case _                                                                                                =>
-        throw new IllegalArgumentException(s"$linkName link is not available on the page")
-    }
-
-  def userShouldSeeStaticText(staticOrhintWord: String, expectedText: Seq[String]): Unit = {
-    val actualText         = staticOrhintWord match {
-      case "static"         => elementTextAll("#main-content p.govuk-body")
-      case "static-content" => elementTextAll("#main-content > h2")
-      case "hint"           => List(ClaimSearchPage.hintText)
-      case "label"          => List(ClaimSearchPage.labelText)
+  def userShouldSeeStaticText(kind: StaticTextKind, expectedText: Seq[String]): Unit = {
+    val actualText         = kind match {
+      case StaticTextKind.Static        => elementTextAll("#main-content p.govuk-body")
+      case StaticTextKind.StaticContent => elementTextAll("#main-content > h2")
+      case StaticTextKind.Hint          => List(ClaimSearchPage.hintText)
+      case StaticTextKind.Label         => List(ClaimSearchPage.labelText)
     }
     val expectedTextList   = expectedText.flatMap(t => Option(t).map(_.trim).filter(_.nonEmpty)).toList
     val filteredActualText = actualText.flatMap(_.split("\n").map(_.trim)).filter(_.nonEmpty)
@@ -166,33 +128,30 @@ object CommonPage extends CustomsFinancialsWebPage {
     actualText should be(expectedText)
   }
 
-  def userShouldSeeLinkTo(notWord: String, expectedLinkText: String): Unit =
-    assertElementInPageWithText("a", notWord.isEmpty, expectedLinkText)
+  def userShouldSeeLinkTo(expectedLinkText: String): Unit =
+    assertElementInPageWithText("a", exists = true, expectedLinkText)
 
-  def thePageUrlIsCorrect(linkText: String): Unit = {
-    val expectedUrl = linkText match {
-      case "Accessibility statement"            => "/accessibility-statement/customs-financials"
-      case "Is this page not working properly?" =>
-        "http://localhost:9250/contact/report-technical-problem?service=CDSRC&referrerUrl=%2Fclaim-back-import-duty-vat%2Fclaims-status"
-    }
-    val actualUrl   = getLinkUrl(linkText)
-    actualUrl should include(expectedUrl)
+  def reportProblemLinkUrlIsCorrect(): Unit = {
+    val linkText    = "Is this page not working properly?"
+    val expectedUrl =
+      "http://localhost:9250/contact/report-technical-problem?service=CDSRC&referrerUrl=%2Fclaim-back-import-duty-vat%2Fclaims-status"
+    getLinkUrl(linkText) should include(expectedUrl)
   }
 
   def userShouldSeeBannerWithInfo(expectedText: Seq[String]): Unit =
     recruitmentBannerText() should be(expectedText)
 
   def customsDataStoreIsEmpty(): Unit =
-    Configuration.environment.toString match {
-      case "Local" => dropMongo("customs-data-store")
-      case _       => ()
+    Configuration.environment match {
+      case Environment.Local => dropMongo("customs-data-store")
+      case _                 => ()
     }
 
   def userHasVerifiedEmailInDataStore(): Unit = {
     val url      = "http://localhost:9893/customs-data-store/eori/verified-email-third-party"
     val body     = Json.obj("eori" -> "GB123456789012")
     val response = WSClient.httpPost(url, body)
-    val result   = Await.result(response.map(_.status), 5 seconds)
+    val result   = Await.result(response.map(_.status), 5.seconds)
     assert(result == 200, s"$result is received")
   }
 
@@ -215,46 +174,20 @@ object CommonPage extends CustomsFinancialsWebPage {
         |}""".stripMargin
     val url      = "http://localhost:9893/customs-data-store/update-undeliverable-email"
     val response = WSClient.httpPost(url, Json.parse(json))
-    val result   = Await.result(response.map(_.status), 5 seconds)
+    val result   = Await.result(response.map(_.status), 5.seconds)
     assert(result == 204, s"Update to mongo failed with error code $result")
   }
 
-  def userShouldSeeHeading(notWord: String, subWord: String, expectedHeadingText: String): Unit = {
-    val headingTag = subWord match {
-      case "sub-"   => "h2"
-      case ""       => "h1"
-      case "small " => "h3"
-      case _        => subWord.trim
-    }
-    val wait       = new WebDriverWait(webDriver, Duration.ofSeconds(5))
-    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName(headingTag)))
-    assertElementInPageWithText(headingTag, notWord.isEmpty, expectedHeadingText)
+  def userShouldSeeHeading(expectedHeadingText: String): Unit = {
+    val wait = new WebDriverWait(webDriver, Duration.ofSeconds(5))
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("h1")))
+    assertElementInPageWithText("h1", exists = true, expectedHeadingText)
   }
 
   def continue(buttonName: String): WebElement =
     webDriver.findElements(By.tagName("button")).asScala.filter(_.getText == buttonName).head
 
   def getLinkUrl(linkText: String): String = webDriver.findElement(By.partialLinkText(linkText)).getAttribute("href")
-
-  private def cookieBanner() = webDriver.findElement(By.cssSelector(".cbanner-govuk-cookie-banner"))
-
-  def cookieBannerText(): List[String] = cookieBanner().getText.split("\n").toList
-
-  def cookieBannerLinksButtonsText(tag: String): List[String] = cookieBanner()
-    .findElements(By.tagName(tag))
-    .asScala
-    .map(_.getText.trim)
-    .toList
-
-  def cookieBannerLinkUrl(linkText: String): String = cookieBanner()
-    .findElement(By.partialLinkText(linkText))
-    .getAttribute("href")
-    .trim
-
-  def button(buttonName: String): WebElement =
-    cookieBanner().findElements(By.tagName("button")).asScala.filter(_.getText == buttonName).head
-
-  def cookieBannerPresence(): Boolean = !webDriver.findElements(By.cssSelector(".cbanner-govuk-cookie-banner")).isEmpty
 
   def recruitmentBannerTextIsNotVisible(): Boolean = !recruitmentBanner().isDisplayed
 

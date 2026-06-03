@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.pages
 
+import uk.gov.hmrc.pages.Constants.UserType
+
 import play.api.libs.json.{Json, OFormat}
 import uk.gov.hmrc.utils.{Configuration, TestDataLoader}
 
@@ -28,11 +30,11 @@ trait AuthLoginStubPage extends WebPage {
 
   override lazy val url: String = s"${Configuration.settings.AUTH_LOGIN_STUB}/gg-sign-in"
 
-  implicit val enrolmentFormats: OFormat[Enrolment] = Json.format[Enrolment]
-  implicit val userFormats: OFormat[User]           = Json.format[User]
+  given OFormat[Enrolment] = Json.format[Enrolment]
+  given OFormat[User]      = Json.format[User]
 
-  def loginAuth(userType: String, continueUrl: String, fixedEori: Option[String] = None): Unit = {
-    val user = TestDataLoader.loadFromJson[User](s"user-$userType")
+  def loginAuth(userType: UserType, continueUrl: String, fixedEori: Option[String] = None): Unit = {
+    val user = TestDataLoader.loadFromJson[User](s"user-${userType.resource}")
     //    textField("authorityId").value = user.pid
     textField("redirectionUrl").value = continueUrl
     singleSel("affinityGroup").value = "Organisation"
@@ -46,6 +48,6 @@ trait AuthLoginStubPage extends WebPage {
     }
   }
 
-  def paginatorAuth(userType: String, continueUrl: String, numberOfAccounts: String): Unit =
+  def paginatorAuth(userType: UserType, continueUrl: String, numberOfAccounts: String): Unit =
     loginAuth(userType, continueUrl, Some("GENERATE" + numberOfAccounts))
 }

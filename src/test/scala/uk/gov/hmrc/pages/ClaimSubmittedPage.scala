@@ -35,8 +35,8 @@ object ClaimSubmittedPage extends BasePage {
   override def expectedPageHeader: Option[String] = Some("Claim amendment sent")
 
   override def checkPageTitle(duty: String): Unit =
-    driver.findElement(By cssSelector "#main-content > div > div > h1").getText should equal(title)
+    webDriver.findElement(By cssSelector "#main-content > div > div > h1").getText should equal(title)
 
   override def checkPageErrorTitle(duty: String): Unit =
-    driver.findElement(By cssSelector "#main-content > div > div > h1").getText should equal(title)
+    webDriver.findElement(By cssSelector "#main-content > div > div > h1").getText should equal(title)
 }

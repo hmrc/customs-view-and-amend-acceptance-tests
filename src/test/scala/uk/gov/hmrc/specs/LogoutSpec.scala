@@ -19,8 +19,9 @@ package uk.gov.hmrc.specs
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
-import uk.gov.hmrc.pages.CommonPage.{navigateToPage, userClicksOn, userShouldSeeHeading}
+import uk.gov.hmrc.pages.CommonPage.{navigateToViewAndAmendHome, userClicksOn, userShouldSeeHeading}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
+import uk.gov.hmrc.pages.Constants.UserType
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.AcceptanceTest
 
@@ -37,13 +38,13 @@ class LogoutSpec
   Feature("Logout after login") {
     Scenario("User sign out from view and amend homepage", AcceptanceTest) {
       Given("User is signed in as a registered user")
-      userIsSignedIn("", "registered")
+      userIsSignedIn(UserType.Registered)
       When("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       And("User clicks on 'Sign out'")
       userClicksOn("Sign out")
       Then("User should see the heading 'Give feedback'")
-      userShouldSeeHeading("", "", "Give feedback")
+      userShouldSeeHeading("Give feedback")
     }
   }
 }

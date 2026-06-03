@@ -32,12 +32,12 @@ object AuthorityLoginStubPage extends BasePage {
   override def expectedPageHeader: Option[String] = Some("Authority Wizard")
 
   def enterRedirectURL(url: String): Unit =
-    driver.findElement(By.cssSelector("#redirectionUrl")).sendKeys(url)
+    webDriver.findElement(By.cssSelector("#redirectionUrl")).sendKeys(url)
 
   def enrolments(eKey: String, IDName: String, IDValue: String): Unit = {
-    driver.findElement(By.id("enrolment[0].name")).sendKeys(eKey)
-    driver.findElement(By.id("input-0-0-name")).sendKeys(IDName)
-    driver.findElement(By.id("input-0-0-value")).sendKeys(IDValue)
+    webDriver.findElement(By.id("enrolment[0].name")).sendKeys(eKey)
+    webDriver.findElement(By.id("input-0-0-name")).sendKeys(IDName)
+    webDriver.findElement(By.id("input-0-0-value")).sendKeys(IDValue)
   }
 
   override def clickContinueButton(): Unit =

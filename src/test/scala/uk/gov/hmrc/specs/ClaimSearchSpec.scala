@@ -21,8 +21,10 @@ import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.pages.ClaimDetailsPage.userShouldSeeClaimDetails
 import uk.gov.hmrc.pages.ClaimSearchPage.userSearchesFor
-import uk.gov.hmrc.pages.CommonPage.{navigateToPage, pageTitleShouldBe, userClicksBackLink, userClicksOn, userClicksSearchButton, userShouldSeeBackLink, userShouldSeeHeading, userShouldSeeStaticText}
+import uk.gov.hmrc.pages.CommonPage.{navigateToFindAClaim, navigateToViewAndAmendHome, pageTitleShouldBe, userClicksBackLink, userClicksOn, userClicksSearchButton, userShouldSeeBackLink, userShouldSeeHeading, userShouldSeeStaticText}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
+import uk.gov.hmrc.pages.Constants.StaticTextKind
+import uk.gov.hmrc.pages.Constants.UserType
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.{AcceptanceTest, E2ETest}
 
@@ -40,70 +42,70 @@ class ClaimSearchSpec
 
     Scenario("Verify the content claims search page", AcceptanceTest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       And("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       When("User clicks on 'Search for a claim'")
       userClicksOn("Search for a claim")
       Then("User should see the heading 'Search for a claim'")
-      userShouldSeeHeading("", "", "Search for a claim")
+      userShouldSeeHeading("Search for a claim")
       And("User should see the following hint text")
       val hintText = Seq("Enter a Movement Reference Number (MRN), or the claim reference number for older claims")
       hintText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("hint", hintText)
+      userShouldSeeStaticText(StaticTextKind.Hint, hintText)
     }
 
     Scenario("Verify no matching results page for claim number search", AcceptanceTest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       And("User navigates to the Find a claim page")
-      navigateToPage("", "Find a claim")
+      navigateToFindAClaim()
       When("User searches for claim 'NDRC-9999'")
       userSearchesFor("NDRC-9999")
       Then("User should see the heading 'No matching results for NDRC-9999'")
-      userShouldSeeHeading("", "", "No matching results for NDRC-9999")
+      userShouldSeeHeading("No matching results for NDRC-9999")
       And("User should see the following static text")
       val noMatchClaimText = Seq(
         "If your claim was submitted in the last 30 days and includes more than one Movement Reference Number (MRN), try searching with the first MRN you entered when you started the claim.",
         "To find older claims, search with your claim reference number."
       )
       noMatchClaimText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", noMatchClaimText)
+      userShouldSeeStaticText(StaticTextKind.Static, noMatchClaimText)
       When("User clicks on Search button on the Find a claim page")
       userClicksSearchButton()
       Then("User should see the heading 'Search for a claim'")
-      userShouldSeeHeading("", "", "Search for a claim")
+      userShouldSeeHeading("Search for a claim")
     }
 
     Scenario("Verify no matching results page for MRN search", AcceptanceTest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       And("User navigates to the Find a claim page")
-      navigateToPage("", "Find a claim")
+      navigateToFindAClaim()
       When("User searches for MRN '22GBJD4DCMAM33DOI2'")
       userSearchesFor("22GBJD4DCMAM33DOI2")
       Then("User should see the heading 'No matching results for 22GBJD4DCMAM33DOI2'")
-      userShouldSeeHeading("", "", "No matching results for 22GBJD4DCMAM33DOI2")
+      userShouldSeeHeading("No matching results for 22GBJD4DCMAM33DOI2")
       And("User should see the following static text")
       val noMatchMrnText = Seq(
         "If your claim was submitted in the last 30 days and includes more than one Movement Reference Number (MRN), try searching with the first MRN you entered when you started the claim.",
         "To find older claims, search with your claim reference number."
       )
       noMatchMrnText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", noMatchMrnText)
+      userShouldSeeStaticText(StaticTextKind.Static, noMatchMrnText)
       When("User clicks on Search button on the Find a claim page")
       userClicksSearchButton()
       When("User clicks on back link to previous page")
       userClicksBackLink()
       Then("User should see the heading 'Search for a claim'")
-      userShouldSeeHeading("", "", "Search for a claim")
+      userShouldSeeHeading("Search for a claim")
     }
 
     Scenario("Navigation back to view and amend home page", AcceptanceTest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       And("User navigates to the Find a claim page")
-      navigateToPage("", "Find a claim")
+      navigateToFindAClaim()
       Then("User should see the back link to previous page")
       userShouldSeeBackLink()
       When("User clicks on back link to previous page")
@@ -114,17 +116,17 @@ class ClaimSearchSpec
 
     Scenario("Search closed claims using claim number", E2ETest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       And("User navigates to the Find a claim page")
-      navigateToPage("", "Find a claim")
+      navigateToFindAClaim()
       When("User searches for claim 'NDRC-42'")
       userSearchesFor("NDRC-42")
       Then("User should see the heading 'Claim reference NDRC-42'")
-      userShouldSeeHeading("", "", "Claim reference NDRC-42")
+      userShouldSeeHeading("Claim reference NDRC-42")
       And("User should see the following static text")
-      val closedClaimText = Seq("Claim details: This claim has been closed")
+      val closedClaimText    = Seq("Claim details: This claim has been closed")
       closedClaimText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", closedClaimText)
+      userShouldSeeStaticText(StaticTextKind.Static, closedClaimText)
       And("User should see the following claim details")
       val closedClaimDetails = Map(
         "MRN"                          -> "MRN23014",
@@ -144,17 +146,17 @@ class ClaimSearchSpec
 
     Scenario("Search in progress claims using claim number", AcceptanceTest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       And("User navigates to the Find a claim page")
-      navigateToPage("", "Find a claim")
+      navigateToFindAClaim()
       When("User searches for claim 'NDRC-1'")
       userSearchesFor("NDRC-1")
       Then("User should see the heading 'Claim reference NDRC-1'")
-      userShouldSeeHeading("", "", "Claim reference NDRC-1")
+      userShouldSeeHeading("Claim reference NDRC-1")
       And("User should see the following static text")
-      val inProgressClaimText = Seq("Claim details: This claim is open and being reviewed by HMRC.")
+      val inProgressClaimText    = Seq("Claim details: This claim is open and being reviewed by HMRC.")
       inProgressClaimText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", inProgressClaimText)
+      userShouldSeeStaticText(StaticTextKind.Static, inProgressClaimText)
       And("User should see the following claim details")
       val inProgressClaimDetails = Map(
         "Local Reference Number (LRN)"      -> "KWMREF1",
@@ -174,15 +176,15 @@ class ClaimSearchSpec
 
     Scenario("Search pending claims using claim number", AcceptanceTest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       And("User navigates to the Find a claim page")
-      navigateToPage("", "Find a claim")
+      navigateToFindAClaim()
       When("User searches for claim 'NDRC-21'")
       userSearchesFor("NDRC-21")
       Then("User should see the heading 'Claim reference NDRC-21'")
-      userShouldSeeHeading("", "", "Claim reference NDRC-21")
+      userShouldSeeHeading("Claim reference NDRC-21")
       And("User should see the following static text")
-      val pendingClaimText = Seq(
+      val pendingClaimText    = Seq(
         "Claim details: This claim requires additional information or documentation.",
         "Check the inbox of Claimant email address for missing documents and any requests for more information from your caseworker.",
         "If your claim was submitted online, upload your supporting documents.",
@@ -190,7 +192,7 @@ class ClaimSearchSpec
         "If your claim was submitted manually, you will need to send your supporting documents by post."
       )
       pendingClaimText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", pendingClaimText)
+      userShouldSeeStaticText(StaticTextKind.Static, pendingClaimText)
       And("User should see the following claim details")
       val pendingClaimDetails = Map(
         "Local Reference Number (LRN)"      -> "KWMREF1",

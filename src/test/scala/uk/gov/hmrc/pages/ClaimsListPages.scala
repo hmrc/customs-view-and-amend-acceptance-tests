@@ -18,7 +18,7 @@ package uk.gov.hmrc.pages
 
 import org.openqa.selenium.By
 
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 object ClaimsListPages extends CustomsFinancialsWebPage {
 
@@ -52,13 +52,8 @@ object ClaimsListPages extends CustomsFinancialsWebPage {
   def userShouldSeeClaims(expected: Seq[Seq[String]]): Unit =
     claimsList should be(expected.map(_.toList).toList)
 
-  def userShouldSeePaginationContent(linkOrContent: String, expected: Seq[String]): Unit = {
-    val tagName = linkOrContent match {
-      case "content" => "li"
-      case "links"   => "a"
-    }
-    paginationBlockContent(tagName) should be(expected)
-  }
+  def userShouldSeePaginationContent(kind: Constants.PaginationContentKind, expected: Seq[String]): Unit =
+    paginationBlockContent(kind.tagName) should be(expected)
 
   def userShouldSeePaginationResultsText(expected: String): Unit =
     paginationResultsText should be(expected)

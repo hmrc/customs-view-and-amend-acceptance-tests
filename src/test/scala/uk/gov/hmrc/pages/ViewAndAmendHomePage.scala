@@ -18,7 +18,7 @@ package uk.gov.hmrc.pages
 
 import org.openqa.selenium.By
 
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 object ViewAndAmendHomePage extends CustomsFinancialsWebPage {
 

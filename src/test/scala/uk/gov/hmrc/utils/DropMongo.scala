@@ -19,8 +19,7 @@ package uk.gov.hmrc.utils
 import org.mongodb.scala.MongoClient
 
 import scala.concurrent.Await
-import scala.concurrent.duration._
-import scala.language.postfixOps
+import scala.concurrent.duration.*
 
 object DropMongo extends DropMongo
 trait DropMongo {
@@ -32,7 +31,7 @@ trait DropMongo {
         .getDatabase(dbName)
         .drop()
         .head(),
-      2 seconds
+      2.seconds
     )
     println("DROPPING MONGO DB : " + dbName)
     mongoClient.close()

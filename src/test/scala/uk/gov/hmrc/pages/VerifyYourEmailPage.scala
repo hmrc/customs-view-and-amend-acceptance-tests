@@ -20,7 +20,11 @@ import org.openqa.selenium.By
 
 object VerifyYourEmailPage extends CustomsFinancialsWebPage {
 
-  def verifyMyEmailLinkUrl(linkName: String): String = webDriver
-    .findElement(By.linkText(linkName))
-    .getAttribute("href")
+  private val verifyLinkText     = "Verify or change email address"
+  private val expectedVerifyHref = "/manage-email-cds/service/customs-finance"
+
+  def verifyMyEmailLinkUrl(): Unit = {
+    val href = webDriver.findElement(By.linkText(verifyLinkText)).getAttribute("href")
+    href should endWith(expectedVerifyHref)
+  }
 }
