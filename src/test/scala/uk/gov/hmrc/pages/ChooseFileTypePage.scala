@@ -18,6 +18,7 @@ package uk.gov.hmrc.pages
 
 import org.openqa.selenium.By
 import uk.gov.hmrc.conf.TestConfiguration
+import uk.gov.hmrc.pages.Constants.FileType
 
 object ChooseFileTypePage extends BasePage {
   override val url: String = TestConfiguration.url("view-and-upload") + "/claims-status/choose-file-type/NDRC-21"
@@ -34,8 +35,10 @@ object ChooseFileTypePage extends BasePage {
 
   override def expectedPageHeader: Option[String] = Some("Add supporting documents to your claim NDRC-21")
   override def checkPageTitle(duty: String): Unit =
-    driver.findElement(By cssSelector "#main-content > div > div > h1").getText should equal(title)
+    webDriver.findElement(By cssSelector "#main-content > div > div > h1").getText should equal(title)
 
   override def checkPageErrorTitle(duty: String): Unit =
-    driver.findElement(By cssSelector "#main-content > div > div > h1").getText should equal(title)
+    webDriver.findElement(By cssSelector "#main-content > div > div > h1").getText should equal(title)
+
+  def clickRadioButton(fileType: FileType): Unit = clickLabelByText(fileType.label)
 }

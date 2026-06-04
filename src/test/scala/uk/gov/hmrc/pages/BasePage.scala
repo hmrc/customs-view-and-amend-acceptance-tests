@@ -33,7 +33,7 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
   val title: String        = ""
 
   /** Fluent Wait config * */
-  def fluentWait: Wait[WebDriver] = new FluentWait[WebDriver](driver)
+  def fluentWait: Wait[WebDriver] = new FluentWait[WebDriver](webDriver)
     .withTimeout(Duration.ofSeconds(20))
     .pollingEvery(Duration.ofMillis(500))
 
@@ -81,19 +81,19 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
 
   def checkURL: Assertion =
     if (url.contains("...")) {
-      driver.getCurrentUrl should fullyMatch regex (url.replace("...", "") + ".*").r
+      webDriver.getCurrentUrl should fullyMatch regex (url.replace("...", "") + ".*").r
     } else {
-      driver.getCurrentUrl should equal(url)
+      webDriver.getCurrentUrl should equal(url)
     }
 
   def uploadDocument(file: String): Unit =
-    //driver.setFileDetector(new LocalFileDetector)
+    // driver.setFileDetector(new LocalFileDetector)
     if (file != "") {
       enterText("file", System.getProperty("user.dir") + "/src/test/resources/files/" + file)
     }
 
   def uploadDocument(docNumber: Int, file: String): Unit =
-    //driver.setFileDetector(new LocalFileDetector)
+    // driver.setFileDetector(new LocalFileDetector)
     if (file != "") {
       enterText("file-" + docNumber, System.getProperty("user.dir") + "/src/test/resources/files/" + file)
     }
@@ -118,16 +118,10 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
 
   def clickButton(buttonText: String): Unit = click on partialLinkText(buttonText)
 
-  def clickRadioButton(text: String): Unit =
-    driver.findElements(By.tagName("label")).asScala.filter(_.getText.trim == text).head.click()
+  protected def clickLabelByText(text: String): Unit =
+    webDriver.findElements(By.tagName("label")).asScala.filter(_.getText.trim == text).head.click()
 
-  def selectCheckBox(): Unit = {}
-
-  def elementText(query: Query): String    = find(query).get.underlying.getText
-
-  def selectBoxes(toSelect: Array[String]): Unit =
-    for (i <- toSelect.indices)
-      click on xpath(s"//input[@value='${toSelect(i)}']")
+  def elementText(query: Query): String = find(query).get.underlying.getText
 
   def textField(id: String, value: String): Unit = {
     val elem = find(id)
@@ -138,18 +132,14 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
   }
 
   def enterText(id: String, textToEnter: String): Unit = {
-    driver.findElement(By.id(id)).clear()
-    driver.findElement(By.id(id)).sendKeys(textToEnter)
+    webDriver.findElement(By.id(id)).clear()
+    webDriver.findElement(By.id(id)).sendKeys(textToEnter)
   }
 
   def selectFromAutocomplete(id: String, textToSelect: String): Unit =
-    driver.findElement(By.id(id)).sendKeys(textToSelect + Keys.ENTER)
+    webDriver.findElement(By.id(id)).sendKeys(textToSelect + Keys.ENTER)
 
-  def enterDetails(data: String): Unit = {}
-
-  def dropdownSelect(selection: String): Unit = {}
-
-  def enableWelsh(): Unit                                            =
+  def enableWelsh(): Unit =
     if (System.getProperty("welsh", "false") == "true")
       click on cssSelector("body > div:nth-child(5) > nav > ul > li:nth-child(2) > a > span:nth-child(2)")
 
@@ -159,19 +149,17 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
 
   def clickOnLinkText(text: String): Unit = click on linkText(text)
 
-  def configure(feature: String, featureState: String): Unit = {}
-
   def checkPageErrorSummaryTitle(errorSummaryTitle: String): Unit = {
-    val actualErrorSummaryTitle = driver.findElement(By.cssSelector(".govuk-error-summary__title")).getText
+    val actualErrorSummaryTitle = webDriver.findElement(By.cssSelector(".govuk-error-summary__title")).getText
     actualErrorSummaryTitle should be(errorSummaryTitle)
   }
 
   def checkPageErrorMessage(errorMessage: String): Unit = {
-    val actualErrorMessage = driver.findElement(By.cssSelector(".govuk-error-summary__body")).getText
+    val actualErrorMessage = webDriver.findElement(By.cssSelector(".govuk-error-summary__body")).getText
     assert(actualErrorMessage.contains(errorMessage))
   }
 
-  def pageData: Map[String, String] = driver
+  def pageData: Map[String, String] = webDriver
     .findElements(By.cssSelector(".govuk-summary-list__row"))
     .asScala
     .flatMap { row =>
@@ -181,7 +169,7 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
     }
     .toMap
 
-  private def cookieBanner() = driver.findElement(By.cssSelector(".cbanner-govuk-cookie-banner"))
+  private def cookieBanner() = webDriver.findElement(By.cssSelector(".cbanner-govuk-cookie-banner"))
 
   def cookieBannerText(): Seq[String] = cookieBanner().getText.split("\n").toList
 
@@ -190,7 +178,7 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
     .getAttribute("href")
     .trim
 
-  def cookieBannerPresence(): Boolean = !driver.findElements(By.cssSelector(".cbanner-govuk-cookie-banner")).isEmpty
+  def cookieBannerPresence(): Boolean = !webDriver.findElements(By.cssSelector(".cbanner-govuk-cookie-banner")).isEmpty
 
   def cookieBannerLinksButtonsText(tag: String): Seq[String] = cookieBanner()
     .findElements(By.tagName(tag))

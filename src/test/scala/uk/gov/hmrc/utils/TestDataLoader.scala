@@ -19,12 +19,13 @@ package uk.gov.hmrc.utils
 import play.api.libs.json.{Json, Reads}
 
 import scala.io.Source
+import scala.util.Using
 
 object TestDataLoader {
 
-  def loadFromJson[A](resource: String)(implicit reads: Reads[A]): A =
-    Json
-      .parse(Source.fromInputStream(getClass.getResourceAsStream(s"/test-data/$resource.json")).getLines().mkString)
-      .as[A]
+  def loadFromJson[A](resource: String)(using Reads[A]): A =
+    Using.resource(getClass.getResourceAsStream(s"/test-data/$resource.json")) { stream =>
+      Json.parse(Source.fromInputStream(stream).mkString).as[A]
+    }
 
 }

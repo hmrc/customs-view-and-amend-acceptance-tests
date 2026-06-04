@@ -22,8 +22,10 @@ import org.scalatest.prop.Tables.Table
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.pages.ClaimsListPages.userShouldSeeClaims
-import uk.gov.hmrc.pages.CommonPage.{navigateToPage, pageTitleShouldBe, userClicksBackLink, userClicksOn, userShouldSeeBackLink, userShouldSeeHeading, userShouldSeeStaticText}
+import uk.gov.hmrc.pages.CommonPage.{navigateToInProgressClaimsList, navigateToViewAndAmendHome, pageTitleShouldBe, userClicksBackLink, userClicksOn, userShouldSeeBackLink, userShouldSeeHeading, userShouldSeeStaticText}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
+import uk.gov.hmrc.pages.Constants.StaticTextKind
+import uk.gov.hmrc.pages.Constants.UserType
 import uk.gov.hmrc.pages.ViewAndAmendHomePage.userShouldSeeEoriDetails
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.AcceptanceTest
@@ -42,13 +44,13 @@ class ClaimsListSpec
 
     Scenario("Verify content on in progress claims list page", AcceptanceTest) {
       Given("User is signed in as an openClaim user")
-      userIsSignedIn("", "openClaim")
+      userIsSignedIn(UserType.OpenClaim)
       And("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       When("User clicks on 'View claims in progress'")
       userClicksOn("View claims in progress")
       Then("User should see the heading 'Claims in progress'")
-      userShouldSeeHeading("", "", "Claims in progress")
+      userShouldSeeHeading("Claims in progress")
       And("The page title should be 'Claims in progress - Claim back import duty and VAT - GOV.UK'")
       pageTitleShouldBe("Claims in progress - Claim back import duty and VAT - GOV.UK")
       And("User should see the following claims")
@@ -62,15 +64,15 @@ class ClaimsListSpec
 
     Scenario("Verify content on pending claims list page", AcceptanceTest) {
       Given("User is signed in as a PendingQueriedClaim user")
-      userIsSignedIn("", "PendingQueriedClaim")
+      userIsSignedIn(UserType.PendingQueriedClaim)
       And("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       And("User should see the eori details Tony Stark - GB00000000004 (XI00000000004)")
       userShouldSeeEoriDetails("Tony Stark - GB00000000004 (XI00000000004)")
       When("User clicks on 'View claims needing more information'")
       userClicksOn("View claims needing more information")
       Then("User should see the heading 'Claims needing more information'")
-      userShouldSeeHeading("", "", "Claims needing more information")
+      userShouldSeeHeading("Claims needing more information")
       And("The page title should be 'Claims needing more information - Claim back import duty and VAT - GOV.UK'")
       pageTitleShouldBe("Claims needing more information - Claim back import duty and VAT - GOV.UK")
       And("User should see the following claims")
@@ -85,13 +87,13 @@ class ClaimsListSpec
 
     Scenario("Verify content on closed claims list page", AcceptanceTest) {
       Given("User is signed in as a ResolvedWithdrawnClaim user")
-      userIsSignedIn("", "ResolvedWithdrawnClaim")
+      userIsSignedIn(UserType.ResolvedWithdrawnClaim)
       And("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       When("User clicks on 'View closed claims'")
       userClicksOn("View closed claims")
       Then("User should see the heading 'Closed claims'")
-      userShouldSeeHeading("", "", "Closed claims")
+      userShouldSeeHeading("Closed claims")
       And("The page title should be 'Closed claims - Claim back import duty and VAT - GOV.UK'")
       pageTitleShouldBe("Closed claims - Claim back import duty and VAT - GOV.UK")
       And("User should see the following static text")
@@ -100,9 +102,9 @@ class ClaimsListSpec
         "To view older closed claims, search using the claim reference number."
       )
       closedStaticText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", closedStaticText)
+      userShouldSeeStaticText(StaticTextKind.Static, closedStaticText)
       And("User should see the following claims")
-      val closedClaims = Seq(
+      val closedClaims     = Seq(
         Seq("Claim reference", "MRN", "Type of claim", "Claim decision date", "Claim decision"),
         Seq("NDRC-1005", "MRN23014", "Overpayment or rejected goods", "1 May 2021", "Withdrawn")
       )
@@ -119,9 +121,9 @@ class ClaimsListSpec
       )
       forAll(claimsStatuses) { claimsStatus =>
         Given("User is signed in as a pagination user")
-        userIsSignedIn("", "pagination")
+        userIsSignedIn(UserType.Pagination)
         And("User navigates to the View and amend home page")
-        navigateToPage("", "View and amend home")
+        navigateToViewAndAmendHome()
         And(s"User clicks on '$claimsStatus'")
         userClicksOn(claimsStatus)
         Then("User should see the back link to previous page")
@@ -135,15 +137,15 @@ class ClaimsListSpec
 
     Scenario("Display error page when hods returned an error", AcceptanceTest) {
       Given("User is signed in as a TPI01error user")
-      userIsSignedIn("", "TPI01error")
+      userIsSignedIn(UserType.TPI01Error)
       When("User navigates to the in progress claims list page")
-      navigateToPage("", "in progress claims list")
+      navigateToInProgressClaimsList()
       Then("User should see the heading 'Sorry, there is a problem with the service'")
-      userShouldSeeHeading("", "", "Sorry, there is a problem with the service")
+      userShouldSeeHeading("Sorry, there is a problem with the service")
       And("User should see the following static text")
       val errorStaticText = Seq("Try again later.")
       errorStaticText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", errorStaticText)
+      userShouldSeeStaticText(StaticTextKind.Static, errorStaticText)
     }
   }
 }

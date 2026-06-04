@@ -21,18 +21,23 @@ import org.scalatest.{Assertion, Assertions}
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.selenium.WebBrowser
 import play.api.libs.ws.{DefaultWSCookie, WSCookie}
-import uk.gov.hmrc.utils.{Configuration, StartUpTearDown}
+import uk.gov.hmrc.conf.TestConfiguration
+import uk.gov.hmrc.utils.{BrowserDriver, Configuration}
 
 import java.util
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
-trait WebPage extends WebBrowser with Assertions with Matchers with StartUpTearDown {
+trait WebPage extends WebBrowser with Assertions with Matchers with BrowserDriver {
 
   lazy val url = ""
 
   def financialsBaseUrl: String =
-    if (envBaseUrl.startsWith("http://local")) s"$envBaseUrl:$financialsPort" else envBaseUrl
-  def baseUrl: String           = if (envBaseUrl.startsWith("http://local")) s"$envBaseUrl:$viewAndAmendPort" else envBaseUrl
+    if (envBaseUrl.startsWith("http://local"))
+      s"$envBaseUrl:${TestConfiguration.servicePort("customs-financials-frontend")}"
+    else envBaseUrl
+  def baseUrl: String           =
+    if (envBaseUrl.startsWith("http://local")) s"$envBaseUrl:${TestConfiguration.servicePort("view-and-upload")}"
+    else envBaseUrl
 
   def goToPage(): Unit =
     go to url
@@ -63,8 +68,8 @@ trait WebPage extends WebBrowser with Assertions with Matchers with StartUpTearD
       case _: NoSuchElementException => fail(s"Link Text $partialLinkText not found in page")
     }
 
-  protected def findElementById(id: String)(implicit webDriver: WebDriver): WebElement =
-    webDriver.findElement(By.id(id))
+  protected def findElementById(id: String)(using driver: WebDriver): WebElement =
+    driver.findElement(By.id(id))
 
   def getCookies: Set[WSCookie] = webDriver
     .manage()
@@ -83,7 +88,5 @@ trait WebPage extends WebBrowser with Assertions with Matchers with StartUpTearD
   }
 
   private lazy val envBaseUrl: String = Configuration.settings.baseUrl
-  private val financialsPort          = 9876
-  private val viewAndAmendPort        = 9399
 
 }

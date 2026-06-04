@@ -1,9 +1,14 @@
 lazy val testSuite = (project in file("."))
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(
-      name := "customs-view-and-amend-acceptance-tests",
-      version := "0.0.1",
-      scalaVersion := "2.13.18",
-      scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation"),
-      libraryDependencies ++= Dependencies.test
+    name := "customs-view-and-amend-acceptance-tests",
+    version := "0.0.1",
+    scalaVersion := "3.3.7",
+    scalacOptions ++= Seq(
+      "-feature",
+      "-unchecked",
+      "-deprecation",
+      "-Wconf:msg=Flag.*repeatedly:s"
+    ),
+    libraryDependencies ++= Dependencies.test
   )

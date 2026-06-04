@@ -33,10 +33,4 @@ object CheckEoriDetailsPage extends BasePage {
 
   override def expectedPageHeader: Option[String] = Some("Check these EORI details are correct")
 
-  override def clickRadioButton(text: String): Unit =
-    text.toLowerCase() match {
-      case "yes" => click on cssSelector("#check-eori-details")
-      case "no"  => click on cssSelector("#check-eori-details-2")
-    }
-
 }

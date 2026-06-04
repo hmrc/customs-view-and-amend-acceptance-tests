@@ -20,11 +20,9 @@ import org.openqa.selenium.{By, WebElement}
 import org.scalatest.AppendedClues
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.should.Matchers
-import uk.gov.hmrc.utils.StartUpTearDown
+import uk.gov.hmrc.utils.BrowserDriver
 
-class CustomsFinancialsWebPage extends WebPage with Matchers with StartUpTearDown with ScalaFutures with AppendedClues {
-
-  var bookmarkUrl: String = ""
+class CustomsFinancialsWebPage extends WebPage with Matchers with BrowserDriver with ScalaFutures with AppendedClues {
 
   def helpText(): String =
     findElementById("help-message").getText

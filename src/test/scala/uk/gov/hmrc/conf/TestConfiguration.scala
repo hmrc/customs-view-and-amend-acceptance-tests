@@ -19,7 +19,7 @@ package uk.gov.hmrc.conf
 import com.typesafe.config.{Config, ConfigFactory}
 
 import scala.concurrent.duration.{Duration, DurationInt}
-import scala.jdk.DurationConverters._
+import scala.jdk.DurationConverters.*
 
 object TestConfiguration {
   val config: Config        = ConfigFactory.load()
@@ -76,7 +76,7 @@ object TestConfiguration {
   def browserVersion: String =
     sys.props.getOrElse("browser.version", "126")
 
-  private def servicePort(service: String): String =
+  def servicePort(service: String): String =
     environmentConfiguration.getString(s"services.$service.port")
 
   private def serviceRoute(service: String): String =

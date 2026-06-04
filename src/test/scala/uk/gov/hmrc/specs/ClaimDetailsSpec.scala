@@ -22,8 +22,10 @@ import org.scalatest.prop.Tables.Table
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.pages.ClaimDetailsPage.userShouldSeeClaimDetails
-import uk.gov.hmrc.pages.CommonPage.{navigateToPage, pageTitleShouldBe, userClicksBackLink, userClicksOn, userShouldSeeBackLink, userShouldSeeHeading, userShouldSeeStaticText}
+import uk.gov.hmrc.pages.CommonPage.{navigateToViewAndAmendHome, pageTitleShouldBe, userClicksBackLink, userClicksOn, userShouldSeeBackLink, userShouldSeeHeading, userShouldSeeStaticText}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
+import uk.gov.hmrc.pages.Constants.StaticTextKind
+import uk.gov.hmrc.pages.Constants.UserType
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.specs.tags.{AcceptanceTest, E2ETest}
 
@@ -41,19 +43,19 @@ class ClaimDetailsSpec
 
     Scenario("View in progress claim details", E2ETest) {
       Given("User is signed in as an openClaim user")
-      userIsSignedIn("", "openClaim")
+      userIsSignedIn(UserType.OpenClaim)
       And("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       And("User clicks on 'View claims in progress'")
       userClicksOn("View claims in progress")
       When("User clicks on 'NDRC-1001'")
       userClicksOn("NDRC-1001")
       Then("User should see the heading 'Claim reference NDRC-1001'")
-      userShouldSeeHeading("", "", "Claim reference NDRC-1001")
+      userShouldSeeHeading("Claim reference NDRC-1001")
       And("User should see the following static text")
-      val inProgressClaimText = Seq("Claim details: This claim is open and being reviewed by HMRC.")
+      val inProgressClaimText    = Seq("Claim details: This claim is open and being reviewed by HMRC.")
       inProgressClaimText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", inProgressClaimText)
+      userShouldSeeStaticText(StaticTextKind.Static, inProgressClaimText)
       And("User should see the following claim details")
       val inProgressClaimDetails = Map(
         "Local Reference Number (LRN)"      -> "KWMREF1",
@@ -73,17 +75,17 @@ class ClaimDetailsSpec
 
     Scenario("View pending claim details", E2ETest) {
       Given("User is signed in as a PendingQueriedClaim user")
-      userIsSignedIn("", "PendingQueriedClaim")
+      userIsSignedIn(UserType.PendingQueriedClaim)
       And("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       And("User clicks on 'View claims needing more information'")
       userClicksOn("View claims needing more information")
       When("User clicks on 'NDRC-1004'")
       userClicksOn("NDRC-1004")
       Then("User should see the heading 'Claim reference NDRC-1004'")
-      userShouldSeeHeading("", "", "Claim reference NDRC-1004")
+      userShouldSeeHeading("Claim reference NDRC-1004")
       And("User should see the following static text")
-      val pendingClaimText = Seq(
+      val pendingClaimText    = Seq(
         "Claim details: This claim requires additional information or documentation.",
         "Check the inbox of Claimant email address for missing documents and any requests for more information from your caseworker.",
         "If your claim was submitted online, upload your supporting documents.",
@@ -91,7 +93,7 @@ class ClaimDetailsSpec
         "If your claim was submitted manually, you will need to send your supporting documents by post."
       )
       pendingClaimText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", pendingClaimText)
+      userShouldSeeStaticText(StaticTextKind.Static, pendingClaimText)
       And("User should see the following claim details")
       val pendingClaimDetails = Map(
         "MRN"                          -> "MRN23014",
@@ -109,24 +111,24 @@ class ClaimDetailsSpec
       When("User clicks on 'Upload a file'")
       userClicksOn("Upload a file")
       And("User should see the heading 'Add supporting documents to your claim NDRC-1004'")
-      userShouldSeeHeading("", "", "Add supporting documents to your claim NDRC-1004")
+      userShouldSeeHeading("Add supporting documents to your claim NDRC-1004")
     }
 
     Scenario("View closed claim details", E2ETest) {
       Given("User is signed in as a ResolvedApprovedClaim user")
-      userIsSignedIn("", "ResolvedApprovedClaim")
+      userIsSignedIn(UserType.ResolvedApprovedClaim)
       And("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       And("User clicks on 'View closed claims'")
       userClicksOn("View closed claims")
       When("User clicks on 'NDRC-10014'")
       userClicksOn("NDRC-10014")
       Then("User should see the heading 'Claim reference NDRC-10014'")
-      userShouldSeeHeading("", "", "Claim reference NDRC-10014")
+      userShouldSeeHeading("Claim reference NDRC-10014")
       And("User should see the following static text")
-      val closedClaimText = Seq("Claim details: This claim has been closed")
+      val closedClaimText    = Seq("Claim details: This claim has been closed")
       closedClaimText.foreach(line => info(s"- $line"))
-      userShouldSeeStaticText("static", closedClaimText)
+      userShouldSeeStaticText(StaticTextKind.Static, closedClaimText)
       And("User should see the following claim details")
       val closedClaimDetails = Map(
         "MRN"                          -> "MRN23014",
@@ -165,9 +167,9 @@ class ClaimDetailsSpec
       )
       forAll(examples) { (claimsStatus, claimNumber, pageTitle) =>
         Given("User is signed in as a pagination user")
-        userIsSignedIn("", "pagination")
+        userIsSignedIn(UserType.Pagination)
         And("User navigates to the View and amend home page")
-        navigateToPage("", "View and amend home")
+        navigateToViewAndAmendHome()
         And(s"User clicks on '$claimsStatus'")
         userClicksOn(claimsStatus)
         When(s"User clicks on '$claimNumber'")
@@ -183,9 +185,9 @@ class ClaimDetailsSpec
 
     Scenario("Navigate to home page using Claims summary link", AcceptanceTest) {
       Given("User is signed in as a pagination user")
-      userIsSignedIn("", "pagination")
+      userIsSignedIn(UserType.Pagination)
       And("User navigates to the View and amend home page")
-      navigateToPage("", "View and amend home")
+      navigateToViewAndAmendHome()
       And("User clicks on 'View closed claims'")
       userClicksOn("View closed claims")
       And("User clicks on 'NDRC-41'")
