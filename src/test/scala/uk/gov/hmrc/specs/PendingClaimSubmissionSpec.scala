@@ -19,7 +19,7 @@ package uk.gov.hmrc.specs
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
-import uk.gov.hmrc.pages.CommonPage.{errorSummaryTitleAndMessage, navigateToViewAndAmendHome, userClicksContinueIfOn, userClicksContinueOn, userClicksOn, userIsPresentedWith, userIsPresentedWithErrorPage, userSelectsRadioButton, userShouldSeeHeading, userUploadsFile}
+import uk.gov.hmrc.pages.CommonPage.{errorSummaryTitleAndMessage, navigateToViewAndAmendHome, userClicksContinueOn, userClicksOn, userClicksUploadAnotherTypeOn, userIsPresentedWith, userIsPresentedWithErrorPage, userSelectsRadioButton, userShouldSeeHeading, userUploadsFile, userUploadsFileExpectingError}
 import uk.gov.hmrc.pages.SignInPage.userIsSignedIn
 import uk.gov.hmrc.pages.Constants
 import uk.gov.hmrc.pages.{ChooseFileTypePage, ChooseFilesPage, ClaimSubmittedPage}
@@ -62,12 +62,10 @@ class PendingClaimSubmissionSpec
       userClicksContinueOn(ChooseFileTypePage)
       And("User is presented with the 'Choose Files Page' 'commercial invoice'")
       userIsPresentedWith(ChooseFilesPage, "commercial invoice")
-      When("User uploads a 1 'document.pdf' file on 'Choose Files Page'")
-      userUploadsFile(1, "document.pdf", ChooseFilesPage)
-      And("User selects radio button 'Yes' on 'Choose Files Page'")
-      userSelectsRadioButton(Constants.YesNo.Yes)
-      And("User clicks continue if on 'Choose Files Page'")
-      userClicksContinueIfOn(ChooseFilesPage)
+      When("User uploads 'document.pdf' on 'Choose Files Page'")
+      userUploadsFile("document.pdf", ChooseFilesPage, 1)
+      And("User clicks 'Upload another type of document' on 'Choose Files Page'")
+      userClicksUploadAnotherTypeOn(ChooseFilesPage)
       Then("User is presented with the 'Choose File Type Page'")
       userIsPresentedWith(ChooseFileTypePage)
       When("User selects radio button 'Substitute or diversion entry' on 'Choose File Type Page'")
@@ -76,12 +74,10 @@ class PendingClaimSubmissionSpec
       userClicksContinueOn(ChooseFileTypePage)
       Then("User is presented with the 'Choose Files Page' 'substitute or diversion entry'")
       userIsPresentedWith(ChooseFilesPage, "substitute or diversion entry")
-      When("User uploads a 2 'image.png' file on 'Choose Files Page'")
-      userUploadsFile(2, "image.png", ChooseFilesPage)
-      And("User selects radio button 'No' on 'Choose Files Page'")
-      userSelectsRadioButton(Constants.YesNo.No)
-      And("User clicks continue if on 'Choose Files Page'")
-      userClicksContinueIfOn(ChooseFilesPage)
+      When("User uploads 'image.png' on 'Choose Files Page'")
+      userUploadsFile("image.png", ChooseFilesPage, 2)
+      And("User clicks continue on 'Choose Files Page'")
+      userClicksContinueOn(ChooseFilesPage)
       Then("User is presented with the 'Claim Submitted Page'")
       userIsPresentedWith(ClaimSubmittedPage)
     }
@@ -110,12 +106,10 @@ class PendingClaimSubmissionSpec
       userClicksContinueOn(ChooseFileTypePage)
       And("User is presented with the 'Choose Files Page' 'commercial invoice'")
       userIsPresentedWith(ChooseFilesPage, "commercial invoice")
-      When("User uploads a 1 'document.pdf' file on 'Choose Files Page'")
-      userUploadsFile(1, "document.pdf", ChooseFilesPage)
-      And("User selects radio button 'Yes' on 'Choose Files Page'")
-      userSelectsRadioButton(Constants.YesNo.Yes)
-      And("User clicks continue if on 'Choose Files Page'")
-      userClicksContinueIfOn(ChooseFilesPage)
+      When("User uploads 'document.pdf' on 'Choose Files Page'")
+      userUploadsFile("document.pdf", ChooseFilesPage, 1)
+      And("User clicks 'Upload another type of document' on 'Choose Files Page'")
+      userClicksUploadAnotherTypeOn(ChooseFilesPage)
 
       Then("User is presented with the 'Choose File Type Page'")
       userIsPresentedWith(ChooseFileTypePage)
@@ -125,12 +119,10 @@ class PendingClaimSubmissionSpec
       userClicksContinueOn(ChooseFileTypePage)
       Then("User is presented with the 'Choose Files Page' 'substitute or diversion entry'")
       userIsPresentedWith(ChooseFilesPage, "substitute or diversion entry")
-      When("User uploads a 2 'image.png' file on 'Choose Files Page'")
-      userUploadsFile(2, "image.png", ChooseFilesPage)
-      And("User selects radio button 'Yes' on 'Choose Files Page'")
-      userSelectsRadioButton(Constants.YesNo.Yes)
-      And("User clicks continue if on 'Choose Files Page'")
-      userClicksContinueIfOn(ChooseFilesPage)
+      When("User uploads 'image.png' on 'Choose Files Page'")
+      userUploadsFile("image.png", ChooseFilesPage, 2)
+      And("User clicks 'Upload another type of document' on 'Choose Files Page'")
+      userClicksUploadAnotherTypeOn(ChooseFilesPage)
 
       Then("User is presented with the 'Choose File Type Page'")
       userIsPresentedWith(ChooseFileTypePage)
@@ -140,12 +132,10 @@ class PendingClaimSubmissionSpec
       userClicksContinueOn(ChooseFileTypePage)
       Then("User is presented with the 'Choose Files Page' 'packing list'")
       userIsPresentedWith(ChooseFilesPage, "packing list")
-      When("User uploads a 3 'image.jpg' file on 'Choose Files Page'")
-      userUploadsFile(3, "image.jpg", ChooseFilesPage)
-      And("User selects radio button 'Yes' on 'Choose Files Page'")
-      userSelectsRadioButton(Constants.YesNo.Yes)
-      And("User clicks continue if on 'Choose Files Page'")
-      userClicksContinueIfOn(ChooseFilesPage)
+      When("User uploads 'image.jpg' on 'Choose Files Page'")
+      userUploadsFile("image.jpg", ChooseFilesPage, 3)
+      And("User clicks 'Upload another type of document' on 'Choose Files Page'")
+      userClicksUploadAnotherTypeOn(ChooseFilesPage)
 
       Then("User is presented with the 'Choose File Type Page'")
       userIsPresentedWith(ChooseFileTypePage)
@@ -155,12 +145,10 @@ class PendingClaimSubmissionSpec
       userClicksContinueOn(ChooseFileTypePage)
       Then("User is presented with the 'Choose Files Page' 'bill of lading'")
       userIsPresentedWith(ChooseFilesPage, "bill of lading")
-      When("User uploads a 4 'image.jpeg' file on 'Choose Files Page'")
-      userUploadsFile(4, "image.jpeg", ChooseFilesPage)
-      And("User selects radio button 'No' on 'Choose Files Page'")
-      userSelectsRadioButton(Constants.YesNo.No)
-      And("User clicks continue if on 'Choose Files Page'")
-      userClicksContinueIfOn(ChooseFilesPage)
+      When("User uploads 'image.jpeg' on 'Choose Files Page'")
+      userUploadsFile("image.jpeg", ChooseFilesPage, 4)
+      And("User clicks continue on 'Choose Files Page'")
+      userClicksContinueOn(ChooseFilesPage)
 
       Then("User is presented with the 'Claim Submitted Page'")
       userIsPresentedWith(ClaimSubmittedPage)
@@ -198,24 +186,23 @@ class PendingClaimSubmissionSpec
       userClicksContinueOn(ChooseFileTypePage)
       And("User is presented with the 'Choose Files Page' 'commercial invoice'")
       userIsPresentedWith(ChooseFilesPage, "commercial invoice")
-      And("User clicks continue on 'Choose Files Page'")
-      userClicksContinueOn(ChooseFilesPage)
-      And("User is presented with the 'Choose Files Page' 'commercial invoice' error page")
+
+      When("User uploads 'document.pdf' on 'Choose Files Page'")
+      userUploadsFile("document.pdf", ChooseFilesPage, 1)
+      And("User uploads the same 'document.pdf' file again on 'Choose Files Page'")
+      userUploadsFileExpectingError("document.pdf", ChooseFilesPage)
+      Then("User is presented with the 'Choose Files Page' 'commercial invoice' error page")
       userIsPresentedWithErrorPage(ChooseFilesPage, "commercial invoice")
       And(
-        "The error summary title is 'There is a problem' and the error message is 'Select yes to add a different type of supporting document to your claim'"
+        "The error summary title is 'There is a problem' and the error message is 'The selected file has already been uploaded'"
       )
       errorSummaryTitleAndMessage(
         "There is a problem",
-        "Select yes to add a different type of supporting document to your claim"
+        "The selected file has already been uploaded"
       )
 
-      When("User uploads a 1 'document.pdf' file on 'Choose Files Page'")
-      userUploadsFile(1, "document.pdf", ChooseFilesPage)
-      And("User selects radio button 'Yes' on 'Choose Files Page'")
-      userSelectsRadioButton(Constants.YesNo.Yes)
-      And("User clicks continue if on 'Choose Files Page'")
-      userClicksContinueIfOn(ChooseFilesPage)
+      When("User clicks 'Upload another type of document' on 'Choose Files Page'")
+      userClicksUploadAnotherTypeOn(ChooseFilesPage)
       Then("User is presented with the 'Choose File Type Page'")
       userIsPresentedWith(ChooseFileTypePage)
       When("User selects radio button 'Substitute or diversion entry' on 'Choose File Type Page'")
@@ -224,12 +211,10 @@ class PendingClaimSubmissionSpec
       userClicksContinueOn(ChooseFileTypePage)
       Then("User is presented with the 'Choose Files Page' 'substitute or diversion entry'")
       userIsPresentedWith(ChooseFilesPage, "substitute or diversion entry")
-      When("User uploads a 2 'image.png' file on 'Choose Files Page'")
-      userUploadsFile(2, "image.png", ChooseFilesPage)
-      And("User selects radio button 'No' on 'Choose Files Page'")
-      userSelectsRadioButton(Constants.YesNo.No)
-      And("User clicks continue if on 'Choose Files Page'")
-      userClicksContinueIfOn(ChooseFilesPage)
+      When("User uploads 'image.png' on 'Choose Files Page'")
+      userUploadsFile("image.png", ChooseFilesPage, 2)
+      And("User clicks continue on 'Choose Files Page'")
+      userClicksContinueOn(ChooseFilesPage)
       Then("User is presented with the 'Claim Submitted Page'")
       userIsPresentedWith(ClaimSubmittedPage)
     }

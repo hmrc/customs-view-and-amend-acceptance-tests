@@ -23,7 +23,6 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.selenium.{Page, WebBrowser}
 import uk.gov.hmrc.utils.BrowserDriver
 
-import java.lang
 import java.time.Duration
 import scala.jdk.CollectionConverters.CollectionHasAsScala
 
@@ -39,11 +38,11 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
 
   def waitForPageHeader: WebElement = fluentWait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("h1")))
 
-  def waitForUploadedFile: WebElement = fluentWait.until(
-    ExpectedConditions.visibilityOfElementLocated(
-      By.xpath("(//span[@class='multi-file-upload__uploaded-tag govuk-tag'][normalize-space()='Uploaded'])[2]")
-    )
-  )
+  private val uploadedTag = By.cssSelector(".govuk-summary-list__row .govuk-tag--green")
+
+  private val fileInput = By.cssSelector("input[type='file']")
+
+  private val uploadButton = By.cssSelector("form button[type='submit']")
 
   /** Page assertions * */
   def expectedPageTitle: Option[String] = None
@@ -87,30 +86,21 @@ trait BasePage extends Page with Matchers with BrowserDriver with Eventually wit
     }
 
   def uploadDocument(file: String): Unit =
-    // driver.setFileDetector(new LocalFileDetector)
     if (file != "") {
-      enterText("file", System.getProperty("user.dir") + "/src/test/resources/files/" + file)
+      fluentWait.until(ExpectedConditions.presenceOfElementLocated(fileInput))
+      webDriver
+        .findElement(fileInput)
+        .sendKeys(System.getProperty("user.dir") + "/src/test/resources/files/" + file)
+      webDriver.findElement(uploadButton).click()
     }
 
-  def uploadDocument(docNumber: Int, file: String): Unit =
-    // driver.setFileDetector(new LocalFileDetector)
-    if (file != "") {
-      enterText("file-" + docNumber, System.getProperty("user.dir") + "/src/test/resources/files/" + file)
-    }
-
-  def continuouslyClickContinue(): Unit = {
-    waitForPageToLoad()
-    while (find(tagName("h1")).map(_.text).contains("We are checking your document"))
-      clickContinueButton()
-  }
+  def waitForUploadedFiles(expectedCount: Int): Unit =
+    fluentWait.until(_.findElements(uploadedTag).size == expectedCount)
 
   def checkPageHeader(): Assertion = {
     fluentWait.until(ExpectedConditions.textToBe(By.cssSelector("h1"), expectedPageHeader.get))
     expectedPageHeaderList should contain(List(pageHeader.get))
   }
-
-  def waitForPageToLoad(): lang.Boolean =
-    fluentWait.until(ExpectedConditions.textToBe(By.cssSelector(".multi-file-upload__uploaded-tag"), "Uploaded"))
 
   def clickContinueButton(): Unit = click on cssSelector(".govuk-button")
 

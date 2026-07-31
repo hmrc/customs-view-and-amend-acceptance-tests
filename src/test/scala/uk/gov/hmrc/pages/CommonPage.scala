@@ -19,7 +19,6 @@ package uk.gov.hmrc.pages
 import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
 import org.openqa.selenium.{By, WebElement}
 import play.api.libs.json.Json
-import uk.gov.hmrc.pages.ChooseFilesPage.waitForPageToLoad
 import uk.gov.hmrc.pages.Constants.StaticTextKind
 import uk.gov.hmrc.utils.DropMongo.dropMongo
 import uk.gov.hmrc.utils.{Configuration, Environment, WSClient}
@@ -71,22 +70,27 @@ object CommonPage extends CustomsFinancialsWebPage {
     p.clickContinueButton()
   }
 
-  def userClicksContinueIfOn(p: BasePage): Unit =
-    p.continuouslyClickContinue()
+  def userClicksUploadAnotherTypeOn(p: ChooseFilesPage.type): Unit = {
+    p.waitForPageHeader
+    p.clickUploadAnotherTypeButton()
+  }
 
   def userSelectsRadioButton(fileType: Constants.FileType): Unit = {
     ChooseFileTypePage.waitForPageHeader
     ChooseFileTypePage.clickRadioButton(fileType)
   }
 
-  def userSelectsRadioButton(yesNo: Constants.YesNo): Unit = {
-    ChooseFilesPage.waitForPageHeader
-    ChooseFilesPage.clickRadioButton(yesNo)
+  def userUploadsFile(file: String, p: BasePage, expectedUploadedFiles: Int): Unit = {
+    p.waitForPageHeader
+    p.uploadDocument(file)
+    p.waitForUploadedFiles(expectedUploadedFiles)
   }
 
-  def userUploadsFile(fileNumber: Int, file: String, p: BasePage): Unit = {
-    p.uploadDocument(fileNumber, file)
-    waitForPageToLoad()
+  def userUploadsFileExpectingError(file: String, p: BasePage): Unit = {
+    p.waitForPageHeader
+    p.uploadDocument(file)
+    new WebDriverWait(webDriver, Duration.ofSeconds(20))
+      .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".govuk-error-summary")))
   }
 
   def errorSummaryTitleAndMessage(errorSummaryTitle: String, errorMessage: String): Unit = {

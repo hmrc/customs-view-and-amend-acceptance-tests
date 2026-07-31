@@ -19,7 +19,6 @@ package uk.gov.hmrc.pages
 import org.openqa.selenium.By
 import org.scalatest.Assertion
 import uk.gov.hmrc.conf.TestConfiguration
-import uk.gov.hmrc.pages.Constants.YesNo
 
 object ChooseFilesPage extends BasePage {
   override val url: String = TestConfiguration.url("upload-customs-frontend") + "/choose-files"
@@ -38,19 +37,14 @@ object ChooseFilesPage extends BasePage {
   override def checkPageTitle(page: String): Unit =
     webDriver.findElement(By tagName "h1").getText should equal("Upload " + page)
 
-  override def checkPageErrorTitle(page: String): Unit =
+  override def checkPageErrorTitle(page: String): Unit = {
     webDriver.findElement(By tagName "h1").getText should equal("Upload " + page)
-
-  def clickRadioButton(yesNo: YesNo): Unit = yesNo match {
-    case YesNo.Yes => click on cssSelector("#choice")
-    case YesNo.No  => click on cssSelector("#choice-2")
+    pageTitle                                      should startWith("Error: Upload " + page)
   }
 
-  override def clickContinueButton(): Unit = click on cssSelector("#upload-documents-submit")
+  override def clickContinueButton(): Unit =
+    click on cssSelector(".govuk-button-group a.govuk-button:not(.govuk-button--secondary)")
 
-  override def continuouslyClickContinue(): Unit = {
-    waitForPageToLoad()
-    while (webDriver.getCurrentUrl.equals(url))
-      clickContinueButton()
-  }
+  def clickUploadAnotherTypeButton(): Unit =
+    click on cssSelector(".govuk-button-group a.govuk-button--secondary")
 }

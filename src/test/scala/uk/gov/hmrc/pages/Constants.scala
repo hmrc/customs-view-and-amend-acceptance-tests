@@ -74,11 +74,6 @@ object Constants {
     case SubstituteOrDiversionEntry extends FileType("Substitute or diversion entry")
   }
 
-  enum YesNo(val label: String) {
-    case Yes extends YesNo("Yes")
-    case No extends YesNo("No")
-  }
-
   enum CookieButton(val label: String) {
     case AcceptAdditional extends CookieButton("Accept additional cookies")
     case RejectAdditional extends CookieButton("Reject additional cookies")
