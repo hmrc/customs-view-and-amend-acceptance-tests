@@ -1,51 +1,106 @@
 # customs-view-and-amend-acceptance-tests
-UI test suite for the Customs View And Amend Frontend service using ScalaTest.
 
-# Cloning the project and service startup
+## About
+These acceptance tests are written using ScalaTest and include smoke and regression tests for these services:
+- [customs-view-and-amend](https://github.com/hmrc/customs-view-and-amend)
+- [cds-reimbursement-claim](https://github.com/hmrc/cds-reimbursement-claim)
 
-Clone this project to the directory of your choice
+The acceptance tests can be run both locally and on Jenkins.
+## Key Information
+When changes have been made to the front-end or back-end services listed above, run the acceptance tests locally against your changes.
+1. Stop the front-end and/or back-end services that are affected by your changes, if they are currently running through sm2:
+    - `sm2 --stop CUSTOMS_VIEW_AND_AMEND`
+    - `sm2 --stop CDSRC`
+2. Run the customs-view-and-amend and cds-reimbursement-claim services locally using:
+    - `sbt "run 7500 -Dplay.http.router=testOnlyDoNotUseInAppConf.Routes`
+3. Verify that both the front-end and back-end services are running successfully.
+4. Run both the smoke and regression tests locally, against the front-end and back-end services.
+5. Once the front-end and/or back-end changes have been approved and merged, ensure that the smoke tests Jenkins job completes successfully.
+6. The regression tests Jenkins job runs automatically only when changes to the acceptance tests are merged. In all other cases, the regression tests must be triggered manually. See the [Jenkins Builds](#jenkins-builds) section for links to manually trigger the regression tests.
 
-# Service manager profile required to run the test
-On a Terminal instance, start up all services using:
+## How to Run the Tests
 
+### Prerequisites
+
+Run the services for Customs View And Amend:
+
+```bash
+ sm2 --start CDSRC_ALL
 ```
-sm2 --start CDSRC_ALL
+
+## Testing Locally
+Follow the steps below to run the acceptance tests locally.
+
+### How to Run the Smoke Tests
+```bash
+./run_e2e.sh
 ```
 
-If you want to run the Customs Reimbursement Frontend service locally, stop the service using:
-
+### How to Run the Regression Tests
+```bash
+./run_acceptance.sh
 ```
-sm2 --stop CDSRC_FRONTEND
+
+### Optional Arguments for the Test Script
+Note that the order of the arguments is not relevant.
+
+By default, the script runs the scenarios using the Chrome browser. To run the script using a different browser, specify the browser as follows:
+```bash
+./run_acceptance.sh firefox # chrome, edge or firefox
 ```
 
-Then run the Frontend locally using:
+By default, the script runs against the local environment. To run the script against a specific environment, specify the environment as follows:
+```bash
+./run_acceptance.sh staging  # local or staging
+```
 
-```sbt "run 7500 -Dplay.http.router=testOnlyDoNotUseInAppConf.Routes"```
+## Post-Merge Regression Testing
+>**Important:** When acceptance tests are added or updated, run the relevant tests locally before raising a PR. Once the changes have been reviewed and merged, ensure that the following Jenkins jobs have completed successfully against your front-end and/or back-end changes.
+> - Accessibility and ZAP tests are run as part of the Jenkins job. The latest reports can be accessed using the links in the Jenkins Build section below.
+## Jenkins Builds
+ - [customs-view-and-amend-acceptance-tests](https://build.tax.service.gov.uk/job/BordersAndTradeLiveServices/job/CDSReimbursements/job/customs-view-and-amend-acceptance-tests/)
 
-## Running the Tests
+## Manual Testing in QA and Staging
+Once the above acceptance tests jobs have been completed successfully, manually verify the service in the QA and Staging environments.
+> **Note:** The QA environment uses real upstream services, so the acceptance tests are **not** run against QA. QA must be verified manually.
+> Before testing in QA, make sure the EORINumber being used has a valid CDS subscription.
 
-1. Navigate to the directory where the project has been cloned.
-2. To run all acceptance tests on your local machine, use: ```./run_acceptance.sh``` OR ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV "testOnly *AcceptanceTestRunnerOrderSpec -- -n AcceptanceTest"```
-3. To run the end-to-end suite, use: ```./run_e2e.sh``` OR ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV "testOnly *E2ETestRunnerOrderSpec -- -n E2ETest"```
-4. To run a single spec, use: ```sbt -Dbrowser=$BROWSER -Denvironment=$ENV "testOnly *<SpecName> -- -n AcceptanceTest"``` (e.g. `*LogoutSpec`).
-5. By default, the scripts execute in headless mode. To run them with the browser UI visible, use: `-Dbrowser.option.headless=false`.
+| Environment | Service URL                                                                                      | 
+|-------------|--------------------------------------------------------------------------------------------------|
+| Local       | [Open the service in Local](http://localhost:9949/auth-login-stub/gg-sign-in)                    |
+| QA          | [Open the service in QA](https://www.qa.tax.service.gov.uk/auth-login-stub/gg-sign-in)           |
+| Staging     | [Open the service in Staging](https://www.staging.tax.service.gov.uk/auth-login-stub/gg-sign-in) |
 
-Security and Accessibility tests
-The accessibility and ZAP tests are run as part of Jenkins job. We can get the latest reports from the corresponding acceptance-tests customs-cash-account-acceptance-tests job.
+### Enrolment Required
+Enter the required details as shown below and select **Submit** to continue.
 
-### Scalafmt
-This repository uses [Scalafmt](https://scalameta.org/scalafmt/), a code formatter for Scala. The formatting rules configured for this repository are defined within [.scalafmt.conf](.scalafmt.conf).
+| Field            | Value                                                                                                                                          |
+|------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| Redirect URL     | Local : `http://localhost:7500/claim-back-import-duty-vat`<br> QA : `/claim-back-import-duty-vat` <br> Staging : `/claim-back-import-duty-vat` |
+| Enrolment Key    | `HMRC-CUS-ORG`                                                                                                                                 |
+| Identifier Name  | `EORINumber`                                                                                                                                   |
+| Identifier Value | A GB EORI number, e.g. `GB744638982000 / GB744638982001'                                                                                       |
 
-To apply formatting to this repository using the configured rules in [.scalafmt.conf](.scalafmt.conf) execute:
+## Scalafmt
 
- ```
- sbt scalafmtAll
- ```
+Check all project files are formatted as expected as follows:
 
-To check files have been formatted as expected execute:
+```bash
+sbt scalafmtCheckAll scalafmtCheck
+```
 
- ```
- sbt scalafmtCheckAll scalafmtSbtCheck
- ```
+Format `*.sbt` and `project/*.scala` files as follows:
 
-[Visit the official Scalafmt documentation to view a complete list of tasks which can be run.](https://scalameta.org/scalafmt/docs/installation.html#task-keys)
+```bash
+sbt scalafmtSbt
+```
+
+Format all project files as follows:
+
+```bash
+sbt scalafmtAll
+```
+
+## License
+
+This code is open source software licensed under the [Apache 2.0 License]("http://www.apache.org/licenses/LICENSE-2.0.html").
