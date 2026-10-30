@@ -16,7 +16,7 @@ When changes have been made to the front-end or back-end services listed above, 
 3. Verify that both the front-end and back-end services are running successfully.
 4. Run both the smoke and regression tests locally, against the front-end and back-end services.
 5. Once the front-end and/or back-end changes have been approved and merged, ensure that the smoke tests Jenkins job completes successfully.
-6. The regression tests Jenkins job runs automatically only when changes to the acceptance tests are merged. In all other cases, the regression tests must be triggered manually. See the [Jenkins Builds](#jenkins-builds) section for links to manually trigger the regression tests.
+6. Regression tests run automatically as part of frontend changes. Ensure the Jenkins regression test job has completed successfully and all tests have passed. See the [Jenkins Builds](#jenkins-builds) section for links to verify the build status.
 
 ## How to Run the Tests
 
@@ -74,12 +74,12 @@ Once the above acceptance tests jobs have been completed successfully, manually 
 ### Enrolment Required
 Enter the required details as shown below and select **Submit** to continue.
 
-| Field            | Value                                                                                                                                          |
-|------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| Redirect URL     | Local : `http://localhost:7500/claim-back-import-duty-vat`<br> QA : `/claim-back-import-duty-vat` <br> Staging : `/claim-back-import-duty-vat` |
-| Enrolment Key    | `HMRC-CUS-ORG`                                                                                                                                 |
-| Identifier Name  | `EORINumber`                                                                                                                                   |
-| Identifier Value | A GB EORI number, e.g. `GB744638982000 / GB744638982001'                                                                                       |
+| Field            | Value                                                                                                                                                                                    |
+|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Redirect URL     | Local : `http://localhost:7500/claim-back-import-duty-vat/claims-status`<br> QA : `/claim-back-import-duty-vat/claims-status` <br> Staging : `/claim-back-import-duty-vat/claims-status` |
+| Enrolment Key    | `HMRC-CUS-ORG`                                                                                                                                                                           |
+| Identifier Name  | `EORINumber`                                                                                                                                                                             |
+| Identifier Value | A GB EORI number, e.g. `GB744638982000 / GB744638982001'                                                                                                                                 |
 
 ## Scalafmt
 
