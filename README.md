@@ -12,7 +12,7 @@ When changes have been made to the front-end or back-end services listed above, 
     - `sm2 --stop CUSTOMS_VIEW_AND_AMEND`
     - `sm2 --stop CDSRC`
 2. Run the customs-view-and-amend and cds-reimbursement-claim services locally using:
-    - `sbt "run 7500 -Dplay.http.router=testOnlyDoNotUseInAppConf.Routes`
+    - `sbt "run 7500 -Dplay.http.router=testOnlyDoNotUseInAppConf.Routes"`
 3. Verify that both the front-end and back-end services are running successfully.
 4. Run both the smoke and regression tests locally, against the front-end and back-end services.
 5. Once the front-end and/or back-end changes have been approved and merged, ensure that the smoke tests Jenkins job completes successfully.
